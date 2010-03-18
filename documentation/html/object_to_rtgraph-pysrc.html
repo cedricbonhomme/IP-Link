@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>object_to_rtgraph</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://ip-link.wikidot.com/">IP-Link</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;object_to_rtgraph
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="object_to_rtgraph-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="object_to_rtgraph-module.html">Module object_to_rtgraph</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#! /usr/local/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment">#-*- coding: utf-8 -*-</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">"""object_to_rtgraph</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">Load a serialized object in memory and generate 3D dynamic graph.</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">This module uses RealTime 3D Graph.</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">It is necessary to have the modules :</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring"> - python-visual ;</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring"> - povexport ;</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring"> - PyInline for better performance.</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">PyInline and povexport are already included with IP-Link.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-name">__author__</tt> <tt class="py-op">=</tt> <tt class="py-string">"Jerome Hussenet, Cedric Bonhomme"</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-name">__version__</tt> <tt class="py-op">=</tt> <tt class="py-string">"$Revision: 0.1 $"</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-name">__date__</tt> <tt class="py-op">=</tt> <tt class="py-string">"$Date: 2009/03/05 $"</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-name">__copyright__</tt> <tt class="py-op">=</tt> <tt class="py-string">"Copyright (c) 2009 Jerome Hussenet, Copyright (c) 2009 Cedric Bonhomme"</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-name">__license__</tt> <tt class="py-op">=</tt> <tt class="py-string">"Python"</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">threading</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">pickle</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">rtgraph3d</tt><tt class="py-op">.</tt><tt class="py-name">rtg_cli</tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">rtgraph3d</tt><tt class="py-op">.</tt><tt class="py-name">rtgraph3d</tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="object_to_rtgraph"></a><div id="object_to_rtgraph-def"><a name="L33"></a><tt class="py-lineno"> 33</tt> <a class="py-toggle" href="#" id="object_to_rtgraph-toggle" onclick="return toggle('object_to_rtgraph');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="object_to_rtgraph-module.html#object_to_rtgraph">object_to_rtgraph</a><tt class="py-op">(</tt><tt class="py-param">obj_file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="object_to_rtgraph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="object_to_rtgraph-expanded"><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-docstring">"""Generates a 3D dynamic graphics."""</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-name">dic_obj</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">obj_file</tt><tt class="py-op">,</tt> <tt class="py-string">"r"</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">verbose</tt><tt class="py-op">:</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Loading dictionary..."</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt class="py-name">dic_ip</tt> <tt class="py-op">=</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">load</tt><tt class="py-op">(</tt><tt class="py-name">dic_obj</tt><tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">verbose</tt><tt class="py-op">:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Creation of the command for RealTime 3D Graph..."</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">    <tt class="py-name">command</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">    <tt class="py-name">edges</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">ip_src</tt> <tt class="py-keyword">in</tt> <tt class="py-name">dic_ip</tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">ip_dst</tt> <tt class="py-keyword">in</tt> <tt class="py-name">dic_ip</tt><tt class="py-op">[</tt><tt class="py-name">ip_src</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">ip_src</tt><tt class="py-op">,</tt> <tt class="py-name">ip_dst</tt><tt class="py-op">)</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">edges</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">                <tt class="py-name">edges</tt><tt class="py-op">.</tt><tt class="py-name">extend</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-name">ip_src</tt><tt class="py-op">,</tt> <tt class="py-name">ip_dst</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">ip_dst</tt><tt class="py-op">,</tt> <tt class="py-name">ip_src</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">                <tt class="py-name">command</tt> <tt class="py-op">+=</tt> <tt class="py-string">"edge "</tt> <tt class="py-op">+</tt> <tt class="py-name">ip_src</tt> <tt class="py-op">+</tt> <tt class="py-string">" "</tt> <tt class="py-op">+</tt> <tt class="py-name">ip_dst</tt> <tt class="py-op">+</tt> <tt class="py-string">"\n"</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">    <tt class="py-name">command</tt> <tt class="py-op">+=</tt> <tt class="py-string">"quit"</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">verbose</tt><tt class="py-op">:</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Launching the RTgraph3D window thread"</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt class="py-name">threading</tt><tt class="py-op">.</tt><tt class="py-name">Thread</tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt id="link-0" class="py-name" targets="Function object_to_rtgraph.rtggraph_launch()=object_to_rtgraph-module.html#rtggraph_launch"><a title="object_to_rtgraph.rtggraph_launch" class="py-name" href="#" onclick="return doclink('link-0', 'rtggraph_launch', 'link-0');">rtggraph_launch</a></tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">    <tt class="py-name">a</tt><tt class="py-op">.</tt><tt class="py-name">start</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">    <tt class="py-name">cmd</tt> <tt class="py-op">=</tt> <tt class="py-string">'echo "'</tt> <tt class="py-op">+</tt> <tt class="py-name">command</tt> <tt class="py-op">+</tt> <tt class="py-string">'" | python ./rtgraph3d/rtg_cli.py'</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">verbose</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"command to execute :"</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">cmd</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-op">(</tt><tt class="py-name">child_stdin</tt><tt class="py-op">,</tt> <tt class="py-name">child_stdout</tt><tt class="py-op">,</tt> <tt class="py-name">child_stderr</tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">popen3</tt><tt class="py-op">(</tt><tt class="py-name">cmd</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-name">stderr</tt> <tt class="py-op">=</tt> <tt class="py-name">child_stderr</tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt class="py-name">stdout</tt> <tt class="py-op">=</tt> <tt class="py-name">child_stdout</tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt class="py-name">child_stdin</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-name">child_stdout</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">    <tt class="py-name">child_stderr</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">     </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">verbose</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Problem(s) :"</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">stderr</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"\nOutput :"</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">stdout</tt> </tt>
+</div><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="rtggraph_launch"></a><div id="rtggraph_launch-def"><a name="L74"></a><tt class="py-lineno"> 74</tt> <a class="py-toggle" href="#" id="rtggraph_launch-toggle" onclick="return toggle('rtggraph_launch');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="object_to_rtgraph-module.html#rtggraph_launch">rtggraph_launch</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rtggraph_launch-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rtggraph_launch-expanded"><a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-name">INPUT</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stdin</tt><tt class="py-op">]</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-name">STARTFILE</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">    <tt class="py-name">SAVEFILE</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-name">STEREO</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-name">CINEMATIC</tt> <tt class="py-op">=</tt> <tt class="py-name">Cinematic</tt><tt class="py-op">.</tt><tt class="py-name">dynamic</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt class="py-name">POVDUMP</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-name">MODE</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-name">opts</tt> <tt class="py-op">=</tt> <tt class="py-name">getopt</tt><tt class="py-op">.</tt><tt class="py-name">getopt</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">"htr:w:s:c:P:m:q"</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">opt</tt><tt class="py-op">,</tt><tt class="py-name">optarg</tt> <tt class="py-keyword">in</tt> <tt class="py-name">opts</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">opt</tt> <tt class="py-op">==</tt> <tt class="py-string">"-h"</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                <tt class="py-name">usage</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">opt</tt> <tt class="py-op">==</tt> <tt class="py-string">"-t"</tt><tt class="py-op">:</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                <tt class="py-name">MODE</tt> <tt class="py-op">=</tt> <tt class="py-name">socket</tt><tt class="py-op">.</tt><tt class="py-name">SOCK_STREAM</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">opt</tt> <tt class="py-op">==</tt> <tt class="py-string">"-r"</tt><tt class="py-op">:</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">                <tt class="py-name">STARTFILE</tt> <tt class="py-op">=</tt> <tt class="py-name">optarg</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">opt</tt> <tt class="py-op">==</tt> <tt class="py-string">"-s"</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                <tt class="py-name">STEREO</tt> <tt class="py-op">=</tt> <tt class="py-name">optarg</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">opt</tt> <tt class="py-op">==</tt> <tt class="py-string">"-w"</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">                <tt class="py-name">SAVEFILE</tt> <tt class="py-op">=</tt> <tt class="py-name">optarg</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">opt</tt> <tt class="py-op">==</tt> <tt class="py-string">"-m"</tt><tt class="py-op">:</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">                <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                    <tt class="py-name">MODE</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">"p"</tt><tt class="py-op">:</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">"c"</tt><tt class="py-op">:</tt><tt class="py-number">2</tt><tt class="py-op">,</tt> <tt class="py-string">"s"</tt><tt class="py-op">:</tt><tt class="py-number">3</tt><tt class="py-op">}</tt><tt class="py-op">[</tt><tt class="py-name">optarg</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt> <tt class="py-name">KeyError</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> <tt class="py-name">getopt</tt><tt class="py-op">.</tt><tt class="py-name">GetoptError</tt><tt class="py-op">(</tt><tt class="py-string">"unkonwn mode [%s]"</tt> <tt class="py-op">%</tt> <tt class="py-name">optarg</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">opt</tt> <tt class="py-op">==</tt> <tt class="py-string">"-P"</tt><tt class="py-op">:</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">                <tt class="py-name">POVDUMP</tt> <tt class="py-op">=</tt> <tt class="py-name">optarg</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">opt</tt> <tt class="py-op">==</tt> <tt class="py-string">"-c"</tt><tt class="py-op">:</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">optarg</tt><tt class="py-op">.</tt><tt class="py-name">startswith</tt><tt class="py-op">(</tt><tt class="py-string">"s"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-comment"># static</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">                    <tt class="py-name">CINEMATIC</tt> <tt class="py-op">=</tt> <tt class="py-name">Cinematic</tt><tt class="py-op">.</tt><tt class="py-name">static</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">                <tt class="py-keyword">elif</tt> <tt class="py-name">optarg</tt><tt class="py-op">.</tt><tt class="py-name">startswith</tt><tt class="py-op">(</tt><tt class="py-string">"d"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-comment"># dynamic</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">                    <tt class="py-name">CINEMATIC</tt> <tt class="py-op">=</tt> <tt class="py-name">Cinematic</tt><tt class="py-op">.</tt><tt class="py-name">dynamic</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">getopt</tt><tt class="py-op">.</tt><tt class="py-name">GetoptError</tt><tt class="py-op">,</tt> <tt class="py-name">msg</tt><tt class="py-op">:</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt id="link-1" class="py-name" targets="Variable object_to_rtgraph.log=object_to_rtgraph-module.html#log"><a title="object_to_rtgraph.log" class="py-name" href="#" onclick="return doclink('link-1', 'log', 'link-1');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">exception</tt><tt class="py-op">(</tt><tt class="py-name">msg</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-name">gobject</tt><tt class="py-op">.</tt><tt class="py-name">threads_init</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-name">dbus</tt><tt class="py-op">.</tt><tt class="py-name">glib</tt><tt class="py-op">.</tt><tt class="py-name">init_threads</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt class="py-name">dbus</tt><tt class="py-op">.</tt><tt class="py-name">mainloop</tt><tt class="py-op">.</tt><tt class="py-name">glib</tt><tt class="py-op">.</tt><tt class="py-name">DBusGMainLoop</tt><tt class="py-op">(</tt><tt class="py-name">set_as_default</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt class="py-name">bus</tt> <tt class="py-op">=</tt> <tt class="py-name">dbus</tt><tt class="py-op">.</tt><tt class="py-name">SessionBus</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">    <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">dbus</tt><tt class="py-op">.</tt><tt class="py-name">service</tt><tt class="py-op">.</tt><tt class="py-name">BusName</tt><tt class="py-op">(</tt><tt class="py-string">"org.secdev.rtgraph3d"</tt><tt class="py-op">,</tt> <tt class="py-name">bus</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-name">svc</tt> <tt class="py-op">=</tt> <tt class="py-name">RTGraphService</tt><tt class="py-op">(</tt><tt class="py-name">bus</tt><tt class="py-op">,</tt> <tt class="py-string">"/control"</tt><tt class="py-op">,</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">                         <tt class="py-name">get_physics_engine</tt><tt class="py-op">(</tt><tt class="py-name">MODE</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">INPUT</tt><tt class="py-op">,</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">                         <tt class="py-name">startfile</tt> <tt class="py-op">=</tt> <tt class="py-name">STARTFILE</tt><tt class="py-op">,</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                         <tt class="py-name">savefile</tt> <tt class="py-op">=</tt> <tt class="py-name">SAVEFILE</tt><tt class="py-op">,</tt> <tt class="py-name">stereo</tt> <tt class="py-op">=</tt> <tt class="py-name">STEREO</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">CINEMATIC</tt> <tt class="py-op">==</tt> <tt class="py-name">Cinematic</tt><tt class="py-op">.</tt><tt class="py-name">dynamic</tt><tt class="py-op">:</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-name">thread</tt><tt class="py-op">.</tt><tt class="py-name">start_new_thread</tt><tt class="py-op">(</tt><tt class="py-name">cinematic_thread</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">svc</tt><tt class="py-op">,</tt> <tt class="py-name">POVDUMP</tt><tt class="py-op">,</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-name">mainloop</tt> <tt class="py-op">=</tt> <tt class="py-name">gobject</tt><tt class="py-op">.</tt><tt class="py-name">MainLoop</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt id="link-2" class="py-name"><a title="object_to_rtgraph.log" class="py-name" href="#" onclick="return doclink('link-2', 'log', 'link-1');">log</a></tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">(</tt><tt class="py-string">"Entering main loop"</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-name">mainloop</tt><tt class="py-op">.</tt><tt class="py-name">run</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">    <tt class="py-comment"># Point of entry in execution mode.</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-comment"></tt>    <tt class="py-keyword">from</tt> <tt class="py-name">optparse</tt> <tt class="py-keyword">import</tt> <tt class="py-name">OptionParser</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-name">parser</tt> <tt class="py-op">=</tt> <tt class="py-name">OptionParser</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">    <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">"-i"</tt><tt class="py-op">,</tt> <tt class="py-string">"--input"</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">"obj_file"</tt><tt class="py-op">,</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">                    <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Python serialized object"</tt><tt class="py-op">)</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">    <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">add_option</tt><tt class="py-op">(</tt><tt class="py-string">"-q"</tt><tt class="py-op">,</tt> <tt class="py-string">"--quiet"</tt><tt class="py-op">,</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">                    <tt class="py-name">action</tt><tt class="py-op">=</tt><tt class="py-string">"store_false"</tt><tt class="py-op">,</tt> <tt class="py-name">dest</tt><tt class="py-op">=</tt><tt class="py-string">"verbose"</tt><tt class="py-op">,</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">                    <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"be vewwy quiet (I'm hunting wabbits)"</tt><tt class="py-op">)</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">    <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">set_defaults</tt><tt class="py-op">(</tt><tt class="py-name">obj_file</tt> <tt class="py-op">=</tt> <tt class="py-string">'./data/dic.pyobj'</tt><tt class="py-op">,</tt> <tt class="py-name">verbose</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">    <tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">,</tt> <tt class="py-name">args</tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt class="py-name">parser</tt><tt class="py-op">.</tt><tt class="py-name">parse_args</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Module object_to_rtgraph=object_to_rtgraph-module.html,Function object_to_rtgraph.object_to_rtgraph()=object_to_rtgraph-module.html#object_to_rtgraph"><a title="object_to_rtgraph
+object_to_rtgraph.object_to_rtgraph" class="py-name" href="#" onclick="return doclink('link-3', 'object_to_rtgraph', 'link-3');">object_to_rtgraph</a></tt><tt class="py-op">(</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">obj_file</tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://ip-link.wikidot.com/">IP-Link</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Apr  2 13:56:11 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

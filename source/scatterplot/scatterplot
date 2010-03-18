@@ -1,0 +1,50 @@
+#proc categories
+  listsize: 600
+  axis: x
+  categories: 
+#include ./scatterplot/cat.inc
+
+#proc categories
+  axis: y
+  categories: 
+#include ./scatterplot/cat.inc
+
+//  set up plotting region using proc areadef
+#proc areadef
+  rectangle: 1 1 8 8
+  //frame: width=0.5 color=0.3
+  xrange: categories
+  xscaletype: categories
+  yrange: categories 
+  yscaletype: categories
+  xaxis.stubs: usecategories
+  xaxis.stubvert: yes
+  yaxis.stubs: usecategories
+
+//  specify data using proc getdata
+#proc getdata
+  file ./scatterplot/data.inc
+
+
+#set url = "html/"
+#set url2 = ".details.html"
+
+
+
+//  draw pink points using proc scatterplot
+#proc scatterplot
+  //clickmapurl: http://abc.com/cgi-bin/showall?id=@@1&id2=@@2
+  clickmapurl: [target=new]@url@@1@url2
+  xfield: 1
+  yfield: 2
+  symbol: shape=nicecircle radius=0.1 fillcolor=orange
+  sizefield: 3
+  sizescale: 0.3
+
+//  do it a 2nd time to overlay outlines using proc scatterplot
+#proc scatterplot
+  xfield: 1
+  yfield: 2
+  symbol: shape=nicecircle radius=0.1 
+  sizefield: 3
+  sizescale: 0.3
