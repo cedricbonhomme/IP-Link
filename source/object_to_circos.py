@@ -18,6 +18,7 @@ import sys
 
 import pickle
 
+from collections import Counter
 
 def object_to_circos(obj_file, circos_file):
     """Create the input file for Circos.
@@ -29,10 +30,10 @@ def object_to_circos(obj_file, circos_file):
 
     if options.verbose:
         print "Searching IP that are source and destination..."
-    ip_state = {}
+    ip_state = Counter()
     for ip_src in dic_ip:
         if ip_src not in ip_state:
-            ip_state[ip_src] = 1
+            ip_state[ip_src] += 1
         elif ip_state[ip_src] == 2:
             ip_state[ip_src] += 1
 
