@@ -21,10 +21,11 @@ import pcapy
 import impacket.ImpactDecoder as Decoders
 import impacket.ImpactPacket as Packets
 
+from collections import Counter
 
 def pcap_to_object(pcap_file, obj_file):
     """Create a Python serialized graph object.
-    
+
     Read the pcap file given in parameter, extracts source and destination IP
     and write a serialized graph object.
     """
@@ -49,13 +50,10 @@ def pcap_to_object(pcap_file, obj_file):
                     ip_src = ip.get_ip_src()
                     ip_dst = ip.get_ip_dst()
                     if ip_src not in dic_ip:
-                        dic_ip[ip_src] = {}
+                        dic_ip[ip_src] = Counter()
                         dic_ip[ip_src][ip_dst] = 1
                     else:
-                        if ip_dst not in dic_ip[ip_src]:
-                            dic_ip[ip_src][ip_dst] = 1
-                        else:
-                            dic_ip[ip_src][ip_dst] += 1
+                        dic_ip[ip_src][ip_dst] += 1
         except:
             break
 
