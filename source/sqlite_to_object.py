@@ -13,14 +13,15 @@ Filters can be made on:
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.3 $"
-__date__ = "$Date: 2009/02/19 $"
-__copyright__ = "Copyright (c) 2009 Jerome Hussenet, Copyright (c) 2009 Cedric Bonhomme"
+__version__ = "$Revision: 0.4 $"
+__date__ = "$Date: 2010/12/01 $"
+__copyright__ = "Copyright (c) 2009, 2010 Jerome Hussenet, Copyright (c) 2009, 2010 Cedric Bonhomme"
 __license__ = "Python"
 
 import os
 import sys
 
+from collections import Counter
 from datetime import datetime
 from time import mktime
 
@@ -74,25 +75,21 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameter):
         print "Query sent to the base :\n\t" + req
     liste = conn.execute(req).fetchall()
 
-    dic_ip = {}
+    dic_ip = defaultdict()
     if options.verbose:
         print "Creating object..."
         print "Reading query result..."
     for ip_src, ip_dst in liste:
         if ip_src not in dic_ip:
-            dic_ip[ip_src] = {}
-            dic_ip[ip_src][ip_dst] = 1
+            dic_ip[ip_src] = Counter()
+            dic_ip[ip_src][ip_dst] += 1
         else:
-            if ip_dst not in dic_ip[ip_src]:
-                dic_ip[ip_src][ip_dst] = 1
-            else:
-                dic_ip[ip_src][ip_dst] += 1
+            dic_ip[ip_src][ip_dst] += 1
 
     if options.verbose:
         print "Serialization..."
-    dic_obj = open(obj_file, "w")
-    pickle.dump(dic_ip, dic_obj)
-    dic_obj.close()
+    with open(obj_file, "w") as dic_obj:
+        pickle.dump(dic_ip, dic_obj)
 
 
 if __name__ == '__main__':
