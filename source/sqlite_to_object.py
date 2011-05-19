@@ -22,6 +22,7 @@ import os
 import sys
 
 from collections import Counter
+from collections import defaultdict
 from datetime import datetime
 from time import mktime
 
