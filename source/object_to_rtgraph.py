@@ -22,6 +22,7 @@ __license__ = "Python"
 
 import os
 import sys
+import time
 import threading
 
 import pickle
@@ -52,6 +53,8 @@ def object_to_rtgraph(obj_file):
         print "Launching the RTgraph3D window thread"
     a = threading.Thread(None, rtggraph_launch, None)
     a.start()
+
+    time.sleep(1)
 
     cmd = 'echo "' + command + '" | python ./rtgraph3d/rtg_cli.py'
     if options.verbose:
