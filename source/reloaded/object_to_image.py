@@ -19,9 +19,9 @@ import ImageFont
 import pickle
 import math
 
-size = 1000 #300
+size = 1100 #300
 ip_radius = 470 #140
-port_radius = 450 #130
+port_radius = 420 #130
 port_d_radius = 420 #130
 link_radius = 390 #130
 xc, yc = size/2, size/2
@@ -178,7 +178,8 @@ def object_to_image(obj_file, image_file):
 
     dic_info = {"ip":{}, "port":{}}
 
-    im = Image.new("RGB", (size,size), "white")
+    im = Image.new("RGBA", (size,size)) # transparent
+    #im = Image.new("RGB", (size,size), "white")
 
     draw = ImageDraw.Draw(im)
     #draw.line((0, 0) + im.size, fill=128)
