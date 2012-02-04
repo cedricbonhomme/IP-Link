@@ -1,61 +1,88 @@
 #! /usr/local/bin/python
 #-*- coding: utf-8 -*-
 
-"""pcap_to_object
 
-Generate a serialized graph object from a pcap file.
+"""pcap_to_object1
+
+Generate a serialized graph object from the pcap file.
+
+This script uses Pylibpcap which is faster than pcapy. So it is recommended to
+use this script instead of using pcap_to_object.py
+
+http://sourceforge.net/projects/pylibpcap/
+
+http://sourceforge.net/projects/pylibpcap/
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.2 $"
-__date__ = "$Date: 2009/02/19 $"
+__version__ = "$Revision: 0.1 $"
+__date__ = "$Date: 2009/02/20 $"
 __copyright__ = "Copyright (c) 2009 Jerome Hussenet, Copyright (c) 2009 Cedric Bonhomme"
 __license__ = "Python"
 
 import os
 import sys
 
+import pcap
+import socket
+import struct
+
 import pickle
 
-import pcapy
-import impacket.ImpactDecoder as Decoders
-import impacket.ImpactPacket as Packets
 
-from collections import Counter
+def decode_ip_packet(s):
+    """Decode IP packets"""
+    d = {}
+    #d['version'] = (ord(s[0]) & 0xf0) >> 4
+    #d['header_len'] = ord(s[0]) & 0x0f
+    #d['tos'] = ord(s[1])
+    #d['total_len'] = socket.ntohs(struct.unpack('H', s[2:4])[0])
+    #d['id'] = socket.ntohs(struct.unpack('H', s[4:6])[0])
+    #d['flags'] = (ord(s[6]) & 0xe0) >> 5
+    #d['fragment_offset'] = socket.ntohs(struct.unpack('H', s[6:8])[0] & 0x1f)
+    #d['ttl'] = ord(s[8])
+    #d['protocol'] = ord(s[9])
+    #d['checksum'] = socket.ntohs(struct.unpack('H', s[10:12])[0])
+    d['source_address'] = pcap.ntoa(struct.unpack('i', s[12:16])[0])
+    d['destination_address'] = pcap.ntoa(struct.unpack('i', s[16:20])[0])
+    #if d['header_len'] > 5:
+      #d['options'] = s[20:4*(d['header_len']-5)]
+    #else:
+      #d['options'] = None
+    #d['data'] = s[4*d['header_len']:]
+    return d
 
 def pcap_to_object(pcap_file, obj_file):
     """Create a Python serialized graph object.
-
+    
     Read the pcap file given in parameter, extracts source and destination IP
     and write a serialized graph object.
     """
-    reader = pcapy.open_offline(pcap_file)
-    eth_decoder = Decoders.EthDecoder()
-    ip_decoder = Decoders.IPDecoder()
-
-    dic_ip = {}
-
-    tts_min = 1000
-    tts_max = 2000
+    reader = pcap.pcapObject()
+    reader.open_offline(pcap_file)
 
     if options.verbose:
         print "Reading pcap file..."
+    dic_ip = {}
     while True:
         try:
-            (header, payload) = reader.next()
-            if tts_min <= header.getts()[0] <= tts_max:
-                ethernet = eth_decoder.decode(payload)
-                if ethernet.get_ether_type() == Packets.IP.ethertype:
-                    ip = ip_decoder.decode(payload[ethernet.get_header_size():])
-                    ip_src = ip.get_ip_src()
-                    ip_dst = ip.get_ip_dst()
-                    if ip_src not in dic_ip:
-                        dic_ip[ip_src] = Counter()
-                        dic_ip[ip_src][ip_dst] = 1
-                    else:
-                        dic_ip[ip_src][ip_dst] += 1
+            (_, payload, tts) = reader.next()
         except:
             break
+        if payload[12:14] == '\x08\x00':
+            decoded_ip_packet = decode_ip_packet(payload[14:])
+            if decoded_ip_packet['source_address'] not in dic_ip:
+                dic_ip[decoded_ip_packet['source_address']] = {}
+                dic_ip[decoded_ip_packet['source_address']] \
+                        [decoded_ip_packet['destination_address']] = 1
+            else:
+                if decoded_ip_packet['destination_address'] not in \
+                                        dic_ip[decoded_ip_packet['source_address']]:
+                    dic_ip[decoded_ip_packet['source_address']] \
+                        [decoded_ip_packet['destination_address']] = 1
+                else:
+                    dic_ip[decoded_ip_packet['source_address']] \
+                        [decoded_ip_packet['destination_address']] += 1
 
     if options.verbose:
         print "Serialization..."
