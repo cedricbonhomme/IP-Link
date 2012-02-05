@@ -20,13 +20,17 @@ This is the version 0.2 of IP-Link. The last version of IP-Link's code is hosted
 
 Requirements
 ------------
+
+Python 2.7.*.
+
 Python modules
 ~~~~~~~~~~~~~~
 
     * Pylibpcap_;
     * Pcapy_;
-    * matplotlib;
-    * SQLite interface.
+    * matplotlib_;
+    * SQLite_ interface;
+    * VPython_ for the Realtime Graph 3D visualization.
 
 Software
 ~~~~~~~~
@@ -48,3 +52,6 @@ The site of IP-Link provides a complete tutorial_.
 .. _Pylibpcap: http://sourceforge.net/projects/pylibpcap/
 .. _Pcapy: http://oss.coresecurity.com/projects/pcapy.html
 .. _ploticus: http://ploticus.sourceforge.net/
+.. _matplotlib: http://matplotlib.sourceforge.net/
+.. _SQLite:  http://sqlite.org
+.. _VPython: http://vpython.org/
