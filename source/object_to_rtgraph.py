@@ -83,7 +83,7 @@ def rtggraph_launch():
     POVDUMP = None
     MODE = 0
     try:
-        opts = getopt.getopt(sys.argv[1:], "htr:w:s:c:P:m:q")
+        opts = getopt.getopt(sys.argv[1:], "htr:w:s:c:P:m:q:i")
 
         for opt,optarg in opts[0]:
             if opt == "-h":
