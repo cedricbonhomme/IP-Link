@@ -9,7 +9,7 @@ Charge un fichier CSV et génère un fichier au format DOT pour GraphViz.
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2009/03/06 $"
-__copyright__ = "Copyright (c) 2009 Jerome Hussenet, Copyright (c) 2009 Cedric Bonhomme"
+__copyright__ = "Copyright (c) 2009-2012 Jerome Hussenet, Copyright (c) 2009-2012 Cedric Bonhomme"
 __license__ = "Python"
 
 import os
