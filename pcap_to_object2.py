@@ -4,6 +4,8 @@
 """pcap_to_object
 
 Generate a serialized graph object from a pcap file.
+
+Extract from a cap file from the "any" interface .
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
