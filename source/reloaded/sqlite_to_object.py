@@ -9,14 +9,19 @@ Read the data from the base and generate a serialized graph object.
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2010/04/10 $"
-__copyright__ = "Copyright (c) 2010 Jerome Hussenet, Copyright (c) 2010 Cedric Bonhomme"
+__date__ = "$Date: 2012/02/05 $"
+__copyright__ = "Copyright (c) 2010-2012 Jerome Hussenet, Copyright (c) 2010-2012 Cedric Bonhomme"
 __license__ = "Python"
 
 import sqlite3
 import pickle
 
 def sqlite_to_object(sqlite_file, obj_file, request_type, parameters):
+    """Querys SQLite data base.
+
+    Extracts information (IP/Port source and IP/Port destination) from the SQLite base
+    and serialize an object containing the result.
+    """
     if options.verbose:
         print "DB connect"
     conn = sqlite3.connect(sqlite_file, isolation_level = None)
@@ -45,27 +50,26 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameters):
     for ip_src, ip_dst, port_src, port_dst in liste:
         #dic[ip_src][ip_dst][port_src][port_dst] = dic.get(ip_src, {}).get(ip_dst, {}).get(port_src, {}).get(port_src, 0)+1
         if ip_src not in dic:
-            dic[ip_src]={}
-            dic[ip_src][ip_dst]={}
-            dic[ip_src][ip_dst][port_src]={}
-            dic[ip_src][ip_dst][port_src][port_dst]=1
+            dic[ip_src] = {}
+            dic[ip_src][ip_dst] = {}
+            dic[ip_src][ip_dst][port_src] = {}
+            dic[ip_src][ip_dst][port_src][port_dst] = 1
         else:
             if ip_dst not in dic[ip_src]:
-                dic[ip_src][ip_dst]={}
-                dic[ip_src][ip_dst][port_src]={}
-                dic[ip_src][ip_dst][port_src][port_dst]=1
+                dic[ip_src][ip_dst] = {}
+                dic[ip_src][ip_dst][port_src] = {}
+                dic[ip_src][ip_dst][port_src][port_dst] = 1
             else:
                 if port_src not in dic[ip_src][ip_dst]:
-                    dic[ip_src][ip_dst][port_src]={}
-                    dic[ip_src][ip_dst][port_src][port_dst]=1
+                    dic[ip_src][ip_dst][port_src] = {}
+                    dic[ip_src][ip_dst][port_src][port_dst] = 1
                 else:
                     if port_dst not in dic[ip_src][ip_dst][port_src]:
-                        dic[ip_src][ip_dst][port_src][port_dst]=1
+                        dic[ip_src][ip_dst][port_src][port_dst] = 1
                     else:
-                        dic[ip_src][ip_dst][port_src][port_dst]+=1
+                        dic[ip_src][ip_dst][port_src][port_dst] += 1
 
     conn.close()    
-    #print dic
 
     if options.verbose:
         print "Serialization..."

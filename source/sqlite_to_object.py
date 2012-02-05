@@ -41,7 +41,7 @@ requests = { \
 def sqlite_to_object(sqlite_file, obj_file, request_type, parameter):
     """Querys SQLite data base.
 
-    Extracts information from the SQLite base
+    Extracts information (IP/Port source and IP/Port destination) from the SQLite base
     and serialize an object containing the result.
     """
     if options.verbose:

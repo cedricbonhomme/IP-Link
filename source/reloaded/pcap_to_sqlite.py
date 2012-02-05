@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 
-"""pcap_to_sqlite1
+"""pcap_to_sqlite
 
 Generate the SQLite base from the pcap file.
 
@@ -21,9 +21,9 @@ http://sourceforge.net/projects/pylibpcap/
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2010/04/10 $"
-__copyright__ = "Copyright (c) 2010 Jerome Hussenet, Copyright (c) 2010 Cedric Bonhomme"
+__version__ = "$Revision: 0.2 $"
+__date__ = "$Date: 2012/02/05 $"
+__copyright__ = "Copyright (c) 2010-2012 Jerome Hussenet, Copyright (c) 2010-2012 Cedric Bonhomme"
 __license__ = "Python"
 
 import os
@@ -35,19 +35,27 @@ import struct
 import sqlite3
 
 def decode_tcp_segment(s):
+    """
+    Return the source and destination ports of a TCP segment.
+    """
     d = {}
     d['source_port'] = socket.ntohs(struct.unpack('H',s[0:2])[0])
     d['destination_port'] = socket.ntohs(struct.unpack('H',s[2:4])[0])
     return d
 
 def decode_udp_segment(s):
+    """
+    Return the source and destination ports of a UDP segment.
+    """
     d = {}
     d['source_port'] = socket.ntohs(struct.unpack('H',s[0:2])[0])
     d['destination_port'] = socket.ntohs(struct.unpack('H',s[2:4])[0])
     return d
 
 def decode_ip_packet(s):
-    """Decode IP packets"""
+    """
+    Decode IP packets.
+    """
     d = {}
     #d['version'] = (ord(s[0]) & 0xf0) >> 4
     d['header_len'] = ord(s[0]) & 0x0f
@@ -114,7 +122,8 @@ def pcap_to_sqlite(pcap_file, sqlite_file):
 
     conn.commit()
     c.close()
-    print stat
+    if options.verbose:
+        print stat
 
 
 if __name__ == "__main__":

@@ -7,9 +7,9 @@ Loads a serialized graph object in memory and generates an PNG image.
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2010/04/10 $"
-__copyright__ = "Copyright (c) 2010 Jerome Hussenet, Copyright (c) 2010 Cedric Bonhomme"
+__version__ = "$Revision: 0.2 $"
+__date__ = "$Date: 2012/02/05 $"
+__copyright__ = "Copyright (c) 2010-2012 Jerome Hussenet, Copyright (c) 2010-2012 Cedric Bonhomme"
 __license__ = "Python"
 
 import Image
@@ -40,6 +40,9 @@ def color():
             yield i
 
 def rotate_text(image, position, txt, anglerot, color):
+    """
+    Rotates a text.
+    """
     font = ImageFont.load_default()
     imtmp = Image.new("RGBA", font.getsize(txt))
     drawtmp = ImageDraw.Draw(imtmp)
@@ -60,6 +63,9 @@ def rotate_text(image, position, txt, anglerot, color):
     del drawtmp
 
 def circular_arc(x_c, y_c, r, ang1, ang2, draw, color):
+    """
+    Creates a circular arc.
+    """
     rang1, rang2 = math.radians(ang1), math.radians(ang2)
     x1, y1 = x_c + r * math.cos(rang1), y_c + r * math.sin(rang1)
     x2, y2 = x_c + r * math.cos(rang2), y_c + r * math.sin(rang2)
@@ -127,12 +133,11 @@ def pascal_row(n):
     result=[1]
     x,numerator=1,n
     for denominator in range(1,n//2+1):
-        # print(numerator,denominator,x)
-        x*=numerator
-        x/=denominator
+        x *= numerator
+        x /= denominator
         result.append(x)
-        numerator-=1
-    if n&1==0:
+        numerator -= 1
+    if n&1 == 0:
         # n is even
         result.extend(reversed(result[:-1]))
     else:
@@ -154,23 +159,20 @@ def object_to_image(obj_file, image_file):
     num_total = 0
     for ip_src in dic_link:
         if ip_src not in dic_stat:
-            dic_stat[ip_src]={}
-            dic_stat[ip_src]['out']={}
-            dic_stat[ip_src]['in']={}
+            dic_stat[ip_src] = {}
+            dic_stat[ip_src]['out'] = {}
+            dic_stat[ip_src]['in'] = {}
         for ip_dst in dic_link[ip_src]:
             if ip_dst not in dic_stat:
-                dic_stat[ip_dst]={}
-                dic_stat[ip_dst]['out']={}
-                dic_stat[ip_dst]['in']={}
+                dic_stat[ip_dst] = {}
+                dic_stat[ip_dst]['out'] = {}
+                dic_stat[ip_dst]['in'] = {}
             for port_src in dic_link[ip_src][ip_dst]:
                 for port_dst in dic_link[ip_src][ip_dst][port_src]:
-                    print port_src, port_dst
                     num = dic_link[ip_src][ip_dst][port_src][port_dst]
                     num_total += num
                     dic_stat[ip_src]['out'][port_src] = dic_stat[ip_src]['out'].get(port_src, 0) + num
                     dic_stat[ip_dst]['in'][port_dst] = dic_stat[ip_dst]['in'].get(port_dst, 0) + num
-
-    #print dic_stat
 
     if options.verbose:
         print "Number of communication: ",num_total
@@ -201,22 +203,22 @@ def object_to_image(obj_file, image_file):
             if port not in port_list:
                 port_list.append(port)
 
-        angle = ((num_out+num_in)*360.0)/(num_total*2.0)
+        angle = ((num_out+num_in)*360.0) / (num_total*2.0)
 
         last_angle2 = last_angle
         color_gen2 = color()
         for port in port_list:
             port_num_in = dic_stat[ip]['in'].get(port, 0)
             port_num_out = dic_stat[ip]['out'].get(port, 0)
-            angle2i = (port_num_in*angle)/(num_out+num_in)
-            angle2o = (port_num_out*angle)/(num_out+num_in)
+            angle2i = (port_num_in*angle) / (num_out+num_in)
+            angle2o = (port_num_out*angle) / (num_out+num_in)
             angle2 = angle2i + angle2o
 
             cur_color2 = color_gen2.next()
 
             #print port, port_num_out+port_num_in, last_angle2, last_angle2+angle2, cur_color2
             (xps, yps, xpe, ype) = circular_arc(xc, yc, port_radius, last_angle2, last_angle2+angle2, draw, cur_color2[0])
-            x2, y2 = xc + port_radius * math.cos(math.radians(last_angle2+angle2/2)), yc + port_radius * math.sin(math.radians(last_angle2+angle2/2))
+            x2, y2 = xc + port_radius * math.cos(math.radians(last_angle2 + angle2 / 2)), yc + port_radius * math.sin(math.radians(last_angle2 + angle2 / 2))
             
             #draw.text((x2,y2), str(port), fill=cur_color2[0])
             rotate_text(im, (int(x2),int(y2)), str(port), int(round(last_angle2+angle2/2)), cur_color2[0])
