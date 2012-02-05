@@ -1,4 +1,4 @@
-#! /usr/local/bin/python
+#! /usr/bin/env python
 #-*- coding: utf-8 -*-
 
 """object_to_graphviz
