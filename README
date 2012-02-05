@@ -1,0 +1,45 @@
+.. -*-restructuredtext-*-
+
+=======
+IP-Link
+=======
+
+:author: Cédric Bonhomme
+:contact: http://cedricbonhomme.org/
+
+
+Presentation
+------------
+
+The goal of IP-Link is to see the relationships between different IP from network traffic capture,
+thus quickly for a given address with the IP that communicates the most. IP-Link offers severall
+visualization methods.
+
+This is the version 0.2 of IP-Link. The last version of IP-Link's code is hosted on this repository_.
+
+
+Requirements
+------------
+Python modules
+~~~~~~~~~~~~~~
+
+    * Pylibpcap;
+    * Pcapy;
+    * matplotlib.
+
+Software
+~~~~~~~~
+
+    * tcpdump;
+    * ploticus
+
+
+Turorial and examples
+---------------------
+
+The site of IP-Link provides a complete tutorial_.
+
+
+.. _IP-Link: http://ip-link.wikidot.com/
+.. _repository: https://bitbucket.org/cedricbonhomme/ip-link/
+.. _tutorial: http://ip-link.wikidot.com/tutorial
