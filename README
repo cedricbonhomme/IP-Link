@@ -11,7 +11,7 @@ IP-Link
 Presentation
 ------------
 
-The goal of IP-Link is to see the relationships between different IP from network traffic capture,
+The goal of IP-Link_ is to see the relationships between different IP from network traffic capture,
 thus quickly for a given address with the IP that communicates the most. IP-Link offers severall
 visualization methods.
 
@@ -23,15 +23,16 @@ Requirements
 Python modules
 ~~~~~~~~~~~~~~
 
-    * Pylibpcap;
-    * Pcapy;
-    * matplotlib.
+    * Pylibpcap_;
+    * Pcapy_;
+    * matplotlib;
+    * SQLite interface.
 
 Software
 ~~~~~~~~
 
-    * tcpdump;
-    * ploticus
+    * tcpdump_;
+    * ploticus_.
 
 
 Turorial and examples
@@ -43,3 +44,7 @@ The site of IP-Link provides a complete tutorial_.
 .. _IP-Link: http://ip-link.wikidot.com/
 .. _repository: https://bitbucket.org/cedricbonhomme/ip-link/
 .. _tutorial: http://ip-link.wikidot.com/tutorial
+.. _tcpdump: http://www.tcpdump.org/
+.. _Pylibpcap: http://sourceforge.net/projects/pylibpcap/
+.. _Pcapy: http://oss.coresecurity.com/projects/pcapy.html
+.. _ploticus: http://ploticus.sourceforge.net/
