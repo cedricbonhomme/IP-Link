@@ -1,0 +1,9 @@
+Version 0.2:
+This version introduces the generation of Bézier curves.
+It is now possible to see the relations between IP and
+ports. The tutorial [1] has been updated.
+
+[1] http://ip-link.wikidot.com/tutorial
+
+Version 0.1:
+First release of IP-Link
