@@ -2,14 +2,11 @@
 #-*- coding: utf-8 -*-
 
 
-"""pcap_to_object1
+"""pcap_to_object
 
 Generate a serialized graph object from the pcap file.
 
-This script uses Pylibpcap which is faster than pcapy. So it is recommended to
-use this script instead of using pcap_to_object.py
-
-http://sourceforge.net/projects/pylibpcap/
+This script uses Pylibpcap which is faster than pcapy.
 
 http://sourceforge.net/projects/pylibpcap/
 """

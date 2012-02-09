@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 
-"""pcap_to_sqlite1
+"""pcap_to_sqlite
 
 Generate the SQLite base from the pcap file.
 
@@ -11,10 +11,7 @@ Data extracted from the capture are :
  - destination address ;
  - source address.
 
-This script uses Pylibpcap which is faster than pcapy. So it is recommended to
-use this script instead of using pcap_to_sqlite.py
-
-http://sourceforge.net/projects/pylibpcap/
+This script uses Pylibpcap which is faster than pcapy.
 
 http://sourceforge.net/projects/pylibpcap/
 """
