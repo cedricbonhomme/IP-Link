@@ -23,7 +23,7 @@ import pickle
 import gvgen
 
 
-def object_to_GvGen(obj_file, xml_file):
+def object_to_GvGen(obj_file):
     """
     Generate a DOT file with GvGen.
     http://www.picviz.com/sections/opensource/gvgen.html
