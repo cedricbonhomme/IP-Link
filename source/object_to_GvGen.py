@@ -6,6 +6,9 @@
 Generate a DOT file with GvGen.
 http://www.picviz.com/sections/opensource/gvgen.html
 
+Example of use:
+$ python object_to_GvGen.py -i data/ip.pyobj | dot -Tpng -o graph.png ; gwenview graph.png
+
 """
 
 __author__ = "Cedric Bonhomme"
