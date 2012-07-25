@@ -6,7 +6,9 @@
 Welcome to IP-Link's documentation!
 ===================================
 
-Contents:
+The goal of IP-Link is to show the relationships between different IP addresses
+from network traffic capture, thus quickly determining for a given address the
+IP address with which it communicates the most.
 
 :doc:`Tutorial page </tutorial>`.
 
