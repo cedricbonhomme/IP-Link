@@ -1,5 +1,3 @@
-Unless stated otherwise, in all these examples we are considering that we start from the pcap file.
-
 Circos graph
 ============
 
@@ -70,7 +68,7 @@ Larger result, between 100 IPs :
 Bézier curve
 ============
 
-More detais on `this page </bezier>`.
+More detais on :doc:`this page </bezier>`.
 
 
 Scatter plot with ploticus
@@ -272,6 +270,7 @@ Filter by date
 ==============
 
 .. code-block:: bash
+
     cedric@debian:~/IP-Link/source$ python sqlite_to_object.py -i data/ip.sql -r time -p 2009-1-15-22-00-00:2009-1-16-02-00-00
     DB connect
     Request sent to the base :
