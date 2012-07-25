@@ -8,6 +8,8 @@ Welcome to IP-Link's documentation!
 
 Contents:
 
+:doc:`Tutorial page </tutorial>`.
+
 .. toctree::
    :maxdepth: 2
 
