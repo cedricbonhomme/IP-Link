@@ -11,6 +11,7 @@ from network traffic capture, thus quickly determining for a given address the
 IP address with which it communicates the most.
 
 :doc:`Tutorial page </tutorial>`.
+:doc:`Tutorial page </documentation>`.
 
 .. toctree::
    :maxdepth: 2

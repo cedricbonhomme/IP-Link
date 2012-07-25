@@ -173,3 +173,122 @@ Result
 
 .. image:: images/picviz1.png
    :align: center
+
+
+RealTime Graph 3D
+=================
+
+.. code-block:: bash
+
+    debian:/home/cedric/IP-Link/source# tcpdump -p -i eth0 -s 0 -w captures/snif.pcap
+    tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+    ^C1549 packets captured
+    1549 packets received by filter
+    0 packets dropped by kernel
+    debian:/home/cedric/IP-Link/source# exit
+    exit
+
+    cedric@debian:~/IP-Link/source$ python pcap_to_object1.py -i captures/snif.pcap
+    Reading pcap file...
+    Serialization...
+    
+    cedric@debian:~/IP-Link/source$ python object_to_rtgraph.py
+
+Result
+
+.. image:: images/rtgraph.png
+   :align: center
+   :width: 80%
+
+
+MooWheel
+========
+
+.. code-block:: bash
+
+    cedric@debian:~/IP-Link/source$ python pcap_to_sqlite1.py -qi captures/capture.cap
+
+    cedric@debian:~/IP-Link/source$ python sqlite_to_object.py
+    DB connect
+    Query sent to the base :
+            SELECT ip_src, ip_dst FROM ip_link
+    Creating object...
+    Reading query result...
+    Serialization...
+
+    cedric@debian:~/IP-Link/source$ python object_to_moowheel.py
+    Loading dictionary...
+    Creating MooWheel file...
+    Writting file.
+
+Result
+
+.. image:: images/moowheel.png
+   :align: center
+
+Pointing your mouse over 212.110.251.3 will let you see that 5 IP are not contacted by 212.110.251.3.
+If you want to see better, you can make a filter this way :
+
+.. code-block:: bash
+
+    cedric@debian:~/IP-Link/source$ python sqlite_to_object.py -r ip_src -p 212.110.251.3
+    DB connect
+    Query sent to the base :
+            SELECT ip_src, ip_dst FROM ip_link WHERE ip_src = "212.110.251.3"
+    Creating object...
+    Reading query result...
+    Serialization...
+
+    cedric@debian:~/IP-Link/source$ python object_to_moowheel.py -q
+
+Now, 82.0.72.48, 86.0.48.47, 125.211.214.144, 123.129.255.167 and 91.121.165.159 are missing. These IP are never contacted by 212.110.251.3.
+
+Another output with a bit more IP: http://cedric.bonhomme.free.fr/ip-link/moowheel/moowheel1.html
+
+
+Histogram
+=========
+
+.. code-block:: bash
+
+    cedric@debian:~/IP-Link/source$ python pcap_to_object1.py -i captures/capture.cap
+    Reading pcap file...
+    Serialization...
+
+    cedric@debian:~/IP-Link/source$ python object_to_csv.py
+    Loading dictionary...
+    Writting CSV file...
+    cedric@debian:~/IP-Link/source$ python csv_to_histogram.py -s 192.168.1.2
+
+Result
+
+.. image:: images/histogram.png
+   :align: center
+
+Here, for the moment, the legend is not display because histograms are used with the HTML gallery.
+
+
+Filter by date
+==============
+
+.. code-block:: bash
+    cedric@debian:~/IP-Link/source$ python sqlite_to_object.py -i data/ip.sql -r time -p 2009-1-15-22-00-00:2009-1-16-02-00-00
+    DB connect
+    Request sent to the base :
+        SELECT ip_src, ip_dst FROM ip_link WHERE tts >= 1232053200.0 AND tts <=  1232067600.0
+    Creating object...
+    Reading the result of the query...
+    Serialization...
+
+    cedric@debian:~/IP-Link/source$ python object_to_graphviz.py -q
+
+    cedric@debian:~/IP-Link/source$ dot -Tpng data/ip.dot -o pic.png
+
+Result
+
+.. image:: images/pic.png
+   :align: center
+   :width: 80%
+   
+   
+The generated graph represent the trafic between 2009/01/15 22h00m00s and 2009/01/16 02h00m00s.
