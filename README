@@ -17,6 +17,8 @@ visualization methods.
 
 This is the version 0.2 of IP-Link. The last version of IP-Link's code is hosted on this repository_.
 
+You can find the documentation_ of IP-Link here: http://ip-link.readthedocs.org/
+
 
 Requirements
 ------------
@@ -47,6 +49,7 @@ The site of IP-Link provides a complete tutorial_.
 
 .. _IP-Link: http://ip-link.wikidot.com/
 .. _repository: https://bitbucket.org/cedricbonhomme/ip-link/
+.. _documentation: http://ip-link.readthedocs.org/
 .. _tutorial: http://ip-link.wikidot.com/tutorial
 .. _tcpdump: http://www.tcpdump.org/
 .. _Pylibpcap: http://sourceforge.net/projects/pylibpcap/
