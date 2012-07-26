@@ -9,7 +9,8 @@ Extraction of the data
 Ways of data extraction
 -----------------------
 
-Diagramme1.png
+.. image:: images/Diagramme1.png
+    :align: center
 
 We can see that pcap_to_sqlite.py, pcap_to_sqlite1.py and pcap_to_sqlite.sh are three alternatives
 to generate the SQLite base. So, it is not necessary to use Python (although recommended) to
