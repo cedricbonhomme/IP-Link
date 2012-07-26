@@ -6,6 +6,9 @@
 Welcome to IP-Link's documentation!
 ===================================
 
+.. image:: images/logo.png
+   :align: right
+
 The goal of IP-Link is to show the relationships between different IP addresses
 from network traffic capture, thus quickly determining for a given address the
 IP address with which it communicates the most.
@@ -16,13 +19,17 @@ You can clone the source code of IP-Link :
 
     $ hg clone https://bitbucket.org/cedricbonhomme/ip-link/
 
-- :doc:`Tutorial page </tutorial>`.
-- :doc:`Documentation </documentation>`.
+* :doc:`Tutorial page </tutorial>`.
+* :doc:`Documentation </documentation>`.
+* :doc:`How it works </howitworks>`.
+
+.. image:: images/python-powered-w-140x56.png
+    :target: http://python.org
+.. image:: images/BC_Rnd_48px.png
+    :target: http://wiki.cedricbonhomme.org/projects
 
 .. toctree::
    :maxdepth: 2
-
-
 
 Indices and tables
 ==================
@@ -30,4 +37,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
