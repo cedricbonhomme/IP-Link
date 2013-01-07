@@ -10,7 +10,7 @@ Generate an HTML gallery.
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.3 $"
 __date__ = "$Date: 2009/02/23 $"
-__copyright__ = "Copyright (c) 2009-2012 Jerome Hussenet, Copyright (c) 2009-2012 Cedric Bonhomme"
+__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
 __license__ = "Python"
 
 import os
@@ -136,8 +136,8 @@ Go through all the sources and destinations IP
 in order to create the details pages.
 """
 html_head = "<html>\n<head>\n<title>IP-Link</title>\n</head>\n<body><h1>IP-Link Report</h1>"
-pied = "<h6>IP-Link - Copyright (c) 2009-2012 J&eacute;r&ocirc;me Hussenet, " + \
-        "Copyright (c) 2009-2012 C&eacute;dric Bonhomme</h6></body>\n</html>"
+pied = "<h6>IP-Link - Copyright (c) 2009-2013 J&eacute;r&ocirc;me Hussenet, " + \
+        "Copyright (c) 2009-2013 C&eacute;dric Bonhomme</h6></body>\n</html>"
 html = html_head + "\n"
 
 

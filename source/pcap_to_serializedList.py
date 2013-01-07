@@ -14,7 +14,7 @@ The object list generated contains the same information as the basis sqlite.
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2009/02/20 $"
-__copyright__ = "Copyright (c) 2009-2012 Jerome Hussenet, Copyright (c) 2009-2012 Cedric Bonhomme"
+__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
 __license__ = "Python"
 
 import pcap

@@ -10,7 +10,7 @@ for Circos (matrix).
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.4 $"
 __date__ = "$Date: 2009/03/14 $"
-__copyright__ = "Copyright (c) 2009-2012 Jerome Hussenet, Copyright (c) 2009-2012 Cedric Bonhomme"
+__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
 __license__ = "Python"
 
 import os
