@@ -14,6 +14,7 @@ http://sourceforge.net/projects/pylibpcap/
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2009/02/20 $"
+__date__ = "$Date: 2013/04/01 $"
 __copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
 __license__ = "Python"
 
@@ -26,6 +27,10 @@ import struct
 
 import pickle
 
+from collections import defaultdict
+from collections import Counter
+def ip_dict():
+    return defaultdict(Counter)
 
 def decode_ip_packet(s):
     """Decode IP packets"""
@@ -60,7 +65,7 @@ def pcap_to_object(pcap_file, obj_file):
 
     if options.verbose:
         print "Reading pcap file..."
-    dic_ip = {}
+    dic_ip = ip_dict()
     while True:
         try:
             (_, payload, tts) = reader.next()
@@ -68,18 +73,8 @@ def pcap_to_object(pcap_file, obj_file):
             break
         if payload[12:14] == '\x08\x00':
             decoded_ip_packet = decode_ip_packet(payload[14:])
-            if decoded_ip_packet['source_address'] not in dic_ip:
-                dic_ip[decoded_ip_packet['source_address']] = {}
-                dic_ip[decoded_ip_packet['source_address']] \
-                        [decoded_ip_packet['destination_address']] = 1
-            else:
-                if decoded_ip_packet['destination_address'] not in \
-                                        dic_ip[decoded_ip_packet['source_address']]:
-                    dic_ip[decoded_ip_packet['source_address']] \
-                        [decoded_ip_packet['destination_address']] = 1
-                else:
-                    dic_ip[decoded_ip_packet['source_address']] \
-                        [decoded_ip_packet['destination_address']] += 1
+            dic_ip[decoded_ip_packet['source_address']] \
+                    [decoded_ip_packet['destination_address']] += 1
 
     if options.verbose:
         print "Serialization..."
