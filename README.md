@@ -8,7 +8,7 @@ is to see the relationships between different IP from network traffic capture,
 thus quickly for a given address with the IP that communicates the most. IP-Link offers severall
 visualization methods.
 
-You can find the documentation of IP-Link here: http://ip-link.readthedocs.org/
+You can find the documentation of IP-Link here: [http://ip-link.readthedocs.org/](http://ip-link.readthedocs.org/).
 
 
 Requirements
