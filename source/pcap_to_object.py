@@ -12,9 +12,9 @@ http://sourceforge.net/projects/pylibpcap/
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
+__version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2009/02/20 $"
-__date__ = "$Date: 2013/04/01 $"
+__revision__ = "$Date: 2013/04/01 $"
 __copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
 __license__ = "Python"
 

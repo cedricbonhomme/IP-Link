@@ -9,8 +9,9 @@ Extract from a cap file from the "any" interface .
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.2 $"
+__version__ = "$Revision: 0.3 $"
 __date__ = "$Date: 2009/02/19 $"
+__revision__ = "$Date: 2013/04/01 $"
 __copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
 __license__ = "Python"
 
@@ -23,6 +24,10 @@ import pcapy
 import impacket.ImpactDecoder as Decoders
 import impacket.ImpactPacket as Packets
 
+from collections import defaultdict
+from collections import Counter
+def ip_dict():
+    return defaultdict(Counter)
 
 def pcap_to_object(pcap_file, obj_file):
     """Create a Python serialized graph object.
@@ -37,7 +42,7 @@ def pcap_to_object(pcap_file, obj_file):
     sll_decoder = Decoders.LinuxSLLDecoder()
     ip_decoder = Decoders.IPDecoder()
 
-    dic_ip = {}
+    dic_ip = ip_dict()
 
     tts_min = 1000
     tts_max = 2000
@@ -54,15 +59,7 @@ def pcap_to_object(pcap_file, obj_file):
                     #ip = ip_decoder.decode(payload[ethernet.get_header_size():])
                     ip_src = sll.child().get_ip_src()
                     ip_dst = sll.child().get_ip_dst()
-                    print ip_src, ip_dst
-                    if ip_src not in dic_ip:
-                        dic_ip[ip_src] = {}
-                        dic_ip[ip_src][ip_dst] = 1
-                    else:
-                        if ip_dst not in dic_ip[ip_src]:
-                            dic_ip[ip_src][ip_dst] = 1
-                        else:
-                            dic_ip[ip_src][ip_dst] += 1
+                    dic_ip[ip_src][ip_dst] += 1
         except Packets.ImpactPacketException, e:
             print e
         except:
