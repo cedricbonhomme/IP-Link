@@ -44,8 +44,3 @@ def split_ip_dic(dic):
 
 graphe = split_ip_dic(dic_ip)
 print len(graphe)
-print graphe.keys()
-print graphe['216'].keys()
-print graphe['216']['73'].keys()
-print graphe['216']['73']['210'].keys()
-print graphe['216']['73']['210']
