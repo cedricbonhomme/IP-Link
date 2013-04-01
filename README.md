@@ -4,13 +4,11 @@ IP-Link
 Presentation
 ------------
 
-The goal of IP-Link_ is to see the relationships between different IP from network traffic capture,
+The goal of [IP-Link](http://ip-link.wikidot.com/) ([source code](https://bitbucket.org/cedricbonhomme/ip-link/)) is to see the relationships between different IP from network traffic capture,
 thus quickly for a given address with the IP that communicates the most. IP-Link offers severall
 visualization methods.
 
-This is the version 0.2 of IP-Link. The last version of IP-Link's code is hosted on this repository_.
-
-You can find the documentation_ of IP-Link here: http://ip-link.readthedocs.org/
+You can find the documentation of IP-Link here: http://ip-link.readthedocs.org/
 
 
 Requirements
@@ -18,36 +16,21 @@ Requirements
 
 Python 2.7.*.
 
-Python modules
-~~~~~~~~~~~~~~
+Python modules:
 
-    * Pylibpcap_;
-    * Pcapy_;
-    * matplotlib_;
-    * SQLite_ interface;
-    * VPython_ for the Realtime Graph 3D visualization.
+    * [Pylibpcap](http://sourceforge.net/projects/pylibpcap/);
+    * [Pcapy](http://oss.coresecurity.com/projects/pcapy.html);
+    * [matplotlib](http://matplotlib.sourceforge.net/);
+    * [SQLite](http://sqlite.org) interface;
+    * [VPython](http://vpython.org/) for the Realtime Graph 3D visualization.
 
-Software
-~~~~~~~~
+Software:
 
-    * tcpdump_;
-    * ploticus_.
+    * [tcpdump](http://www.tcpdump.org/);
+    * [ploticus](http://ploticus.sourceforge.net/).
 
 
 Turorial and examples
 ---------------------
 
-The site of IP-Link provides a complete tutorial_.
-
-
-.. _IP-Link: http://ip-link.wikidot.com/
-.. _repository: https://bitbucket.org/cedricbonhomme/ip-link/
-.. _documentation: http://ip-link.readthedocs.org/
-.. _tutorial: http://ip-link.wikidot.com/tutorial
-.. _tcpdump: http://www.tcpdump.org/
-.. _Pylibpcap: http://sourceforge.net/projects/pylibpcap/
-.. _Pcapy: http://oss.coresecurity.com/projects/pcapy.html
-.. _ploticus: http://ploticus.sourceforge.net/
-.. _matplotlib: http://matplotlib.sourceforge.net/
-.. _SQLite:  http://sqlite.org
-.. _VPython: http://vpython.org/
+The site of IP-Link provides a complete [tutorial](http://ip-link.wikidot.com/tutorial).
