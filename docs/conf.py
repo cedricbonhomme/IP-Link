@@ -184,7 +184,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'IP-Link.tex', u'IP-Link Documentation',
-   u'Cédric Bonhomme, Jérôme Hussenet', 'manual'),
+   u'Cédric Bonhomme, Jérôme Hussenet', 'howto'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
