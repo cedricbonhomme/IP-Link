@@ -13,7 +13,7 @@ You can find the documentation of IP-Link here: [http://ip-link.readthedocs.org/
 
 Requirements
 ------------
-Python 2.7.*.
+Python 2.7.
 
 Python modules:
 
@@ -35,7 +35,7 @@ The site of IP-Link provides a complete [tutorial](http://ip-link.wikidot.com/tu
 
 Donation
 --------
-If you wish and if you like IP-Link, you can donate via bitcoin. My bitcoin address: 1GVmhR9fbBeEh7rP1qNq76jWArDdDQ3otZ
+If you wish and if you like IP-Link, you can donate via bitcoin. My bitcoin address: [1GVmhR9fbBeEh7rP1qNq76jWArDdDQ3otZ](https://blockexplorer.com/address/1GVmhR9fbBeEh7rP1qNq76jWArDdDQ3otZ).
 Thank you!
 
 Contact
