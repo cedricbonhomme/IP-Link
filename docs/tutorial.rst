@@ -82,7 +82,7 @@ Scatter plot with ploticus
     cedric@debian:~/IP-Link/source$ python pcap_to_object1.py -i captures/capture.cap
     Reading pcap file...
     Serialization...
-    
+
     cedric@debian:~/IP-Link/source$ python sqlite_to_object.py -r tts -p 1231950347:1231950547
     DB connect
     Query sent to the base :
@@ -90,7 +90,7 @@ Scatter plot with ploticus
     Creating object...
     Reading query result...
     Serialization...
-    
+
     cedric@debian:~/IP-Link/source$ python object_to_scatterplot.py
     Loading dictionary...
     Creating categories file
@@ -288,6 +288,5 @@ Result
 .. image:: images/pic.png
    :align: center
    :width: 80%
-   
-   
+
 The generated graph represent the trafic between 2009/01/15 22h00m00s and 2009/01/16 02h00m00s.

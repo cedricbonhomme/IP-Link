@@ -17,7 +17,7 @@ You can clone the source code of IP-Link :
 
 .. code-block:: bash
 
-    $ hg clone https://bitbucket.org/cedricbonhomme/ip-link/
+    $ git clone https://bitbucket.org/cedricbonhomme/ip-link
 
 * :doc:`Tutorial page </tutorial>`.
 * :doc:`Documentation </documentation>`.
