@@ -12,9 +12,7 @@ __date__ = "$Date: 2012/02/05 $"
 __copyright__ = "Copyright (c) 2010-2012 Jerome Hussenet, Copyright (c) 2010-2012 Cedric Bonhomme"
 __license__ = "Python"
 
-import Image
-import ImageDraw
-import ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 import pickle
 import math
@@ -432,7 +430,7 @@ def object_to_image(obj_file, image_file):
 
     del draw
     #print dic_info
-    im.save(image_file, "PNG")
+    im.save(image_file, "png")
 
 if __name__ == "__main__":
     # Point of entry in execution mode.
