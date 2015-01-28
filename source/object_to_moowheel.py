@@ -59,6 +59,14 @@ def object_to_moowheel(obj_file, moo_file):
         wheel_data = wheel_data[:-4]
         wheel_data += ']},\n'
 
+    # dst problem
+    dst_fix = []
+    for ip_src in dic_ip:
+	 for ip_dst in dic_ip[ip_src]:
+		if ip_dst not in dic_ip and ip_dst not in dst_fix:
+			wheel_data += '\t{"id":"' + ip_dst + '", "text":" ' + ip_dst + '", "connections":[]},\n'
+			dst_fix.append(ip_dst)
+    # dst problem
     wheel_data = wheel_data[:-2] + ']'
 
     wheel_data += "\n\n\tvar wheel = new MooWheel(wheelData, $('canvas'));" + \
