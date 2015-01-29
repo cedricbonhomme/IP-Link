@@ -7,3 +7,6 @@ syntax: glob
 
 # Temporary files (vim backups)
 *.swp
+
+source/captures/
+source/data/
