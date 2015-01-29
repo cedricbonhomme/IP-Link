@@ -1,20 +1,16 @@
-IP-Link Reloaded
-================
+Bezier curve
+============
 
 The purpose of this new stuff is:
 
-- to add to IP-Link a self-image generator;
-- to test some new possibilities (link between communication port).
+* to add to IP-Link a self-image generator;
+* to test some new possibilities (link between communication port).
 
 Currently, it is in alpha mode : scripts have only been tested on few files, there are things to improve.
 But some results are interesting.
 
 
-
-Bézier curve
-------------
-
-You have to use the scrips located in the folder: **./source/reloaded**.
+You will have to use the scrips located in the folder: **./source/bezier**.
 
 SQLite DB Generation
 ~~~~~~~~~~~~~~~~~~~~
@@ -27,8 +23,8 @@ Serialized object Generation
 The second script takes the database given by the first one, and creates a serialized object, with optionally some constraint.
 For the moment, two filters have been implemented :
 
-- limit to only communication between 2 IPs;
-- limit number of communication to a number.
+* limit to only communication between 2 IPs;
+* limit number of communication to a number.
 
 
 Image Generation
@@ -37,9 +33,9 @@ Image Generation
 The last scripts, with the serialized object from step 2, create a PNG image.
 The script, based on the Python Imaging Library, contains some interesting algorithms :
 
-- an self-made Circular Arc algorithm, because the one provided by the PIL does not support float angle;
-- a Bezier Curves algorithm, from `this page <http://stackoverflow.com/questions/246525/how-can-i-draw-a-bezier-curve-using-pythons-pil>`_ ;
-- a Text rotation algorithm.
+* an self-made Circular Arc algorithm, because the one provided by the PIL does not support float angle;
+* a Bezier Curves algorithm, from `this page <http://stackoverflow.com/questions/246525/how-can-i-draw-a-bezier-curve-using-pythons-pil>`_ ;
+* a Text rotation algorithm.
 
 
 .. image:: images/test15.png
@@ -156,5 +152,5 @@ Improvements
 The first two scripts are "ready to use", and their results can be the source of other analysis tool.
 But the last, even if it gives some relatively good artistic picture, needs some improvements :
 
-- improve the polygons drawing of link (on the contact with the circle). It's visible on the example "Between 2 IPs". For the moment, it's a simple line, linking the two Bezier Curves.
-- improve label rotation and positioning. For the moment, only IP's label are rotated. The angle is correct, but the position of its box needs to be recalculated. **Done!**
+* improve the polygons drawing of link (on the contact with the circle). It's visible on the example "Between 2 IPs". For the moment, it's a simple line, linking the two Bezier Curves.
+* improve label rotation and positioning. For the moment, only IP's label are rotated. The angle is correct, but the position of its box needs to be recalculated. **Done!**
