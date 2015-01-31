@@ -23,7 +23,6 @@ def split_ip_dic(dic):
             if tab[1] in dic2[tab[0]]:
                 if tab[2] in dic2[tab[0]][tab[1]]:
                     if tab[3] in dic2[tab[0]][tab[1]][tab[2]]:
-                        print "toto"
                         break
                     else:
                         dic2[tab[0]][tab[1]][tab[2]][tab[3]] = split_ip_dic(dic[ips])
