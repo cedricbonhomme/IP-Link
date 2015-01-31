@@ -67,7 +67,7 @@ def object_to_scatterplot(obj_file, scatter_file):
             print "\n".join(stderr)
 
     # creating the HTML map
-    html = '<html>\n<head>\n<title>IP-Link -- Scatterplot</tile>\n</head>\n<body>'
+    html = '<!DOCTYPE html><html  lang="en-US">\n<head>\n<title>IP-Link -- Scatterplot</tile>\n</head>\n<body>'
     html += '\n<map name="map1">\n'
     for area_shape in stdout:
         html += "\t" + area_shape + "\n"
