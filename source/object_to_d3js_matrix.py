@@ -19,8 +19,8 @@ import json
 import pickle
 from collections import Counter
 
-def object_to_circos(obj_file, matrix_file):
-    """Create the input file for Circos.
+def object_to_d3js(obj_file, matrix_file):
+    """Create the input file for D3.js.
     """
     if options.verbose:
         print "Loading objet..."
@@ -67,14 +67,14 @@ if __name__ == "__main__":
     parser.add_option("-i", "--input", dest="obj_file",
                     help="Python serialized object")
     parser.add_option("-o", "--output", dest="matrix_file",
-                    help="Circos file")
+                    help="Input file for D3.js")
     parser.add_option("-q", "--quiet",
                     action="store_false", dest="verbose",
                     help="be vewwy quiet (I'm hunting wabbits)")
     parser.set_defaults(obj_file = './data/dic.pyobj',
-                    matrix_file = './data/ip.circos',
+                    matrix_file = './data/ip.json',
                     verbose = True)
 
     (options, args) = parser.parse_args()
 
-    object_to_circos(options.obj_file, options.matrix_file)
+    object_to_d3js(options.obj_file, options.matrix_file)
