@@ -51,16 +51,18 @@ A basic one
 
 .. code-block:: bash
 
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./pcap_to_sqlite.py -i ../capture.cap -o db.sqlite
+    cedric@debian:~/IP-Link/source/bezier$ ./pcap_to_sqlite.py -i ../capture.cap -o db.sqlite
     Creating table.
     Reading pcap and inserting values in the table...
     {17: 780, 6: 40356, 1: 555}
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./sqlite_to_object.py -i db.sqlite -o db.object
+
+    cedric@debian:~/IP-Link/source/bezier$ ./sqlite_to_object.py -i db.sqlite -o db.object
     DB connect
     Query sent to the base :
         SELECT ip_src, ip_dst, port_src, port_dst FROM ip_link
     Serialization...
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./object_to_image.py -i db.object -o image.png
+
+    cedric@debian:~/IP-Link/source/bezier$ ./object_to_image.py -i db.object -o image.png
     Loading objet...
     Generate Communication stats...
     Number of communication:  41691
@@ -78,12 +80,13 @@ Between 2 IPs
 
 .. code-block:: bash
 
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./sqlite_to_object.py -i db.sqlite -o db.object -r ip -p 192.168.1.2:62.231.97.142
+    cedric@debian:~/IP-Link/source/bezier$ ./sqlite_to_object.py -i db.sqlite -o db.object -r ip -p 192.168.1.2:62.231.97.142
     DB connect
     Query sent to the base :
         SELECT ip_src, ip_dst, port_src, port_dst FROM ip_link WHERE (ip_src = "192.168.1.2" AND ip_dst = "62.231.97.142") OR (ip_src = "62.231.97.142" AND ip_dst = "192.168.1.2")
     Serialization...
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./object_to_image.py -i db.object -o image2.png
+
+    cedric@debian:~/IP-Link/source/bezier$ ./object_to_image.py -i db.object -o image2.png
     Loading objet...
     Generate Communication stats...
     Number of communication:  5100
@@ -101,12 +104,13 @@ With number limitation
 
 .. code-block:: bash
 
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./sqlite_to_object.py -i db.sqlite -o db.object -r number -p 1000
+    cedric@debian:~/IP-Link/source/bezier$ ./sqlite_to_object.py -i db.sqlite -o db.object -r number -p 1000
     DB connect
     Query sent to the base :
         SELECT ip_src, ip_dst, port_src, port_dst FROM ip_link LIMIT 10000
     Serialization...
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./object_to_image.py -i db.object -o image3.png
+
+    cedric@debian:~/IP-Link/source/bezier$ ./object_to_image.py -i db.object -o image3.png
     Loading objet...
     Generate Communication stats...
     Number of communication:  10000
@@ -124,16 +128,18 @@ A Ports-Scan
 
 .. code-block:: bash
 
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./pcap_to_sqlite.py -i test.cap -o dbtest.sqlite
+    cedric@debian:~/IP-Link/source/bezier$ ./pcap_to_sqlite.py -i test.cap -o dbtest.sqlite
     Creating table.
     Reading pcap and inserting values in the table...
     {1: 3, 6: 855, 17: 2}
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./sqlite_to_object.py -i dbtest.sqlite -o dbtest.object -r all
+
+    cedric@debian:~/IP-Link/source/bezier$ ./sqlite_to_object.py -i dbtest.sqlite -o dbtest.object -r all
     DB connect
     Query sent to the base :
         SELECT ip_src, ip_dst, port_src, port_dst FROM ip_link
     Serialization...
-    jerome@jerome-desktop:~/Bureau/pcapvisu-work$ ./object_to_image.py -i dbtest.object -o test.png
+
+    cedric@debian:~/IP-Link/source/bezier$ ./object_to_image.py -i dbtest.object -o test.png
     Loading objet...
     Generate Communication stats...
     Number of communication:  857
