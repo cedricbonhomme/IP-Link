@@ -6,7 +6,7 @@
 Welcome to IP-Link's documentation!
 ===================================
 
-.. image:: images/logo.png
+.. image:: _static/images/logo.png
    :align: right
 
 The goal of `IP-Link <https://bitbucket.org/cedricbonhomme/ip-link>`_ is to show the
@@ -19,9 +19,9 @@ You can clone the source code of IP-Link :
 
     $ git clone https://bitbucket.org/cedricbonhomme/ip-link.git
 
-.. image:: images/python-powered-w-140x56.png
+.. image:: _static/images/python-powered-w-140x56.png
     :target: http://python.org
-.. image:: images/BC_Rnd_48px.png
+.. image:: _static/images/BC_Rnd_48px.png
     :target: http://wiki.cedricbonhomme.org/projects
 
 How it works

@@ -38,7 +38,7 @@ The script, based on the Python Imaging Library, contains some interesting algor
 * a Text rotation algorithm.
 
 
-.. image:: images/test15.png
+.. image:: _static/images/test15.png
    :align: center
 
 
@@ -69,7 +69,7 @@ A basic one
     Generate Port communication list...
     Draw Communication Links...
 
-.. image:: images/image.png
+.. image:: _static/images/image.png
    :align: center
 
 
@@ -92,7 +92,7 @@ Between 2 IPs
     Generate Port communication list...
     Draw Communication Links...
 
-.. image:: images/image2.png
+.. image:: _static/images/image2.png
    :align: center
 
 
@@ -115,7 +115,7 @@ With number limitation
     Generate Port communication list...
     Draw Communication Links...
 
-.. image:: images/image4.png
+.. image:: _static/images/image4.png
    :align: center
 
 
@@ -142,7 +142,7 @@ A Ports-Scan
     Generate Port communication list...
     Draw Communication Links...
 
-.. image:: images/test.png
+.. image:: _static/images/test.png
    :align: center
 
 

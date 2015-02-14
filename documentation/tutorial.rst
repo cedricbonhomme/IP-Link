@@ -11,7 +11,7 @@ The required Perl module can be installed with:
 
     cpan -i module_name
 
-You can download `this example <static/exemple-configuration-circos.tar.gz>`_ of Circos configuration.
+You can download :download:`this example <_static/exemple-configuration-circos.tar.gz>` of Circos configuration.
 
 Get a pcap file
 ---------------
@@ -50,7 +50,7 @@ Generation of the input matrix for Circos
     cedric@debian:~/ip-link/source$ ./pcap_to_object.py -i captures/tbot.pcap -o data/tbot.pyObj
     Reading pcap file...
     Serialization...
-    
+
     cedric@debian:~/ip-link/source$ ./object_to_circos.py -i data/tbot.pyObj -o data/tbot.circos
     Loading objet...
     Searching IP that are source and destination...
@@ -58,8 +58,9 @@ Generation of the input matrix for Circos
     Saving the matrix...
 
 The first command generated a graph from the network capture.
-The second one create the matrix *tbot.circos* of relation betwenn IPs, from serialized object *tbot.pyObj*.
-Here is the `generated matrix <static/tbot.circos>`_. The matrix *tbot.circos* will be the input for the Circos table viewer.
+The second one create the matrix *tbot.circos* of relation betwenn IPs,from serialized
+object *tbot.pyObj*. Here is the :download:`generated matrix <_static/tbot.circos>`.
+The matrix *tbot.circos* will be the input for the Circos table viewer.
 
 Generation of the Circos circle
 -------------------------------
@@ -74,7 +75,7 @@ The second one execute Circos, with the data files generated, and create the gra
 
 Here is the generated Circos circle:
 
-.. image:: images/tBot-Circos.png
+.. image:: _static/images/tBot-Circos.png
    :align: center
 
 
@@ -114,7 +115,7 @@ Scatter plot with ploticus
 
 Result
 
-.. image:: images/scatterplot.png
+.. image:: _static/images/scatterplot.png
    :align: center
 
 
@@ -159,7 +160,7 @@ or :
 
 Result
 
-.. image:: images/ip.png
+.. image:: _static/images/ip.png
    :align: center
    :width: 80%
 
@@ -182,7 +183,7 @@ With these otions sqlite_to_picviz.py extract the trafic between 2009/01/16 00h0
 
 Result
 
-.. image:: images/picviz1.png
+.. image:: _static/images/picviz1.png
    :align: center
 
 
@@ -202,12 +203,12 @@ RealTime Graph 3D
     cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/snif.pcap
     Reading pcap file...
     Serialization...
-    
+
     cedric@debian:~/IP-Link/source$ python object_to_rtgraph.py
 
 Result
 
-.. image:: images/rtgraph.png
+.. image:: _static/images/rtgraph.png
    :align: center
    :width: 80%
 
@@ -234,7 +235,7 @@ MooWheel
 
 Result
 
-.. image:: images/moowheel.png
+.. image:: _static/images/moowheel.png
    :align: center
 
 Pointing your mouse over 212.110.251.3 will let you see that 5 IP are not contacted by 212.110.251.3.
@@ -273,7 +274,7 @@ Histogram
 
 Result
 
-.. image:: images/histogram.png
+.. image:: _static/images/histogram.png
    :align: center
 
 Here, for the moment, the legend is not display because histograms are used with the HTML gallery.
@@ -298,7 +299,7 @@ Filter by date
 
 Result
 
-.. image:: images/pic.png
+.. image:: _static/images/pic.png
    :align: center
    :width: 80%
 

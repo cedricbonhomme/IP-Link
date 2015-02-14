@@ -9,7 +9,7 @@ Extraction of the data
 Ways of data extraction
 -----------------------
 
-.. image:: images/Diagramme1.png
+.. image:: _static/images/Diagramme1.png
     :align: center
 
 We can see that pcap_to_sqlite.py, pcap_to_sqlite1.py and pcap_to_sqlite.sh are three alternatives
@@ -117,7 +117,3 @@ Here, you will extract all the trafic between 2009/01/15 22h00m00s and 2009/01/1
     Loading dictionary...
     Creating MooWheel file...
     Writting file.
-
-    
-Visualization
-=============
