@@ -1,74 +1,88 @@
-Circos graph
-============
+Circos circle
+=============
 
-Circos install
---------------
+Circos installation
+-------------------
 
-Required perl module can be installed with:
+First, download the lastest version of `CIRCOS <http://www.circos.ca>`_ and the Circos tools (for the table viewer).
+The required Perl module can be installed with:
 
 .. code-block:: bash
 
     cpan -i module_name
 
-You can download this example of Circos configuration.
+You can download `this example </static/exemple-configuration-circos.tar.gz>`_ of Circos configuration.
 
-Example
--------
+Get a pcap file
+---------------
 
 .. code-block:: bash
 
-    jerome@jerome-laptop:~/Desktop/visualisation/source$ python object_to_circos.py -i jub-dic.pyobj -o ip.circos
+    $ wget http://www.mediafire.com/file/gmmk388vkxcvme6/tbotpcaps.zip
+
+    $ unzip tbotpcaps.zip 
+    Archive:  tbotpcaps.zip
+       creating: tbotpcaps/
+      inflating: tbotpcaps/tbot_191B26BAFDF58397088C88A1B3BAC5A6.pcap  
+      inflating: tbotpcaps/tbot_23AAB9C1C462F3FDFDDD98181E963230.pcap  
+      inflating: tbotpcaps/tbot_2E1814CCCF0C3BB2CC32E0A0671C0891.pcap  
+      inflating: tbotpcaps/tbot_5375FB5E867680FFB8E72D29DB9ABBD5.pcap  
+      inflating: tbotpcaps/tbot_A0552D1BC1A4897141CFA56F75C04857.pcap  
+      inflating: tbotpcaps/tbot_FC7C3E087789824F34A9309DA2388CE5.pcap
+
+    $ cd tbotpcaps/
+
+    $ mergecap -a *.pcap -w tbot.pcap
+
+
+Alternatively, you can generate your own pcap:
+
+.. code-block:: bash
+
+    root@debian:~/IP-Link/source$ tcpdump -p -i eth0 -s 0 -w captures/snif.pcap
+
+
+Generation of the input matrix for Circos
+-----------------------------------------
+
+.. code-block:: bash
+
+    cedric@debian:~/ip-link/source$ ./pcap_to_object.py -i captures/tbot.pcap -o data/tbot.pyObj
+    Reading pcap file...
+    Serialization...
+    
+    cedric@debian:~/ip-link/source$ ./object_to_circos.py -i data/tbot.pyObj -o data/tbot.circos
     Loading objet...
     Searching IP that are source and destination...
     Circos matrix generation...
     Saving the matrix...
-    jerome@jerome-laptop:~/Desktop/circos-0.49/tools/tableviewer$ cat ../../../visualisation/source/ip.circos | ./bin/parse-table  | ./bin/make-conf -dir data
-    jerome@jerome-laptop:~/Desktop/circos-0.49/tools/tableviewer$ ../../bin/circos -conf etc/circos.conf
 
-The first command create matrix ip.circos of relation betwenn IPs, from serialized object jub-dic.pyobj.
-The second use the tool provided with circos, tableviewer, to create circos data files from matrix.
-The third one execute circos, with the data files generated, and create the graph.
+The first command generated a graph from the network capture.
+The second one create the matrix *tbot.circos* of relation betwenn IPs, from serialized object *tbot.pyObj*.
+Here is the `generated matrix </static/tbot.circos>`_. The matrix *tbot.circos* will be the input for the Circos table viewer.
 
-Result
+Generation of the Circos circle
+-------------------------------
 
 .. code-block:: bash
 
-    ip    205.218.249.167    158.64.60.71    194.154.192.1    202.30.242.24    200.151.67.119    61.184.221.42    192.168.1.2    207.46.134.155    200.207.190.33
-    205.218.249.167    -    0    0    0    0    0    1    0    0
-    158.64.60.71    0    -    0    0    0    0    179    0    0
-    194.154.192.1    0    0    -    0    0    0    5    0    0
-    202.30.242.24    0    0    0    -    0    0    1    0    0
-    200.151.67.119    0    0    0    0    -    0    1    0    0
-    61.184.221.42    0    0    0    0    0    -    1    0    0
-    192.168.1.2    1    174    5    1    1    1    -    9    1
-    207.46.134.155    0    0    0    0    0    0    0    -    0
-    200.207.190.33    0    0    0    0    0    0    1    0    -
+    cedric@debian:~/circos-0.67-5$ cat tbot.circos | tools/tableviewer/bin/parse-table  | tools/tableviewer/bin/make-conf -dir data
+    cedric@debian:~/circos-0.67-5$ ./bin/circos -conf circos.conf
 
-.. image:: images/Circos2.png
+The first command use the tool provided with Circos, tableviewer, to create Circos data files from matrix.
+The second one execute Circos, with the data files generated, and create the graph.
+
+Here is the generated Circos circle:
+
+.. image:: images/tBot-Circos.png
    :align: center
 
-
-Larger result, between 72 IPs :
-
-.. image:: images/tableview.png
-   :align: center
-   :width: 50%
-
-.. image:: images/tableview2.png
-   :align: center
-   :width: 50%
-
-
-Larger result, between 100 IPs :
-
-.. image:: images/Circos3.png
-   :align: center
 
 
 Bézier curve
 ============
 
-More detais on :doc:`this page </bezier>`.
+More detais on :doc:`this page </bezier>`. This view enables to see the relations between ports.
 
 
 Scatter plot with ploticus
@@ -76,10 +90,9 @@ Scatter plot with ploticus
 
 
 
-
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ python pcap_to_object1.py -i captures/capture.cap
+    cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/capture.cap
     Reading pcap file...
     Serialization...
 
@@ -117,7 +130,7 @@ GraphViz
     0 packets dropped by kernel
 
     # create an object from the capture
-    cedric@debian:~/IP-Link/source$ python pcap_to_object1.py -i captures/snif.pcap -o data/dic.pyobj
+    cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/snif.pcap -o data/dic.pyobj
     Reading pcap file...
     Serialization...
 
@@ -156,7 +169,7 @@ Picviz
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ python pcap_to_sqlite1.py -qi captures/capture.cap -o data/ip.sql
+    cedric@debian:~/IP-Link/source$ python pcap_to_sqlite.py -qi captures/capture.cap -o data/ip.sql
 
     cedric@debian:~/IP-Link/source$ python sqlite_to_picviz.py -i data/ip.sql -r time -p 2009-1-16-00-03-00:2009-1-16-00-05-00
     DB connect
@@ -186,7 +199,7 @@ RealTime Graph 3D
     debian:/home/cedric/IP-Link/source# exit
     exit
 
-    cedric@debian:~/IP-Link/source$ python pcap_to_object1.py -i captures/snif.pcap
+    cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/snif.pcap
     Reading pcap file...
     Serialization...
     
@@ -204,7 +217,7 @@ MooWheel
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ python pcap_to_sqlite1.py -qi captures/capture.cap
+    cedric@debian:~/IP-Link/source$ python pcap_to_sqlite.py -qi captures/capture.cap
 
     cedric@debian:~/IP-Link/source$ python sqlite_to_object.py
     DB connect
@@ -249,7 +262,7 @@ Histogram
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ python pcap_to_object1.py -i captures/capture.cap
+    cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/capture.cap
     Reading pcap file...
     Serialization...
 
