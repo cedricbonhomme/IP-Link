@@ -9,9 +9,9 @@ Welcome to IP-Link's documentation!
 .. image:: images/logo.png
    :align: right
 
-The goal of `IP-Link <https://bitbucket.org/cedricbonhomme/ip-link>`_ is to show the relationships between different IP addresses
-from network traffic capture, thus quickly determining for a given address the
-IP address with which it communicates the most.
+The goal of `IP-Link <https://bitbucket.org/cedricbonhomme/ip-link>`_ is to show the
+relationships between different IP addresses from network traffic capture, thus
+quickly determining for a given address the IP address with which it communicates the most.
 
 You can clone the source code of IP-Link :
 
@@ -19,21 +19,33 @@ You can clone the source code of IP-Link :
 
     $ git clone https://bitbucket.org/cedricbonhomme/ip-link.git
 
-* :doc:`Tutorial page </tutorial>`.
-* :doc:`How it works </howitworks>`.
-* :doc:`Documentation </documentation>`.
-
 .. image:: images/python-powered-w-140x56.png
     :target: http://python.org
 .. image:: images/BC_Rnd_48px.png
     :target: http://wiki.cedricbonhomme.org/projects
 
+How it works
+============
+
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-Indices and tables
-==================
+    howitworks
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Tutorial
+========
+
+This section explains how to generate the different visializations.
+
+.. toctree::
+    :maxdepth: 2
+
+    tutorial
+
+Tutorial
+========
+
+.. toctree::
+    :maxdepth: 2
+
+    documentation
