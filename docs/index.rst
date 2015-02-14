@@ -20,8 +20,8 @@ You can clone the source code of IP-Link :
     $ git clone https://bitbucket.org/cedricbonhomme/ip-link.git
 
 * :doc:`Tutorial page </tutorial>`.
-* :doc:`Documentation </documentation>`.
 * :doc:`How it works </howitworks>`.
+* :doc:`Documentation </documentation>`.
 
 .. image:: images/python-powered-w-140x56.png
     :target: http://python.org
