@@ -3,13 +3,11 @@ IP-Link
 
 Presentation
 ------------
-The goal of [IP-Link](http://ip-link.wikidot.com/) ([source code](https://bitbucket.org/cedricbonhomme/ip-link))
+The goal of [IP-Link](https://ip-link.readthedocs.org)
+([source code](https://bitbucket.org/cedricbonhomme/ip-link))
 is to see the relationships between different IP from network traffic capture,
-thus quickly for a given address with the IP that communicates the most. IP-Link offers severall
-visualization methods.
-
-You can find the documentation of IP-Link here: [http://ip-link.readthedocs.org/](http://ip-link.readthedocs.org/).
-
+thus quickly for a given address with the IP that communicates the most.
+IP-Link offers severall visualization methods.
 
 Requirements
 ------------
@@ -31,7 +29,7 @@ Software:
 
 Turorial and examples
 ---------------------
-The site of IP-Link provides a complete [tutorial](http://ip-link.wikidot.com/tutorial).
+The site of IP-Link provides a complete [tutorial](https://ip-link.readthedocs.org/en/latest/tutorial.html).
 
 Donation
 --------
