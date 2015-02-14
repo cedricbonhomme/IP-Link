@@ -11,7 +11,7 @@ The required Perl module can be installed with:
 
     cpan -i module_name
 
-You can download `this example </static/exemple-configuration-circos.tar.gz>`_ of Circos configuration.
+You can download `this example <static/exemple-configuration-circos.tar.gz>`_ of Circos configuration.
 
 Get a pcap file
 ---------------
@@ -59,7 +59,7 @@ Generation of the input matrix for Circos
 
 The first command generated a graph from the network capture.
 The second one create the matrix *tbot.circos* of relation betwenn IPs, from serialized object *tbot.pyObj*.
-Here is the `generated matrix </static/tbot.circos>`_. The matrix *tbot.circos* will be the input for the Circos table viewer.
+Here is the `generated matrix <static/tbot.circos>`_. The matrix *tbot.circos* will be the input for the Circos table viewer.
 
 Generation of the Circos circle
 -------------------------------
