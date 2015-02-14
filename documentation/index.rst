@@ -42,8 +42,8 @@ This section explains how to generate the different visializations.
 
     tutorial
 
-Tutorial
-========
+Documentation
+=============
 
 .. toctree::
     :maxdepth: 2
