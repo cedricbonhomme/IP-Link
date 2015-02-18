@@ -1,5 +1,5 @@
-Circos circle
-=============
+Chord diagram with Circos
+=========================
 
 Circos installation
 -------------------
@@ -62,7 +62,7 @@ The second one create the matrix *tbot.circos* of relation betwenn IPs,from seri
 object *tbot.pyObj*. Here is the :download:`generated matrix <_static/tbot.circos>`.
 The matrix *tbot.circos* will be the input for the Circos table viewer.
 
-Generation of the Circos circle
+Generation of the chord diagram
 -------------------------------
 
 .. code-block:: bash
@@ -73,7 +73,7 @@ Generation of the Circos circle
 The first command use the tool provided with Circos, tableviewer, to create Circos data files from matrix.
 The second one execute Circos, with the data files generated, and create the graph.
 
-Here is the generated Circos circle:
+Here is the generated chord diagram:
 
 .. image:: _static/images/tBot-Circos.png
    :align: center
