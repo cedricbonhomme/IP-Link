@@ -4,7 +4,7 @@
 """object_to_gexf
 
 Loads a serialized graph object in memory and generates an input file
-for Gephi
+for Gephi (GEXF file).
 """
 
 __author__ = "Cedric Bonhomme"
@@ -13,16 +13,13 @@ __date__ = "$Date: 2015/02/24 $"
 __copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2015 Cedric Bonhomme"
 __license__ = "Python"
 
-import os
-import sys
-import json
 import pickle
 import networkx as nx
 
 G = nx.Graph()
 
 def object_to_gexf(obj_file, graph_file):
-    """Create the input file for Gephi.
+    """Create the input file for Gephi (GEXF file).
     """
     if options.verbose:
         print "Loading objet..."
@@ -30,7 +27,7 @@ def object_to_gexf(obj_file, graph_file):
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
-        print "Gephi graph generation..."
+        print "GEXF graph generation..."
 
     for ip_src in dic_ip:
         for ip_dst in dic_ip[ip_src]:
@@ -52,7 +49,7 @@ if __name__ == "__main__":
     parser.add_option("-i", "--input", dest="obj_file",
                     help="Python serialized object")
     parser.add_option("-o", "--output", dest="graph_file",
-                    help="Input file for Gephi")
+                    help="Input file for Gephi (GEXF file)")
     parser.add_option("-q", "--quiet",
                     action="store_false", dest="verbose",
                     help="be vewwy quiet (I'm hunting wabbits)")
