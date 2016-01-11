@@ -16,7 +16,7 @@ __license__ = "Python"
 import pickle
 import networkx as nx
 
-G = nx.Graph()
+G = nx.DiGraph()
 
 def object_to_gexf(obj_file, graph_file):
     """Create the input file for Gephi (GEXF file).
