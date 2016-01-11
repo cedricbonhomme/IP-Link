@@ -9,7 +9,7 @@ Welcome to IP-Link's documentation!
 .. image:: _static/images/logo.png
    :align: right
 
-The goal of `IP-Link <https://bitbucket.org/cedricbonhomme/ip-link>`_ is to show the
+The goal of `IP-Link <https://github.com/cedricbonhomme/IP-Link>`_ is to show the
 relationships between different IP addresses from network traffic capture, thus
 quickly determining for a given address the IP address with which it communicates the most.
 
@@ -17,7 +17,7 @@ You can clone the source code:
 
 .. code-block:: bash
 
-    $ git clone https://bitbucket.org/cedricbonhomme/ip-link.git
+    $ git clone https://github.com/cedricbonhomme/IP-Link.git
 
 How it works
 ============
