@@ -3,14 +3,17 @@ IP-Link
 
 Presentation
 ------------
-The goal of [IP-Link](https://ip-link.readthedocs.org)
-([source code](https://bitbucket.org/cedricbonhomme/ip-link))
+
+The goal of [IP-Link](https://ip-link.readthedocs.io)
+([source code](https://github.com/cedricbonhomme/IP-Link))
 is to see the relationships between different IP from network traffic capture,
 thus quickly for a given address with the IP that communicates the most.
 IP-Link offers severall visualization methods.
 
+
 Requirements
 ------------
+
 Python 2.7.
 
 Python modules:
@@ -29,13 +32,11 @@ Software:
 
 Turorial and examples
 ---------------------
-The site of IP-Link provides a complete [tutorial](https://ip-link.readthedocs.org/en/latest/tutorial.html).
 
-Donation
---------
-If you wish and if you like IP-Link, you can donate via bitcoin. My bitcoin address: [1GVmhR9fbBeEh7rP1qNq76jWArDdDQ3otZ](https://blockexplorer.com/address/1GVmhR9fbBeEh7rP1qNq76jWArDdDQ3otZ).
-Thank you!
+The site of IP-Link provides a complete [tutorial](https://ip-link.readthedocs.io/en/latest/tutorial.html).
+
 
 Contact
 -------
-[My home page](https://www.cedricbonhomme.org).
+
+[Cédric Bonhomme](https://www.cedricbonhomme.org)
