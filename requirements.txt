@@ -1,4 +1,4 @@
 impacket
 pcapy
-pcap
+pypcap
 networkx
