@@ -23,7 +23,7 @@ class Mock(MagicMock):
     @classmethod
     def __getattr__(cls, name):
         return MagicMock()
-MOCK_MODULES = ['pcap']
+MOCK_MODULES = ['pcap', 'impacket', pcapy]
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 
@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'IP-Link'
-copyright = u'2009-2016, Cédric Bonhomme, Jérôme Hussenet'
+copyright = u'2009-2017, Cédric Bonhomme, Jérôme Hussenet'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
