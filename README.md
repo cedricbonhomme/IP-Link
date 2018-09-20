@@ -5,7 +5,7 @@ Presentation
 ------------
 
 The goal of [IP-Link](https://ip-link.readthedocs.io)
-([source code](https://github.com/cedricbonhomme/IP-Link))
+([source code](https://gitlab.com/cedric/ip-link))
 is to see the relationships between different IP from network traffic capture,
 thus quickly for a given address with the IP that communicates the most.
 IP-Link offers severall visualization methods.
