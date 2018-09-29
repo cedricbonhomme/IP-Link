@@ -21,7 +21,7 @@ import pickle
 def object_to_graphviz(obj_file, gv_file):
     """Generate a DOT file for GraphViZ.
     """
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file, "rb")
     if options.verbose:
         print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)

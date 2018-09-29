@@ -1,4 +1,0 @@
-impacket
-pcapy
-pypcap
-networkx

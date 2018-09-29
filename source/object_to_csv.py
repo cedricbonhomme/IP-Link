@@ -32,12 +32,12 @@ csv.register_dialect('excel_french', excel_french)
 
 def object_to_csv(obj_file, csv_file):
     """Generate CSV file."""
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file, "rb")
     if options.verbose:
         print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
 
-    c = csv.writer(open(csv_file, "wb"), 'excel_french')
+    c = csv.writer(open(csv_file, "w"), 'excel_french')
 
     if options.verbose:
         print("Writting CSV file...")

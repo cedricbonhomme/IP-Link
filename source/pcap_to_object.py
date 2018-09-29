@@ -21,9 +21,10 @@ __license__ = "Python"
 import os
 import sys
 
-import pcap
-import socket
-import struct
+from pypacker import ppcap
+from pypacker.layer12 import ethernet
+from pypacker.layer3 import ip
+from pypacker.layer4 import tcp
 
 import pickle
 
@@ -32,27 +33,6 @@ from collections import Counter
 def ip_dict():
     return defaultdict(Counter)
 
-def decode_ip_packet(s):
-    """Decode IP packets"""
-    d = {}
-    #d['version'] = (ord(s[0]) & 0xf0) >> 4
-    #d['header_len'] = ord(s[0]) & 0x0f
-    #d['tos'] = ord(s[1])
-    #d['total_len'] = socket.ntohs(struct.unpack('H', s[2:4])[0])
-    #d['id'] = socket.ntohs(struct.unpack('H', s[4:6])[0])
-    #d['flags'] = (ord(s[6]) & 0xe0) >> 5
-    #d['fragment_offset'] = socket.ntohs(struct.unpack('H', s[6:8])[0] & 0x1f)
-    #d['ttl'] = ord(s[8])
-    #d['protocol'] = ord(s[9])
-    #d['checksum'] = socket.ntohs(struct.unpack('H', s[10:12])[0])
-    d['source_address'] = pcap.ntoa(struct.unpack('i', s[12:16])[0])
-    d['destination_address'] = pcap.ntoa(struct.unpack('i', s[16:20])[0])
-    #if d['header_len'] > 5:
-      #d['options'] = s[20:4*(d['header_len']-5)]
-    #else:
-      #d['options'] = None
-    #d['data'] = s[4*d['header_len']:]
-    return d
 
 def pcap_to_object(pcap_file, obj_file):
     """Create a Python serialized graph object.
@@ -60,25 +40,24 @@ def pcap_to_object(pcap_file, obj_file):
     Read the pcap file given in parameter, extracts source and destination IP
     and write a serialized graph object.
     """
-    reader = pcap.pcapObject()
-    reader.open_offline(pcap_file)
+    dic_ip = ip_dict()
+    reader = ppcap.Reader(filename=pcap_file)
 
     if options.verbose:
         print("Reading pcap file...")
-    dic_ip = ip_dict()
-    while True:
-        try:
-            (_, payload, tts) = next(reader)
-        except:
-            break
-        if payload[12:14] == '\x08\x00':
-            decoded_ip_packet = decode_ip_packet(payload[14:])
-            dic_ip[decoded_ip_packet['source_address']] \
-                    [decoded_ip_packet['destination_address']] += 1
+    for ts, buf in reader:
+        eth = ethernet.Ethernet(buf)
+
+        if eth[ethernet.Ethernet, ip.IP, tcp.TCP] is not None:
+            # print("%d: %s:%s -> %s:%s" % (ts, eth[ip.IP].src_s,
+            #                             eth[tcp.TCP].sport, eth[ip.IP].dst_s,
+            #                             eth[tcp.TCP].dport))
+
+            dic_ip[eth[ip.IP].src_s][eth[ip.IP].dst_s] += 1
 
     if options.verbose:
         print("Serialization...")
-    dic_obj = open(obj_file, "w")
+    dic_obj = open(obj_file, "wb")
     pickle.dump(dic_ip, dic_obj)
     dic_obj.close()
 

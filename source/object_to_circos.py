@@ -25,7 +25,7 @@ def object_to_circos(obj_file, circos_file):
     """
     if options.verbose:
         print("Loading objet...")
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file, "rb")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
@@ -69,7 +69,7 @@ def object_to_circos(obj_file, circos_file):
 
     if options.verbose:
         print("Saving the matrix...")
-    tab_file = open(circos_file, "wb")
+    tab_file = open(circos_file, "w")
     s= []
     s.append("ip")
     for i in tab:

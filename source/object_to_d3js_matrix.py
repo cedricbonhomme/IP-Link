@@ -24,7 +24,7 @@ def object_to_d3js(obj_file, matrix_file):
     """
     if options.verbose:
         print("Loading objet...")
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file, "rb")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:

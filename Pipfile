@@ -4,10 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-impacket = "*"
-pcapy = "*"
-pypcap = "*"
 networkx = "*"
+pypacker = "*"
 
 [dev-packages]
 

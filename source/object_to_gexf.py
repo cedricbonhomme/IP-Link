@@ -23,7 +23,7 @@ def object_to_gexf(obj_file, graph_file):
     """
     if options.verbose:
         print("Loading objet...")
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file, "rb")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
