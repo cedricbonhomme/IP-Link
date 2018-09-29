@@ -90,16 +90,16 @@ def pcap_to_sqlite(pcap_file, sqlite_file):
     c = conn.cursor()
 
     if options.verbose:
-        print "Creating table."
+        print("Creating table.")
     c.execute('''create table ip_link
     (tts real, ip_src text, ip_dst text, prot int1, port_src int4, port_dst int4)''')
 
     if options.verbose:
-        print "Reading pcap and inserting values in the table..."
+        print("Reading pcap and inserting values in the table...")
     stat = {}
     while True:
         try:
-            (_, payload, tts) = reader.next()
+            (_, payload, tts) = next(reader)
         except:
             break
         if payload[12:14] == '\x08\x00':
@@ -123,7 +123,7 @@ def pcap_to_sqlite(pcap_file, sqlite_file):
     conn.commit()
     c.close()
     if options.verbose:
-        print stat
+        print(stat)
 
 
 if __name__ == "__main__":

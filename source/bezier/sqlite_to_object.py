@@ -23,7 +23,7 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameters):
     and serialize an object containing the result.
     """
     if options.verbose:
-        print "DB connect"
+        print("DB connect")
     conn = sqlite3.connect(sqlite_file, isolation_level = None)
 
     requests = { "all" : "SELECT ip_src, ip_dst, port_src, port_dst FROM ip_link",
@@ -41,7 +41,7 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameters):
         req = req.replace("number", n)
 
     if options.verbose:
-        print "Query sent to the base :\n\t" + req
+        print("Query sent to the base :\n\t" + req)
     liste = conn.execute(req).fetchall()
 
     
@@ -72,7 +72,7 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameters):
     conn.close()    
 
     if options.verbose:
-        print "Serialization..."
+        print("Serialization...")
     dic_obj = open(obj_file, "w")
     pickle.dump(dic, dic_obj)
     dic_obj.close()

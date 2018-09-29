@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/env python
 #-*- coding: utf-8 -*-
 
 """object_to_image
@@ -100,7 +100,7 @@ def circular_arc(x_c, y_c, r, ang1, ang2, draw, color):
             m = m-8*y
         x = x+1
         m = m+8*x+4
-        
+
     return (x1, y1, x2, y2)
 
 def make_bezier(xys):
@@ -119,7 +119,7 @@ def make_bezier(xys):
             upowers=reversed([(1-t)**i for i in range(n)])
             coefs=[c*a*b for c,a,b in zip(combinations,tpowers,upowers)]
             result.append(
-                tuple(sum([coef*p for coef,p in zip(coefs,ps)]) for ps in zip(*xys)))
+                tuple(sum([coef*p for coef,p in zip(coefs,ps)]) for ps in list(zip(*xys))))
         return result
     return bezier
 
@@ -139,20 +139,20 @@ def pascal_row(n):
         # n is even
         result.extend(reversed(result[:-1]))
     else:
-        result.extend(reversed(result)) 
+        result.extend(reversed(result))
     return result
 
 def object_to_image(obj_file, image_file):
 
     if options.verbose:
-        print "Loading objet..."
-    dic_obj = open(obj_file, "r")
+        print("Loading objet...")
+    dic_obj = open(obj_file, "rb")
     dic_link = pickle.load(dic_obj)
 
     #print dic_link
     if options.verbose:
-        print "Generate Communication stats..."
-    
+        print("Generate Communication stats...")
+
     dic_stat = {}
     num_total = 0
     for ip_src in dic_link:
@@ -173,8 +173,8 @@ def object_to_image(obj_file, image_file):
                     dic_stat[ip_dst]['in'][port_dst] = dic_stat[ip_dst]['in'].get(port_dst, 0) + num
 
     if options.verbose:
-        print "Number of communication: ",num_total
-        print "Number of IPs: ",len(dic_stat)
+        print("Number of communication: ",num_total)
+        print("Number of IPs: ",len(dic_stat))
 
     dic_info = {"ip":{}, "port":{}}
 
@@ -187,7 +187,7 @@ def object_to_image(obj_file, image_file):
     last_angle = 0
     color_gen = color()
     if options.verbose:
-        print "Draw IP and Ports circles..."
+        print("Draw IP and Ports circles...")
     for ip in dic_stat: #draw ip circle
         num_out = 0
         num_in = 0
@@ -212,15 +212,15 @@ def object_to_image(obj_file, image_file):
             angle2o = (port_num_out*angle) / (num_out+num_in)
             angle2 = angle2i + angle2o
 
-            cur_color2 = color_gen2.next()
+            cur_color2 = next(color_gen2)
 
             #print port, port_num_out+port_num_in, last_angle2, last_angle2+angle2, cur_color2
             (xps, yps, xpe, ype) = circular_arc(xc, yc, port_radius, last_angle2, last_angle2+angle2, draw, cur_color2[0])
             x2, y2 = xc + port_radius * math.cos(math.radians(last_angle2 + angle2 / 2)), yc + port_radius * math.sin(math.radians(last_angle2 + angle2 / 2))
-            
+
             #draw.text((x2,y2), str(port), fill=cur_color2[0])
             rotate_text(im, (int(x2),int(y2)), str(port), int(round(last_angle2+angle2/2)), cur_color2[0])
-            
+
             angtmpps = math.atan2(yps-yc, xps-xc)
             angtmppe = math.atan2(ype-yc, xpe-xc)
             xtmpps, ytmpps = xc+link_radius*math.cos(angtmpps),yc+link_radius*math.sin(angtmpps)
@@ -232,7 +232,7 @@ def object_to_image(obj_file, image_file):
             (xos, yos, xoe, yoe) = circular_arc(xc, yc, port_d_radius, last_angle2+angle2i, last_angle2+angle2, draw, cur_color2[0])
             xt1, yt1 = xc + port_d_radius * math.cos(math.radians(last_angle2+angle2i/2)), xc + port_d_radius * math.sin(math.radians(last_angle2+angle2i/2))
             xt2, yt2 = xc + port_d_radius * math.cos(math.radians(last_angle2+angle2i+angle2o/2)), xc + port_d_radius * math.sin(math.radians(last_angle2+angle2i+angle2o/2))
-            
+
             angtmpis = math.atan2(yis-yc, xis-xc)
             angtmpie = math.atan2(yie-yc, xie-xc)
             angtmpos = math.atan2(yos-yc, xos-xc)
@@ -245,7 +245,7 @@ def object_to_image(obj_file, image_file):
             draw.line((xos,yos,xtmpos,ytmpos), fill="black")
             draw.line((xie,yie,xtmpie,ytmpie), fill="black")
             draw.line((xoe,yoe,xtmpoe,ytmpoe), fill="black")
-            
+
             #draw.text((xt1,yt1), "in", fill=cur_color2[1])
             #draw.text((xt2,yt2), "out", fill=cur_color2[0])
             if port_num_in>0:
@@ -272,11 +272,11 @@ def object_to_image(obj_file, image_file):
 
             last_angle2 += angle2
 
-        cur_color = color_gen.next()
+        cur_color = next(color_gen)
         #print ip, num_out+num_in, last_angle, last_angle+angle, cur_color
-        
+
         #xcp, ycp = xc + 20 * math.cos(math.radians(last_angle+angle/2)), yc + 20 * math.sin(math.radians(last_angle+angle/2))
-        
+
         (xs, ys, xe, ye) = circular_arc(xc, yc, ip_radius, last_angle, last_angle+angle, draw, cur_color[0])
 
         dic_info["ip"][ip] = {}
@@ -286,7 +286,7 @@ def object_to_image(obj_file, image_file):
         dic_info["ip"][ip]["num_in"] = num_in
         dic_info["ip"][ip]["num_out"] = num_out
         dic_info["ip"][ip]["color"] = cur_color
-        
+
         angtmps = math.atan2(ys-yc, xs-xc)
         angtmpe = math.atan2(ye-yc, xe-xc)
         xtmps, ytmps = xc+link_radius*math.cos(angtmps),yc+link_radius*math.sin(angtmps)
@@ -303,7 +303,7 @@ def object_to_image(obj_file, image_file):
     #at this point, the circle is drawn
     #now, let's go for the link
     if options.verbose:
-        print "Generate Port communication list..."
+        print("Generate Port communication list...")
     #this loop prepares the link calculation by giving for each port a list of in a out communication
     for ip_src in dic_link:
         for ip_dst in dic_link[ip_src]:
@@ -355,7 +355,7 @@ def object_to_image(obj_file, image_file):
             last_angle += angle
 
     if options.verbose:
-        print "Draw Communication Links..."
+        print("Draw Communication Links...")
     #Now, let's draw the links :)
     for ip_src in dic_link:
         for ip_dst in dic_link[ip_src]:
@@ -380,7 +380,7 @@ def object_to_image(obj_file, image_file):
                         midang = (anglei-dang2/2)%360
                     #print dang1, dang2, midang
                     xcc,ycc = 0.5*link_radius*math.cos(math.radians(midang))+size/2,0.5*link_radius*math.sin(math.radians(midang))+size/2
-                    
+
                     ts=[t/100.0 for t in range(101)]
                     #points1 = [(starti[0],starti[1]),(xcc,ycc),(starto[0],starto[1])]
                     points1 = [(starti[0],starti[1]),(xcc,ycc),(endo[0],endo[1])]
@@ -391,10 +391,10 @@ def object_to_image(obj_file, image_file):
                     bezier = make_bezier(points2)
                     pts2 = bezier(ts)
                     cur_color = dic_info["port"][keyo]["color"][0]
-                    
+
                     draw.polygon(pts1+pts2,fill=cur_color)
                     draw.line(pts2+pts1, fill="black")
-                    
+
                     """
                     Circular Arc version
                     """
@@ -423,7 +423,7 @@ def object_to_image(obj_file, image_file):
 
                     circular_arc(xc1, yc1, radius1, ang1, ang1+180, draw, cur_color)
                     circular_arc(xc2, yc2, radius2, ang2, ang2+180, draw, cur_color)
- 
+
                     #draw.line((starto[0],starto[1],endi[0],endi[1]), fill=cur_color)
                     #draw.line((endo[0],endo[1],starti[0],starti[1]), fill=cur_color)
                     """
