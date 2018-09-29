@@ -50,28 +50,12 @@ Generate a serialized graph object.
 
 Read the pcap file given in parameter, extracts source and destination IP and create the graph onject.
 
-This script uses pcapy, so it is not as fast as the one using pylibpcap.
-
 Options:
 
 - -i, —input pcap file
 - -o, —output python serialized object
 - -q, —quiet disable print on stdout
 
-pcap_to_object1.py
-------------------
-
-Generate a serialized graph object.
-
-Read the pcap file given in parameter, extracts source and destination IP and create the graph onject.
-
-This script uses Pylibpcap which is faster than pcapy.
-
-Options:
-
-- -i, —input pcap file
-- -o, —output Python serialized object
-- -q, —quiet disable print on stdout
 
 
 Visualization
@@ -101,4 +85,4 @@ Options:
 
 - -i, —input Python serialized object
 - -o, —output MooWheel HTML file
-- -q, —quiet disable print on stdout 
+- -q, —quiet disable print on stdout

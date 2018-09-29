@@ -9,7 +9,7 @@ Welcome to IP-Link's documentation!
 .. image:: _static/images/logo.png
    :align: right
 
-The goal of `IP-Link <https://github.com/cedricbonhomme/IP-Link>`_ is to show the
+The goal of `IP-Link <https://gitlab.com/cedric/ip-link>`_ is to show the
 relationships between different IP addresses from network traffic capture, thus
 quickly determining for a given address the IP address with which it communicates the most.
 
@@ -58,4 +58,3 @@ Thank you!
 
 .. image:: _static/images/BC_Rnd_48px.png
     :target: http://wiki.cedricbonhomme.org/projects
-

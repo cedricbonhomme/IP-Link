@@ -13,33 +13,12 @@ The required Perl module can be installed with:
 
 You can download :download:`this example <_static/exemple-configuration-circos.tar.gz>` of Circos configuration.
 
-Get a pcap file
+Generate a pcap file
 ---------------
 
 .. code-block:: bash
 
-    $ wget http://www.mediafire.com/file/gmmk388vkxcvme6/tbotpcaps.zip
-
-    $ unzip tbotpcaps.zip 
-    Archive:  tbotpcaps.zip
-       creating: tbotpcaps/
-      inflating: tbotpcaps/tbot_191B26BAFDF58397088C88A1B3BAC5A6.pcap  
-      inflating: tbotpcaps/tbot_23AAB9C1C462F3FDFDDD98181E963230.pcap  
-      inflating: tbotpcaps/tbot_2E1814CCCF0C3BB2CC32E0A0671C0891.pcap  
-      inflating: tbotpcaps/tbot_5375FB5E867680FFB8E72D29DB9ABBD5.pcap  
-      inflating: tbotpcaps/tbot_A0552D1BC1A4897141CFA56F75C04857.pcap  
-      inflating: tbotpcaps/tbot_FC7C3E087789824F34A9309DA2388CE5.pcap
-
-    $ cd tbotpcaps/
-
-    $ mergecap -a *.pcap -w tbot.pcap
-
-
-Alternatively, you can generate your own pcap:
-
-.. code-block:: bash
-
-    root@debian:~/IP-Link/source$ tcpdump -p -i eth0 -s 0 -w captures/snif.pcap
+    root@debian:~/IP-Link/source$ tcpdump -p -i eth0 -s 0 -w captures/capture.pcap
 
 
 Generation of the input matrix for Circos
@@ -47,27 +26,27 @@ Generation of the input matrix for Circos
 
 .. code-block:: bash
 
-    cedric@debian:~/ip-link/source$ ./pcap_to_object.py -i captures/tbot.pcap -o data/tbot.pyObj
+    cedric@debian:~/ip-link/source$ ./pcap_to_object.py -i captures/capture.pcap -o data/capture.pyObj
     Reading pcap file...
     Serialization...
 
-    cedric@debian:~/ip-link/source$ ./object_to_circos.py -i data/tbot.pyObj -o data/tbot.circos
+    cedric@debian:~/ip-link/source$ ./object_to_circos.py -i data/capture.pyObj -o data/capture.circos
     Loading objet...
     Searching IP that are source and destination...
     Circos matrix generation...
     Saving the matrix...
 
 The first command generated a graph from the network capture.
-The second one create the matrix *tbot.circos* of relation betwenn IPs,from serialized
-object *tbot.pyObj*. Here is the :download:`generated matrix <_static/tbot.circos>`.
-The matrix *tbot.circos* will be the input for the Circos table viewer.
+The second one create the matrix *capture.circos* of relation betwenn IPs,from serialized
+object *capture.pyObj*. Here is the :download:`generated matrix <_static/capture.circos>`.
+The matrix *capture.circos* will be the input for the Circos table viewer.
 
 Generation of the chord diagram
 -------------------------------
 
 .. code-block:: bash
 
-    cedric@debian:~/circos-0.67-5$ cat tbot.circos | tools/tableviewer/bin/parse-table  | tools/tableviewer/bin/make-conf -dir data
+    cedric@debian:~/circos-0.67-5$ cat capture.circos | tools/tableviewer/bin/parse-table  | tools/tableviewer/bin/make-conf -dir data
     cedric@debian:~/circos-0.67-5$ ./bin/circos -conf circos.conf
 
 The first command use the tool provided with Circos, tableviewer, to create Circos data files from matrix.
@@ -125,13 +104,13 @@ GraphViz
 .. code-block:: bash
 
     # create your capture
-    root@debian:~/IP-Link/source$ tcpdump -p -i eth0 -s 0 -w captures/snif.pcap
+    root@debian:~/IP-Link/source$ tcpdump -p -i eth0 -s 0 -w captures/capture.pcap
     ^C1701 packets captured
     1701 packets received by filter
     0 packets dropped by kernel
 
     # create an object from the capture
-    cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/snif.pcap -o data/dic.pyobj
+    cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/capture.pcap -o data/dic.pyobj
     Reading pcap file...
     Serialization...
 
@@ -141,7 +120,7 @@ GraphViz
     Creating GraphViz DOT file...
     Writting file.
 
-The first command create a pcap. tcpdump captures all the network traffic on all interfaces and create captures/snif.pcap.
+The first command create a pcap. tcpdump captures all the network traffic on all interfaces and create captures/capture.pcap.
 The second one parse the pcap and generate a serialized graph.
 The last command create the DOT file from the saved serialized graph.
 
@@ -192,7 +171,7 @@ RealTime Graph 3D
 
 .. code-block:: bash
 
-    debian:/home/cedric/IP-Link/source# tcpdump -p -i eth0 -s 0 -w captures/snif.pcap
+    debian:/home/cedric/IP-Link/source# tcpdump -p -i eth0 -s 0 -w captures/capture.pcap
     tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
     ^C1549 packets captured
     1549 packets received by filter
@@ -200,7 +179,7 @@ RealTime Graph 3D
     debian:/home/cedric/IP-Link/source# exit
     exit
 
-    cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/snif.pcap
+    cedric@debian:~/IP-Link/source$ python pcap_to_object.py -i captures/capture.pcap
     Reading pcap file...
     Serialization...
 
