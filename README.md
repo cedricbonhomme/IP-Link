@@ -10,6 +10,14 @@ is to see the relationships between different IP from network traffic capture,
 thus quickly for a given address with the IP that communicates the most.
 IP-Link offers severall visualization methods.
 
+Installation
+------------
+
+```bash
+sudo apt install libpcap0.8 libpcap0.8-dev
+pipenv install
+pipenv shell
+```
 
 Requirements
 ------------
