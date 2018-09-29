@@ -5,28 +5,23 @@
 """pcap_to_object
 
 Generate a serialized graph object from the pcap file.
-
-This script uses Pylibpcap which is faster than pcapy.
-
-http://sourceforge.net/projects/pylibpcap/
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2009/02/20 $"
-__revision__ = "$Date: 2013/04/01 $"
-__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
+__revision__ = "$Date: 2018/10/29 $"
+__copyright__ = "Copyright (c) 2009-2018 Jerome Hussenet, Copyright (c) 2009-2018 Cedric Bonhomme"
 __license__ = "Python"
 
 import os
 import sys
+import pickle
 
 from pypacker import ppcap
 from pypacker.layer12 import ethernet
 from pypacker.layer3 import ip
 from pypacker.layer4 import tcp
-
-import pickle
 
 from collections import defaultdict
 from collections import Counter
@@ -52,7 +47,6 @@ def pcap_to_object(pcap_file, obj_file):
             # print("%d: %s:%s -> %s:%s" % (ts, eth[ip.IP].src_s,
             #                             eth[tcp.TCP].sport, eth[ip.IP].dst_s,
             #                             eth[tcp.TCP].dport))
-
             dic_ip[eth[ip.IP].src_s][eth[ip.IP].dst_s] += 1
 
     if options.verbose:
