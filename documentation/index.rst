@@ -10,14 +10,21 @@ Welcome to IP-Link's documentation!
    :align: right
 
 The goal of `IP-Link <https://gitlab.com/cedric/ip-link>`_ is to show the
-relationships between different IP addresses from network traffic capture, thus
-quickly determining for a given address the IP address with which it communicates the most.
+relationships between different IP addresses from network traffic capture,
+thus quickly determining for a given address the IP address with which it
+communicates the most.
 
-You can clone the source code:
+
+Installation
+============
 
 .. code-block:: bash
 
     $ git clone https://gitlab.com/cedric/ip-link.git
+    $ sudo apt install libpcap0.8 libpcap0.8-dev
+    $ pipenv install
+    $ pipenv shell
+
 
 How it works
 ============
@@ -29,6 +36,7 @@ This section exposes the principles of IP-Link.
 
     how-it-works
 
+
 Tutorial
 ========
 
@@ -39,6 +47,7 @@ This section explains how to generate the different visializations.
 
     tutorial
 
+
 Documentation
 =============
 
@@ -48,6 +57,7 @@ This section explains how to use the different components.
     :maxdepth: 2
 
     documentation
+
 
 Donation
 ========

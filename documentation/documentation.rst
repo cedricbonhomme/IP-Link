@@ -8,28 +8,12 @@ Generate the SQLite base.
 
 Read the pcap file given in parameter, extracts source and destination IP and create the SQLite base.
 
-This script uses pcapy, so it is not as fast as the one using pylibpcap.
-
 Options:
 
 - -i, —input pcap file, (provided by tcpdump for example)
 - -o, —output sqlite file
 - -q, —quiet disable print on stdout
 
-pcap_to_sqlite1.py
-------------------
-
-Generate the SQLite base.
-
-Read the pcap file given in parameter, extracts source and destination IP and create the SQLite base.
-
-This script uses Pylibpcap which is faster than pcapy.
-
-Options:
-
-- -i, —input pcap file
-- -o, —output sqlite file
-- -q, —quiet disable print on stdout
 
 pcap_to_sqlite.sh
 -----------------
