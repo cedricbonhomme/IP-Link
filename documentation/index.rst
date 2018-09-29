@@ -17,7 +17,7 @@ You can clone the source code:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/cedricbonhomme/IP-Link.git
+    $ git clone https://gitlab.com/cedric/ip-link.git
 
 How it works
 ============
