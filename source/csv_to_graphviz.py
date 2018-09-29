@@ -32,7 +32,7 @@ def csv_to_graphviz(csv_file, gv_file):
     """Generate a DOT file for GraphViZ from a CSV file.
     """
     if options.verbose:
-        print "Loading CSV file..."
+        print("Loading CSV file...")
     cr = csv.reader(open(csv_file, "rb"), 'excel_french')
 
     liste_ip, liste = [], []
@@ -44,7 +44,7 @@ def csv_to_graphviz(csv_file, gv_file):
             liste_ip.append(ip[1])
 
     if options.verbose:
-        print "Creating GraphViz DOT file..."
+        print("Creating GraphViz DOT file...")
     gv_txt = "digraph G {\n"
     gv_txt += '\tbgcolor=azure;\n'
     gv_txt += '\tranksep=2;\n'
@@ -61,15 +61,15 @@ def csv_to_graphviz(csv_file, gv_file):
     gv_txt += "}"
 
     if options.verbose:
-        print "Writting file."
+        print("Writting file.")
     gv = open(gv_file, "w")
     gv.write(gv_txt)
     gv.close()
 
     if options.verbose:
-        print "See the result :"
-        print "\tdotty " + gv_file
-        print "\tdot -Tpng -o " + gv_file
+        print("See the result :")
+        print("\tdotty " + gv_file)
+        print("\tdot -Tpng -o " + gv_file)
 
 
 if __name__ == "__main__":

@@ -57,15 +57,15 @@ def csv_to_piechart(csv_file, ip_src):
 
         pylab.show()
     else:
-        print "No result for ", ip_src
+        print("No result for ", ip_src)
 
 if __name__ == "__main__":
     # Point of entry in execution mode.
     try:
         import pylab
     except ImportError:
-        print "Error : pylab module missing."
-        print "http://matplotlib.sourceforge.net/"
+        print("Error : pylab module missing.")
+        print("http://matplotlib.sourceforge.net/")
         exit(1)
 
     from optparse import OptionParser

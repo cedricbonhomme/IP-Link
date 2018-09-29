@@ -23,7 +23,7 @@ def object_to_graphviz(obj_file, gv_file):
     """
     dic_obj = open(obj_file, "r")
     if options.verbose:
-        print "Loading dictionary..."
+        print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
 
     # collects all IP
@@ -31,12 +31,12 @@ def object_to_graphviz(obj_file, gv_file):
     for i in dic_ip:
         if i not in liste_ip:
             liste_ip.append(i)
-        for j in dic_ip[i].keys():
+        for j in list(dic_ip[i].keys()):
             if j not in liste_ip:
                 liste_ip.append(j)
 
     if options.verbose:
-        print "Creating GraphViz DOT file..."
+        print("Creating GraphViz DOT file...")
     gv_txt = "digraph G {\n"
     gv_txt += '\tbgcolor=azure;\n'
     gv_txt += '\tranksep=10;\n'
@@ -55,7 +55,7 @@ def object_to_graphviz(obj_file, gv_file):
     gv_txt += "}"
 
     if options.verbose:
-        print "Writting file."
+        print("Writting file.")
     gv = open(gv_file, "w")
     gv.write(gv_txt)
     gv.close()

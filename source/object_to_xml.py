@@ -44,11 +44,11 @@ def object_to_xml(obj_file, xml_file):
     """Gnerate an XML file."""
     dic_obj = open(obj_file, "r")
     if options.verbose:
-        print "Loading dictionary..."
+        print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
-        print "Creating XML file..."
+        print("Creating XML file...")
     doc = Document()
     racine = doc.createElement("IP-Link")
     doc.appendChild(racine)
@@ -69,8 +69,8 @@ def object_to_xml(obj_file, xml_file):
     try:
         file = open(xml_file, 'w')
         file.write('%s' % doc.toxml().encode('utf-8'))
-    except IOError, e:
-        print "Writting error :", e
+    except IOError as e:
+        print("Writting error :", e)
     finally:
         file.close()
 

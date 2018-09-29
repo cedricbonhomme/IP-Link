@@ -54,10 +54,10 @@ def pcap_to_serializedList(pcap_file, obj_file):
     liste_ip = []
 
     if options.verbose:
-        print "Reading pcap file..."
+        print("Reading pcap file...")
     while True:
         try:
-            (_, payload, tts) = reader.next()
+            (_, payload, tts) = next(reader)
         except:
             break
         if payload[12:14] == '\x08\x00':
@@ -66,7 +66,7 @@ def pcap_to_serializedList(pcap_file, obj_file):
                             decoded_ip_packet['destination_address']))
 
     if options.verbose:
-        print "Serialization..."
+        print("Serialization...")
     liste_obj = open(obj_file, "w")
     pickle.dump(liste_ip, liste_obj)
     liste_obj.close()

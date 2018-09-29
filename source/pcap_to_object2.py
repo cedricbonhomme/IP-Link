@@ -36,8 +36,8 @@ def pcap_to_object(pcap_file, obj_file):
     and write a serialized graph object.
     """
     reader = pcapy.open_offline(pcap_file)
-    print reader.datalink()
-    print pcapy.DLT_LINUX_SLL
+    print(reader.datalink())
+    print(pcapy.DLT_LINUX_SLL)
     eth_decoder = Decoders.EthDecoder()
     sll_decoder = Decoders.LinuxSLLDecoder()
     ip_decoder = Decoders.IPDecoder()
@@ -48,10 +48,10 @@ def pcap_to_object(pcap_file, obj_file):
     tts_max = 2000
 
     if options.verbose:
-        print "Reading pcap file..."
+        print("Reading pcap file...")
     while True:
         try:
-            (header, payload) = reader.next()
+            (header, payload) = next(reader)
             if True: #tts_min <= header.getts()[0] <= tts_max:
                 #ethernet = eth_decoder.decode(payload)
                 sll = sll_decoder.decode(payload)
@@ -60,13 +60,13 @@ def pcap_to_object(pcap_file, obj_file):
                     ip_src = sll.child().get_ip_src()
                     ip_dst = sll.child().get_ip_dst()
                     dic_ip[ip_src][ip_dst] += 1
-        except Packets.ImpactPacketException, e:
-            print e
+        except Packets.ImpactPacketException as e:
+            print(e)
         except:
             break
 
     if options.verbose:
-        print "Serialization..."
+        print("Serialization...")
     dic_obj = open(obj_file, "w")
     pickle.dump(dic_ip, dic_obj)
     dic_obj.close()

@@ -4,6 +4,7 @@
 import operator
 import os
 import random
+from functools import reduce
 
 def genere_col():
     r = random.randint(0,255)
@@ -20,9 +21,9 @@ liste_ip = ligne.split('\t')[1:]
 dic_ip = {} #contient pour chaque ip le nombre de fois ou elle apparait (s ou d)
 for i in liste_ip:
     dic_ip[i] = 0
-print dic_ip
+print(dic_ip)
 
-print liste_ip
+print(liste_ip)
 
 ligne = tabf.readline()[:-1]
 
@@ -33,7 +34,7 @@ while (not ligne == ""):
         if not i=='-':
             tab2.append(int(i))
     v = reduce(operator.add, tab2) # nombre de paquets ou l'ip est source
-    print tab
+    print(tab)
     dic_ip[tab[0]] += v
 
     # ajoute a chaque ip le nombre de fois ou elle est dest avec cette ip
@@ -66,4 +67,4 @@ for i in range(len(dic_ip)):
     id+=1
 colors.close()
 
-print dic_ip
+print(dic_ip)

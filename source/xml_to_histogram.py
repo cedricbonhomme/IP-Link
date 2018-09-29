@@ -54,7 +54,7 @@ def xml_to_histogram(xml_file, ip_src):
 
         pylab.ylabel("weight")
         pylab.title("IPs contacted by " + ip_src)
-        pylab.xticks(ind + (width / 2), range(1, len(ip_dst)+1))
+        pylab.xticks(ind + (width / 2), list(range(1, len(ip_dst)+1)))
         pylab.xlim(-width, len(ind))
 
         # changing the ordinate scale according to the max.
@@ -73,7 +73,7 @@ def xml_to_histogram(xml_file, ip_src):
 
         pylab.show()
     else:
-        print "No result for", ip_src
+        print("No result for", ip_src)
 
 
 if __name__ == '__main__':
@@ -81,8 +81,8 @@ if __name__ == '__main__':
     try:
         import pylab
     except ImportError:
-        print "Error : pylab module missing."
-        print "http://matplotlib.sourceforge.net/"
+        print("Error : pylab module missing.")
+        print("http://matplotlib.sourceforge.net/")
         exit(1)
 
     from optparse import OptionParser

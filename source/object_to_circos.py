@@ -24,12 +24,12 @@ def object_to_circos(obj_file, circos_file):
     """Create the input file for Circos.
     """
     if options.verbose:
-        print "Loading objet..."
+        print("Loading objet...")
     dic_obj = open(obj_file, "r")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
-        print "Searching IP that are source and destination..."
+        print("Searching IP that are source and destination...")
     ip_state = Counter()
     for ip_src in dic_ip:
         if ip_src not in ip_state:
@@ -49,7 +49,7 @@ def object_to_circos(obj_file, circos_file):
             liste_ip.append(ip)
 
     if options.verbose:
-        print "Circos matrix generation..."
+        print("Circos matrix generation...")
     # build the table s/d
     # first dimension : source ip
     # second dimension : destination ip
@@ -68,7 +68,7 @@ def object_to_circos(obj_file, circos_file):
     del ip_state
 
     if options.verbose:
-        print "Saving the matrix..."
+        print("Saving the matrix...")
     tab_file = open(circos_file, "wb")
     s= []
     s.append("ip")

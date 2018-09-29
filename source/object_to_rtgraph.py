@@ -35,11 +35,11 @@ def object_to_rtgraph(obj_file):
     """Generates a 3D dynamic graphics."""
     dic_obj = open(obj_file, "r")
     if options.verbose:
-        print "Loading dictionary..."
+        print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
-        print "Creation of the command for RealTime 3D Graph..."
+        print("Creation of the command for RealTime 3D Graph...")
     command = ""
     edges = []
     for ip_src in dic_ip:
@@ -50,7 +50,7 @@ def object_to_rtgraph(obj_file):
     command += "quit"
 
     if options.verbose:
-        print "Launching the RTgraph3D window thread"
+        print("Launching the RTgraph3D window thread")
     a = threading.Thread(None, rtggraph_launch, None)
     a.start()
 
@@ -58,8 +58,8 @@ def object_to_rtgraph(obj_file):
 
     cmd = 'echo "' + command + '" | python ./rtgraph3d/rtg_cli.py'
     if options.verbose:
-        print "command to execute :"
-        print cmd
+        print("command to execute :")
+        print(cmd)
 
     (child_stdin, child_stdout, child_stderr) = os.popen3(cmd)
     stderr = child_stderr.readlines()
@@ -69,10 +69,10 @@ def object_to_rtgraph(obj_file):
     child_stderr.close()
     
     if options.verbose:
-        print "Problem(s) :"
-        print stderr
-        print "\nOutput :"
-        print stdout
+        print("Problem(s) :")
+        print(stderr)
+        print("\nOutput :")
+        print(stdout)
 
 def rtggraph_launch():
     INPUT = [sys.stdin]
@@ -108,7 +108,7 @@ def rtggraph_launch():
                     CINEMATIC = Cinematic.static
                 elif optarg.startswith("d"): # dynamic
                     CINEMATIC = Cinematic.dynamic
-    except getopt.GetoptError, msg:
+    except getopt.GetoptError as msg:
         log.exception(msg)
         sys.exit(-1)
 

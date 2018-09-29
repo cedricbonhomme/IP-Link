@@ -11,7 +11,7 @@ import pickle
 dic_obj = open("./dic.pyobj", "r")
 dic_ip = pickle.load(dic_obj)
 
-print len(dic_ip)
+print(len(dic_ip))
 
 def split_ip_dic(dic):
     if isinstance(dic, int):
@@ -42,4 +42,4 @@ def split_ip_dic(dic):
 
 
 graphe = split_ip_dic(dic_ip)
-print len(graphe)
+print(len(graphe))

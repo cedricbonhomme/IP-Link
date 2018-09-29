@@ -34,7 +34,7 @@ def sqlite_to_picviz(sqlite_file, picviz_file, request_type, parameter):
     and serialize an object containing the result.
     """
     if options.verbose:
-        print "DB connect"
+        print("DB connect")
     conn = sqlite3.connect(sqlite_file, isolation_level = None)
 
     # Builds the SQLite request
@@ -62,11 +62,11 @@ def sqlite_to_picviz(sqlite_file, picviz_file, request_type, parameter):
         req = req.replace("tts2", parameters[1])
 
     if options.verbose:
-        print "Query sent to the base :\n\t" + req
+        print("Query sent to the base :\n\t" + req)
     liste = conn.execute(req).fetchall()
 
     if options.verbose:
-        print "Creating Picviz file..."
+        print("Creating Picviz file...")
     picviz_header = 'header {\n\ttitle = "IP-Link - Picviz";\n}'
     picviz_axes = 'axes {\n\ttimeline t [label="Time"];\n\t' + \
                     'ipv4    i [label="Source IP"];\n\t' + \
@@ -83,7 +83,7 @@ def sqlite_to_picviz(sqlite_file, picviz_file, request_type, parameter):
     picviz += '}'
 
     if options.verbose:
-        print "Writting file..."
+        print("Writting file...")
     pic = open(picviz_file, "w")
     pic.write(picviz)
     pic.close()

@@ -24,11 +24,11 @@ def object_to_moowheel(obj_file, moo_file):
     """Generate MooWheel file."""
     dic_obj = open(obj_file, "r")
     if options.verbose:
-        print "Loading dictionary..."
+        print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
-        print "Creating MooWheel file..."
+        print("Creating MooWheel file...")
 
     wheel_data = '<html>\n\t<head>\n\t<title>IP-Link - MooWheel</title>\n\n' + \
          '\t<style type="text/css" media="screen">\n' + \
@@ -73,7 +73,7 @@ def object_to_moowheel(obj_file, moo_file):
     '};\n\t</script>\n\t</head>\n\t<body>\n\t\t<div id="canvas"></div>\n\t</body>\n</html>'
 
     if options.verbose:
-        print "Writting file."
+        print("Writting file.")
     mw = open(moo_file, "w")
     mw.write(wheel_data)
     mw.close()

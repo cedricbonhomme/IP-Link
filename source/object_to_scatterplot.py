@@ -22,7 +22,7 @@ def object_to_scatterplot(obj_file, scatter_file):
     """
     dic_obj = open(obj_file, "r")
     if options.verbose:
-        print "Loading dictionary..."
+        print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
 
     dic_l = {}
@@ -34,14 +34,14 @@ def object_to_scatterplot(obj_file, scatter_file):
                 dic_l[str(j)] = 0
 
     if options.verbose:
-        print "Creating ploticus categories file"
+        print("Creating ploticus categories file")
     cat_f = open("./scatterplot/cat.inc", "w")
     for i in dic_l:
         cat_f.write(i + "\n")
     cat_f.close()
 
     if options.verbose:
-        print "Creating ploticus data file"
+        print("Creating ploticus data file")
     data_f = open("./scatterplot/data.inc", "w")
     for s in dic_ip:
         for d in dic_ip[s]:
@@ -51,8 +51,8 @@ def object_to_scatterplot(obj_file, scatter_file):
 
     ploticus = '\tploticus -o ./scatterplot/scatterplot.png -png ./scatterplot/scatterplot -csmap -maxproclines'
     if options.verbose:
-        print "Command to execute :"
-        print ploticus
+        print("Command to execute :")
+        print(ploticus)
     # ploticus outputs
     (child_stdin, child_stdout, child_stderr) = os.popen3(ploticus)
     stderr = child_stderr.readlines()
@@ -63,8 +63,8 @@ def object_to_scatterplot(obj_file, scatter_file):
 
     if options.verbose:
         if stderr != []:
-            print "Problem(s) :"
-            print "\n".join(stderr)
+            print("Problem(s) :")
+            print("\n".join(stderr))
 
     # creating the HTML map
     html = '<!DOCTYPE html><html  lang="en-US">\n<head>\n<title>IP-Link -- Scatterplot</tile>\n</head>\n<body>'
@@ -75,7 +75,7 @@ def object_to_scatterplot(obj_file, scatter_file):
     html += '\n</body>\n</html>'
 
     if options.verbose:
-        print "Creating HTML map"
+        print("Creating HTML map")
     html_file = open(scatter_file, "w")
     html_file.write(html)
     html_file.close()

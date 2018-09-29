@@ -23,12 +23,12 @@ def object_to_d3js(obj_file, matrix_file):
     """Create the input file for D3.js.
     """
     if options.verbose:
-        print "Loading objet..."
+        print("Loading objet...")
     dic_obj = open(obj_file, "r")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
-        print "D3JS matrix generation..."
+        print("D3JS matrix generation...")
 
     is_node_added = {}
     ip_number = -1
@@ -54,7 +54,7 @@ def object_to_d3js(obj_file, matrix_file):
     del dic_ip
 
     if options.verbose:
-        print "Saving the matrix..."
+        print("Saving the matrix...")
 
     with open(matrix_file, 'w') as outfile:
         json.dump(d3js_json, outfile)

@@ -56,7 +56,7 @@ def decode_ip_packet(s):
 
 def pcap_to_object(pcap_file, obj_file):
     """Create a Python serialized graph object.
-    
+
     Read the pcap file given in parameter, extracts source and destination IP
     and write a serialized graph object.
     """
@@ -64,11 +64,11 @@ def pcap_to_object(pcap_file, obj_file):
     reader.open_offline(pcap_file)
 
     if options.verbose:
-        print "Reading pcap file..."
+        print("Reading pcap file...")
     dic_ip = ip_dict()
     while True:
         try:
-            (_, payload, tts) = reader.next()
+            (_, payload, tts) = next(reader)
         except:
             break
         if payload[12:14] == '\x08\x00':
@@ -77,7 +77,7 @@ def pcap_to_object(pcap_file, obj_file):
                     [decoded_ip_packet['destination_address']] += 1
 
     if options.verbose:
-        print "Serialization..."
+        print("Serialization...")
     dic_obj = open(obj_file, "w")
     pickle.dump(dic_ip, dic_obj)
     dic_obj.close()

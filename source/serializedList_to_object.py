@@ -20,7 +20,7 @@ def serializedList_to_object(objlist_file, objgraph_file, \
     liste_ip = pickle.load(liste_obj)
 
     dic_ip = {}
-    print "Creating graph object..."
+    print("Creating graph object...")
     for tts, ip_src, ip_dst in liste_ip:
         if ip_src not in dic_ip:
             dic_ip[ip_src] = {}
@@ -31,7 +31,7 @@ def serializedList_to_object(objlist_file, objgraph_file, \
             else:
                 dic_ip[ip_src][ip_dst] += 1
 
-    print "Serialization..."
+    print("Serialization...")
     dic_obj = open(objgraph_file, "w")
     pickle.dump(dic_ip, dic_obj)
     dic_obj.close()

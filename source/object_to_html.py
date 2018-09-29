@@ -20,19 +20,19 @@ import pickle
 try:
     import pylab
 except ImportError:
-    print "Error : pylab module missing."
-    print "http://matplotlib.sourceforge.net/"
+    print("Error : pylab module missing.")
+    print("http://matplotlib.sourceforge.net/")
     exit(1)
 
 def usage():
     """Display help."""
-    print "Usage :\n\tpython " + sys.argv[0] + " obj_file"
-    print "\tpython " + sys.argv[0] + " --help\n"
-    print "Example:\n\t" + "python " + sys.argv[0] + " dic.pyobj\n"
-    print __author__
-    print __version__, __date__
-    print __copyright__
-    print "License " + __license__
+    print("Usage :\n\tpython " + sys.argv[0] + " obj_file")
+    print("\tpython " + sys.argv[0] + " --help\n")
+    print("Example:\n\t" + "python " + sys.argv[0] + " dic.pyobj\n")
+    print(__author__)
+    print(__version__, __date__)
+    print(__copyright__)
+    print("License " + __license__)
     exit(1)
 
 if len(sys.argv) == 2:
@@ -43,19 +43,19 @@ if len(sys.argv) == 2:
     except:
         usage()
     if not os.path.isfile(obj_file):
-        print " does not exist."
+        print(" does not exist.")
         exit(1)
 elif len(sys.argv) == 1:
     obj_file = './data/dic.pyobj'
-    print "Default arguments :"
-    print '\tPython object file :', obj_file
+    print("Default arguments :")
+    print('\tPython object file :', obj_file)
 else:
     usage()
 
 
 
 dic_obj = open(obj_file, "r")
-print "Loading dictionary..."
+print("Loading dictionary...")
 dic_ip = pickle.load(dic_obj)
 
 
@@ -78,7 +78,7 @@ def trace_histogramme(ip_src, liste_ip_dst, file_name):
 
     pylab.ylabel("Weight")
     pylab.title("Histogram")
-    pylab.xticks(ind + (width / 2), range(1, len(ip_dst)+1))
+    pylab.xticks(ind + (width / 2), list(range(1, len(ip_dst)+1)))
     pylab.xlim(-width, len(ind))
 
     # changing the ordinate scale according to the max.
@@ -113,7 +113,7 @@ def trace_piechart(ip_src, liste_ip_dst, file_name):
 
     #explode=(0, 0.06, 0, 0, 0) # bring some relief on the parts
     explode = (0,)*len(fracs) # no relief
-    pylab.pie(fracs, explode=explode, labels=range(1, len(labels)+1), \
+    pylab.pie(fracs, explode=explode, labels=list(range(1, len(labels)+1)), \
                 autopct='%1.1f%%', shadow = True)
     pylab.title(("Circular graph"))
 
@@ -126,8 +126,8 @@ def trace_piechart(ip_src, liste_ip_dst, file_name):
 # Creating images directory
 try:
     os.makedirs("./html" + os.sep + "images")
-except Exception, e:
-    print "Writting error :", e
+except Exception as e:
+    print("Writting error :", e)
 
 
 """Generates HTML gallery.
@@ -142,7 +142,7 @@ html = html_head + "\n"
 
 
 # Main page
-print "Creating HTML index..."
+print("Creating HTML index...")
 for ip_src in dic_ip:
 
     # Table of the main page
@@ -186,21 +186,21 @@ for ip_src in dic_ip:
 
 
     # Creation of the histogram
-    print "Creation of the histogram : ./html/images/" + ip_src.replace('.', '') + "_hist.png"
+    print("Creation of the histogram : ./html/images/" + ip_src.replace('.', '') + "_hist.png")
     trace_histogramme(ip_src, liste ,"./html/images/" + ip_src.replace('.', '') + "_hist.png")
     # Creation of the circular graph
-    print "Creation of the circular graph : ./html/images/" + ip_src.replace('.', '') + "_pie.png"
+    print("Creation of the circular graph : ./html/images/" + ip_src.replace('.', '') + "_pie.png")
     trace_piechart(ip_src, liste ,"./html/images/" + ip_src.replace('.', '') + "_pie.png")
 
 
     # Writting details pages
-    print "Creating the HTML page for", ip_src
+    print("Creating the HTML page for", ip_src)
     try:
         html_file = open("./html/" + ip_src + \
                             ".details.html", 'w')
         html_file.write('%s' % html_details)
-    except IOError, e:
-        print "Writting error :", e
+    except IOError as e:
+        print("Writting error :", e)
     finally:
         html_file.close()
 
@@ -209,8 +209,8 @@ html += pied
 try:
     html_file = open("./html/index.html", 'w')
     html_file.write('%s' % html.encode('utf-8'))
-except IOError, e:
-    print "Writting error :", e
+except IOError as e:
+    print("Writting error :", e)
     pass
 finally:
     html_file.close()

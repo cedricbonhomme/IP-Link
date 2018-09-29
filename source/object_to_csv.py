@@ -34,13 +34,13 @@ def object_to_csv(obj_file, csv_file):
     """Generate CSV file."""
     dic_obj = open(obj_file, "r")
     if options.verbose:
-        print "Loading dictionary..."
+        print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
 
     c = csv.writer(open(csv_file, "wb"), 'excel_french')
 
     if options.verbose:
-        print "Writting CSV file..."
+        print("Writting CSV file...")
     for ip_src in dic_ip:
         for ip_dst in dic_ip[ip_src]:
             c.writerow([ip_src, ip_dst, dic_ip[ip_src][ip_dst]])

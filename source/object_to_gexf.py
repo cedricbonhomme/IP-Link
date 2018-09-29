@@ -22,12 +22,12 @@ def object_to_gexf(obj_file, graph_file):
     """Create the input file for Gephi (GEXF file).
     """
     if options.verbose:
-        print "Loading objet..."
+        print("Loading objet...")
     dic_obj = open(obj_file, "r")
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
-        print "GEXF graph generation..."
+        print("GEXF graph generation...")
 
     for ip_src in dic_ip:
         for ip_dst in dic_ip[ip_src]:
@@ -37,7 +37,7 @@ def object_to_gexf(obj_file, graph_file):
     del dic_ip
 
     if options.verbose:
-        print "Saving the graph..."
+        print("Saving the graph...")
 
     nx.write_gexf(G, graph_file)
 
