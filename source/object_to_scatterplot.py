@@ -84,12 +84,12 @@ if __name__ == "__main__":
     parser.add_option("-i", "--input", dest="obj_file",
                     help="Python serialized object")
     parser.add_option("-o", "--output", dest="scatter_folder",
-                    help="Scatter plot HTML map file")
+                    help="Output where the HTML file and the scatterplot will be generated.")
     parser.add_option("-q", "--quiet",
                     action="store_false", dest="verbose",
                     help="be vewwy quiet (I'm hunting wabbits)")
     parser.set_defaults(obj_file = './data/dic.pyobj',
-                    scatter_folder = './scatterplot/index.html',
+                    scatter_folder = './scatterplot/',
                     verbose = True)
 
     (options, args) = parser.parse_args()
