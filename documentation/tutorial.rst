@@ -1,7 +1,7 @@
 Generate a pcap file
 ====================
 
-The first thing to do before starting this turorial is to genenrate a pcap file:
+The first thing to do before starting this turorial is to generate a pcap file:
 
 .. code-block:: bash
 
