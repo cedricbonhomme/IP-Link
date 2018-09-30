@@ -61,7 +61,6 @@ def object_to_scatterplot(obj_file, scatter_folder):
         if stderr:
             print("Problem(s) :")
             print(stderr)
-    print(stdout)
 
     # creating the HTML map
     html = '<!DOCTYPE html><html lang="en-US">\n<head>\n<title>IP-Link -- Scatterplot</title>\n</head>\n<body>'
