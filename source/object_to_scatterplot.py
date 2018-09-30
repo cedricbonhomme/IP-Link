@@ -33,6 +33,7 @@ def object_to_scatterplot(obj_file, scatter_folder):
             if not str(j) in dic_l:
                 dic_l[str(j)] = 0
 
+    # Generation of the configuration file for ploticus
     if options.verbose:
         print("Creating ploticus categories file")
     cat_f = open("./scatterplot/cat.inc", "w")
@@ -40,6 +41,7 @@ def object_to_scatterplot(obj_file, scatter_folder):
         cat_f.write(i + "\n")
     cat_f.close()
 
+    # Generation of the data file for ploticus
     if options.verbose:
         print("Creating ploticus data file")
     data_f = open("./scatterplot/data.inc", "w")
@@ -48,7 +50,7 @@ def object_to_scatterplot(obj_file, scatter_folder):
             data_f.write(s+" "+d+" "+str(dic_ip[s][d])+"\n")
     data_f.close()
 
-
+    # Call ploticus in order to generate the scatterplot
     cmd = ['ploticus', '-o', scatter_folder+'scatterplot.png', '-png',
                 './scatterplot/scatterplot', '-csmap', '-maxproclines']
     if options.verbose:
@@ -56,6 +58,7 @@ def object_to_scatterplot(obj_file, scatter_folder):
         print('\t' + ' '.join(cmd))
     # ploticus outputs
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    # stdout contains the areas of the HTML shape
     (stdout, stderr) = p.communicate()
     if options.verbose:
         if stderr:
@@ -63,7 +66,8 @@ def object_to_scatterplot(obj_file, scatter_folder):
             print(stderr)
 
     # creating the HTML map
-    html = '<!DOCTYPE html><html lang="en-US">\n<head>\n<title>IP-Link -- Scatterplot</title>\n</head>\n<body>'
+    html = '<!DOCTYPE html>\n<html lang="en-US">\n<head>'
+    html += '\n<meta charset="utf-8" />\n<title>IP-Link -- Scatterplot</title>\n</head>\n<body>'
     html += '\n<img src="scatterplot.png" usemap="#map1">'
     html += '\n<map name="map1">\n'
     html += stdout.decode()
