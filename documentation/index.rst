@@ -20,8 +20,9 @@ Installation
 
 .. code-block:: bash
 
-    $ git clone https://gitlab.com/cedric/ip-link.git
     $ sudo apt install libpcap0.8
+    $ git clone https://gitlab.com/cedric/ip-link.git
+    $ cd ip-link/
     $ pipenv install
     $ pipenv shell
 
