@@ -31,8 +31,8 @@ ping -c 3 -I 127.0.0.10 127.0.0.5
 sudo pkill tcpdump
 
 
-python pcap_to_sqlite.py -i out.pcap -o db.sqlite
+./pcap_to_sqlite.py -i out.pcap -o db.sqlite
 
-python sqlite_to_object.py -i db.sqlite -o db.object
+./sqlite_to_object.py -i db.sqlite -o db.object
 
-python object_to_image.py -i db.object -o image.png
+./object_to_image.py -i db.object -o image.png

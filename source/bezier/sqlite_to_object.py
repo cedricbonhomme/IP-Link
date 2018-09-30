@@ -11,7 +11,7 @@ __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2012/02/05 $"
 __copyright__ = "Copyright (c) 2010-2012 Jerome Hussenet, Copyright (c) 2010-2012 Cedric Bonhomme"
-__license__ = "Python"
+__license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import sqlite3
 import pickle
@@ -44,7 +44,7 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameters):
         print("Query sent to the base :\n\t" + req)
     liste = conn.execute(req).fetchall()
 
-    
+
     dic = {}
 
     for ip_src, ip_dst, port_src, port_dst in liste:
@@ -69,11 +69,11 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameters):
                     else:
                         dic[ip_src][ip_dst][port_src][port_dst] += 1
 
-    conn.close()    
+    conn.close()
 
     if options.verbose:
         print("Serialization...")
-    dic_obj = open(obj_file, "w")
+    dic_obj = open(obj_file, "wb")
     pickle.dump(dic, dic_obj)
     dic_obj.close()
 

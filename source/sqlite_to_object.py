@@ -16,7 +16,7 @@ __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.4 $"
 __date__ = "$Date: 2010/12/01 $"
 __copyright__ = "Copyright (c) 2009, 2010 Jerome Hussenet, Copyright (c) 2009, 2010 Cedric Bonhomme"
-__license__ = "Python"
+__license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import os
 import sys

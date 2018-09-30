@@ -8,11 +8,11 @@ Generate a serialized graph object from the pcap file.
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.2 $"
+__version__ = "$Revision: 0.3 $"
 __date__ = "$Date: 2009/02/20 $"
 __revision__ = "$Date: 2018/10/29 $"
 __copyright__ = "Copyright (c) 2009-2018 Jerome Hussenet, Copyright (c) 2009-2018 Cedric Bonhomme"
-__license__ = "Python"
+__license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import os
 import sys

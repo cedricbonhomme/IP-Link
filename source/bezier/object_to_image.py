@@ -10,7 +10,7 @@ __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2012/02/05 $"
 __copyright__ = "Copyright (c) 2010-2012 Jerome Hussenet, Copyright (c) 2010-2012 Cedric Bonhomme"
-__license__ = "Python"
+__license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 from PIL import Image, ImageDraw, ImageFont
 

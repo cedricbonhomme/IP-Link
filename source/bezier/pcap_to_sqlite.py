@@ -14,9 +14,6 @@ Data extracted from the capture are :
  - source port ;
  - protocol (TCP/UDP).
 
-This script uses Pylibpcap which is faster than pcapy. So it is recommended to
-use this script instead of using pcap_to_sqlite.py
-
 http://sourceforge.net/projects/pylibpcap/
 """
 
@@ -24,7 +21,7 @@ __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2012/02/05 $"
 __copyright__ = "Copyright (c) 2010-2012 Jerome Hussenet, Copyright (c) 2010-2012 Cedric Bonhomme"
-__license__ = "Python"
+__license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import os
 import sys
@@ -79,7 +76,7 @@ def decode_ip_packet(s):
 
 def pcap_to_sqlite(pcap_file, sqlite_file):
     """Generate the SQLite base.
-    
+
     Read the pcap file given in parameter, extracts source and destination IP
     and create the SQLite base.
     """
