@@ -92,6 +92,8 @@ def create_bar_chart(ip_src, liste_ip_dst, file_name):
         ax.set_ylim(0, max_weight + 50)
         ax.set_yticks(ax.arange(0, max_weight + 50, 50))
 
+    ax.legend()
+
     ax.savefig(file_name, dpi = 150)
     ax.close()
 
