@@ -17,7 +17,7 @@ import sys
 import subprocess
 import pickle
 
-def object_to_scatterplot(obj_file, scatter_file):
+def object_to_scatterplot(obj_file, scatter_folder):
     """Generate a scatter plot graph.
     """
     dic_obj = open(obj_file, "rb")
@@ -49,7 +49,7 @@ def object_to_scatterplot(obj_file, scatter_file):
     data_f.close()
 
 
-    cmd = ['ploticus', '-o', './scatterplot/scatterplot.png', '-png',
+    cmd = ['ploticus', '-o', scatter_folder+'scatterplot.png', '-png',
                 './scatterplot/scatterplot', '-csmap', '-maxproclines']
     if options.verbose:
         print("Command to execute :")
@@ -73,7 +73,7 @@ def object_to_scatterplot(obj_file, scatter_file):
 
     if options.verbose:
         print("Creating HTML map")
-    html_file = open(scatter_file, "w")
+    html_file = open(scatter_folder+'index.html', "w")
     html_file.write(html)
     html_file.close()
 
@@ -84,15 +84,15 @@ if __name__ == "__main__":
     parser = OptionParser()
     parser.add_option("-i", "--input", dest="obj_file",
                     help="Python serialized object")
-    parser.add_option("-o", "--output", dest="scatter_file",
+    parser.add_option("-o", "--output", dest="scatter_folder",
                     help="Scatter plot HTML map file")
     parser.add_option("-q", "--quiet",
                     action="store_false", dest="verbose",
                     help="be vewwy quiet (I'm hunting wabbits)")
     parser.set_defaults(obj_file = './data/dic.pyobj',
-                    scatter_file = './scatterplot/index.html',
+                    scatter_folder = './scatterplot/index.html',
                     verbose = True)
 
     (options, args) = parser.parse_args()
 
-    object_to_scatterplot(options.obj_file, options.scatter_file)
+    object_to_scatterplot(options.obj_file, options.scatter_folder)
