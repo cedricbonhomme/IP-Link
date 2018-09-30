@@ -13,11 +13,11 @@ IP-Link offers severall visualization methods.
 Installation
 ------------
 
-```bash
-$ sudo apt install libpcap0.8
-$ pipenv install
-$ pipenv shell
-```
+.. code-block:: bash
+
+    $ sudo apt install libpcap0.8
+    $ pipenv install
+    $ pipenv shell
 
 Python >= 3.6.
 
