@@ -3,12 +3,11 @@
 
 """object_to_html.py
 
-Need pylab module.
 Generate an HTML gallery.
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.3 $"
+__version__ = "$Revision: 0.4 $"
 __date__ = "$Date: 2009/02/23 $"
 __copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
@@ -17,12 +16,8 @@ import os
 import sys
 import pickle
 
-try:
-    import pylab
-except ImportError:
-    print("Error : pylab module missing.")
-    print("http://matplotlib.sourceforge.net/")
-    exit(1)
+import matplotlib.pyplot as plt
+
 
 def usage():
     """Display help."""
@@ -59,12 +54,14 @@ print("Loading dictionary...")
 dic_ip = pickle.load(dic_obj)
 
 
-def trace_histogramme(ip_src, liste_ip_dst, file_name):
+def create_bar_chart(ip_src, liste_ip_dst, file_name):
     """Creates a histogram.
 
     Most contacted IP by 'ip_src'.
     A maximum of ten IP are displayed.
     """
+    fig, ax = plt.subplots()
+
     length = len(liste_ip_dst)
     ind = pylab.arange(length) # ip destinations in abscissa
     width = 0.35 # bars width
@@ -74,32 +71,32 @@ def trace_histogramme(ip_src, liste_ip_dst, file_name):
 
     max_weight = max(weight)  # maximal weight
 
-    p = pylab.bar(ind, weight, width, color='r')
+    p = ax.bar(ind, weight, width, color='r')
 
-    pylab.ylabel("Weight")
-    pylab.title("Histogram")
-    pylab.xticks(ind + (width / 2), list(range(1, len(ip_dst)+1)))
-    pylab.xlim(-width, len(ind))
+    ax.set_ylabel("Weight")
+    ax.title("Histogram")
+    ax.set_xticks(ind + (width / 2), list(range(1, len(ip_dst)+1)))
+    ax.set_xlim(-width, len(ind))
 
     # changing the ordinate scale according to the max.
     if max_weight <= 100:
-        pylab.ylim(0, max_weight + 5)
-        pylab.yticks(pylab.arange(0, max_weight + 5, 5))
+        ax.set_ylim(0, max_weight + 5)
+        ax.set_yticks(ax.arange(0, max_weight + 5, 5))
     elif max_weight <= 200:
-        pylab.ylim(0, max_weight + 10)
-        pylab.yticks(pylab.arange(0, max_weight + 10, 10))
+        ax.set_ylim(0, max_weight + 10)
+        ax.set_yticks(ax.arange(0, max_weight + 10, 10))
     elif max_weight <= 600:
-        pylab.ylim(0, max_weight + 25)
-        pylab.yticks(pylab.arange(0, max_weight + 25, 25))
+        ax.set_ylim(0, max_weight + 25)
+        ax.set_yticks(ax.arange(0, max_weight + 25, 25))
     elif max_weight <= 800:
-        pylab.ylim(0, max_weight + 50)
-        pylab.yticks(pylab.arange(0, max_weight + 50, 50))
+        ax.set_ylim(0, max_weight + 50)
+        ax.set_yticks(ax.arange(0, max_weight + 50, 50))
 
-    pylab.savefig(file_name, dpi = 150)
-    pylab.close()
+    ax.savefig(file_name, dpi = 150)
+    ax.close()
 
 
-def trace_piechart(ip_src, liste_ip_dst, file_name):
+def create_pie_chart(ip_src, liste_ip_dst, file_name):
     """Creates a circular graph.
 
     Return the list of the most contacted IP by 'ip_src'.
@@ -187,10 +184,10 @@ for ip_src in dic_ip:
 
     # Creation of the histogram
     print("Creation of the histogram : ./html/images/" + ip_src.replace('.', '') + "_hist.png")
-    trace_histogramme(ip_src, liste ,"./html/images/" + ip_src.replace('.', '') + "_hist.png")
+    create_bar_chart(ip_src, liste ,"./html/images/" + ip_src.replace('.', '') + "_hist.png")
     # Creation of the circular graph
     print("Creation of the circular graph : ./html/images/" + ip_src.replace('.', '') + "_pie.png")
-    trace_piechart(ip_src, liste ,"./html/images/" + ip_src.replace('.', '') + "_pie.png")
+    #create_pie_chart(ip_src, liste ,"./html/images/" + ip_src.replace('.', '') + "_pie.png")
 
 
     # Writting details pages
