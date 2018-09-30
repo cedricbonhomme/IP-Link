@@ -24,14 +24,14 @@ with codecs.open(os.path.join(here, 'NEWS.rst'), encoding='utf-8') as f:
 
 setup(
     name='IP-Link',
-    version='0.2',
+    version='0.3',
     author='Cédric Bonhomme',
     author_email='cedric@cedricbonhomme.org',
     packages=packages,
     include_package_data=True,
     scripts=scripts,
     url='https://gitlab.com/cedric/ip-link',
-    description='',
+    description='The goal of IP-Link is to see the relationships between different IP from a network traffic capture.',
     long_description=readme + '\n|\n\n' + changelog,
     platforms = ['Linux'],
     license='Python',
