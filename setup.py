@@ -11,7 +11,9 @@ packages = [
     'source'
 ]
 
-scripts = []
+scripts = [
+    'source/pcap_to_object.py'
+]
 
 requires = ['pypacker', 'networkx', 'pillow']
 
