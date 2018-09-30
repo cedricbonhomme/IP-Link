@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#! /usr/bin/env python
 #-*- coding: utf-8 -*-
 
 """object_to_scatterplot
@@ -13,14 +13,14 @@ __date__ = "$Date: 2009/03/01 $"
 __copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
-import os
 import sys
+import subprocess
 import pickle
 
 def object_to_scatterplot(obj_file, scatter_file):
     """Generate a scatter plot graph.
     """
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file, "rb")
     if options.verbose:
         print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
@@ -49,29 +49,26 @@ def object_to_scatterplot(obj_file, scatter_file):
     data_f.close()
 
 
-    ploticus = '\tploticus -o ./scatterplot/scatterplot.png -png ./scatterplot/scatterplot -csmap -maxproclines'
+    cmd = ['ploticus', '-o', './scatterplot/scatterplot.png', '-png',
+                './scatterplot/scatterplot', '-csmap', '-maxproclines']
     if options.verbose:
         print("Command to execute :")
-        print(ploticus)
+        print('\t' + ' '.join(cmd))
     # ploticus outputs
-    (child_stdin, child_stdout, child_stderr) = os.popen3(ploticus)
-    stderr = child_stderr.readlines()
-    stdout = child_stdout.readlines()
-    child_stdin.close()
-    child_stdout.close()
-    child_stderr.close()
-
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    (stdout, stderr) = p.communicate()
     if options.verbose:
-        if stderr != []:
+        if stderr:
             print("Problem(s) :")
-            print("\n".join(stderr))
+            print(stderr)
+    print(stdout)
 
     # creating the HTML map
-    html = '<!DOCTYPE html><html  lang="en-US">\n<head>\n<title>IP-Link -- Scatterplot</tile>\n</head>\n<body>'
+    html = '<!DOCTYPE html><html lang="en-US">\n<head>\n<title>IP-Link -- Scatterplot</title>\n</head>\n<body>'
+    html += '\n<img src="scatterplot.png" usemap="#map1">'
     html += '\n<map name="map1">\n'
-    for area_shape in stdout:
-        html += "\t" + area_shape + "\n"
-    html += '</map>\n<img src="scatterplot.png" usemap="#map1">'
+    html += stdout.decode()
+    html += '\n</map>'
     html += '\n</body>\n</html>'
 
     if options.verbose:
