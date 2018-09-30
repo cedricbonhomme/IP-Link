@@ -13,7 +13,7 @@ packages = [
 
 scripts = []
 
-requires = ['pypacker', 'networkx']
+requires = ['pypacker', 'networkx', 'pillow']
 
 with codecs.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     readme = f.read()
@@ -28,11 +28,11 @@ setup(
     packages=packages,
     include_package_data=True,
     scripts=scripts,
-    url='https://github.com/cedricbonhomme/Stegano',
+    url='https://gitlab.com/cedric/ip-link',
     description='',
     long_description=readme + '\n|\n\n' + changelog,
     platforms = ['Linux'],
-    license='GPLv3',
+    license='Python',
     install_requires=requires,
     zip_safe=False,
     classifiers=[
