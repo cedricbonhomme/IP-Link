@@ -42,7 +42,7 @@ from xml.dom.minidom import Document
 
 def object_to_xml(obj_file, xml_file):
     """Gnerate an XML file."""
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file, "rb")
     if options.verbose:
         print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)
