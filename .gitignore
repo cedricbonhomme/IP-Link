@@ -5,8 +5,14 @@ syntax: glob
 *.pyc
 *~
 
+
+IP_Link.egg-info/
+dist/
+
+
 # Temporary files (vim backups)
 *.swp
 
+documentation/_build/
 source/captures/
 source/data/

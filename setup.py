@@ -17,7 +17,7 @@ scripts = [
 
 requires = ['pypacker', 'networkx', 'pillow']
 
-with codecs.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+with codecs.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     readme = f.read()
 with codecs.open(os.path.join(here, 'NEWS.rst'), encoding='utf-8') as f:
     changelog = f.read()
