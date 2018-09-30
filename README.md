@@ -13,7 +13,7 @@ IP-Link offers severall visualization methods.
 # Installation
 
 ```bash
-$ sudo apt install libpcap0.8 libpcap0.8-dev
+$ sudo apt install libpcap0.8
 $ pipenv install
 $ pipenv shell
 ```
