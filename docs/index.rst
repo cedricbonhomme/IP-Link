@@ -41,7 +41,7 @@ This section exposes the principles of IP-Link.
 Tutorial
 ========
 
-This section explains how to generate the different visializations.
+This section explains how to generate the different visualizations.
 
 .. toctree::
     :maxdepth: 2

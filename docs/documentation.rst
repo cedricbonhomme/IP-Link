@@ -32,7 +32,7 @@ pcap_to_object.py
 
 Generate a serialized graph object.
 
-Read the pcap file given in parameter, extracts source and destination IP and create the graph onject.
+Read the pcap file given in parameter, extracts source and destination IP and create the graph object.
 
 Options:
 
@@ -61,7 +61,7 @@ Options:
 object_to_moowheel.py
 ---------------------
 
-Generate an HTML file using Javascript and the <canvas> object.
+Generate an HTML file using JavaScript and the <canvas> object.
 
 Loads a serialized graph object in memory and create the MooWheel connections graph.
 

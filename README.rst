@@ -6,8 +6,8 @@ Presentation
 
 The goal of `IP-Link <https://gitlab.com/cedric/ip-link>`_
 is to see the relationships between different IP from network traffic capture,
-thus quickly for a given address with the IP that communicates the most.  
-IP-Link offers severall visualization methods.
+thus quickly for a given address with the IP that communicates the most.
+IP-Link offers several visualization methods.
 
 
 Installation
@@ -24,10 +24,11 @@ Installation
 Python >= 3.6.
 
 
-Turorial and examples
+Tutorial and examples
 ---------------------
 
-The site of IP-Link provides a complete `tutorial <https://ip-link.readthedocs.io/en/latest/tutorial.html>`_.
+The site of IP-Link provides a complete
+`tutorial <https://ip-link.readthedocs.io/en/latest/tutorial.html>`_.
 
 
 License
