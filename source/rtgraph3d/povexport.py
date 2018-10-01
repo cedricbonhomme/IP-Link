@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+#-*- coding: utf-8 -*-
+
 # ruth chabay, carnegie mellon university (rchabay@andrew.cmu.edu)
 # v1.0 2000-12-17
 
@@ -382,4 +385,3 @@ camera {
 
 if __name__ == '__main__':
     print __doc__
-

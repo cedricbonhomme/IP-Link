@@ -1,4 +1,5 @@
-#!/bin/sh
+#! /usr/bin/env python
+#-*- coding: utf-8 -*-
 
 # pcap_to_sqlite.sh
 

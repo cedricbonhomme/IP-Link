@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+#-*- coding: utf-8 -*-
 
 
 try:
@@ -31,7 +32,7 @@ class python_physics_engine:
     C_ENGINE = 0
     FRICTION = -0.5
     MIN_DIST = 16
-    
+
     @staticmethod
     def add_edge(e1,e2):
         pass
@@ -53,7 +54,7 @@ class python_physics_engine:
                     F = d*ATTRACT
                     o.F += F
                     n.F -= F
-                    
+
                 l = d.mag2
                 l = l**2
                 if l < python_physics_engine.MIN_DIST:
@@ -65,7 +66,7 @@ class python_physics_engine:
             dV = o.F*dt
             o.V += dV
             o.pos += (dV/2+o.V)*dt
-        
+
 
 def get_physics_engine(mode=0): # 0:auto, 1:force python, 2: force C only, 3: force SSE
     if mode != 1:
@@ -74,11 +75,11 @@ def get_physics_engine(mode=0): # 0:auto, 1:force python, 2: force C only, 3: fo
         except ImportError:
             log.warning("PyInline module not found! Fallback to Python physics engine")
             mode = 1
-        
-    if mode == 0:    
+
+    if mode == 0:
         try:
             mode = 2
-                           
+
             test_sse = PyInline.build(language="C", code=r"""
             int test_sse(void)
             {
@@ -142,7 +143,7 @@ PyObject *pt_speed[MAXPTS];
 #define PFY(i) pf_coord[CN*i+1]
 #define PFZ(i) pf_coord[CN*i+2]
 #define PF(i) pf_coord[i]
-     
+
 #define SX(i) (PFSX(i)->ob_fval)
 #define SY(i) (PFSY(i)->ob_fval)
 #define SZ(i) (PFSZ(i)->ob_fval)
@@ -195,7 +196,7 @@ PyObject *pt_speed[MAXPTS];
 #define PFX(i) pf_coordx[i]
 #define PFY(i) pf_coordy[i]
 #define PFZ(i) pf_coordz[i]
-     
+
 #define SX(i) (speedx[i])
 #define SY(i) (speedy[i])
 #define SZ(i) (speedz[i])
@@ -223,7 +224,7 @@ float tmpshow[4] __attribute__ ((aligned(32)));
 
 #define LOG(x ...)
 //#define LOG(x ...) printf(x)
-                                             
+
 int old_len;
 
 
@@ -258,7 +259,7 @@ int check_edge(int i, int j)
         n1 = (j >> (2*EDGELW1)) & (EDGEW1-1);
         p2 = p1->next[n1];
         if (!p2) return 0;
-        
+
         n2 = (j >> EDGELW2) & (EDGEW2-1);
         n3 = j & (EDGEW3-1);
 
@@ -274,7 +275,7 @@ void do_add_edge(int i, int j)
         n1 = (j >> (2*EDGELW1)) & (EDGEW1-1);
         n2 = (j >> EDGELW2) & (EDGEW2-1);
         n3 = j & (EDGEW3-1);
-        
+
         p1 = edges[i];
         if (!p1) {
                 p1 = edges[i] = malloc(sizeof(struct edge_part1));
@@ -340,7 +341,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                         PyTuple_SET_ITEM(item, 0, (PyObject *)PFX(i));
                         PyTuple_SET_ITEM(item, 1, (PyObject *)PFY(i));
                         PyTuple_SET_ITEM(item, 2, (PyObject *)PFZ(i));
-                        
+
                         PFSX(i) = (PyFloatObject *)PyFloat_FromDouble(0.0);
                         PFSY(i) = (PyFloatObject *)PyFloat_FromDouble(0.0);
                         PFSZ(i) = (PyFloatObject *)PyFloat_FromDouble(0.0);
@@ -359,7 +360,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                                 Py_INCREF(PTC(i));
                                 PyList_SET_ITEM(pos, i, PTC(i));
                         }
-                        
+
                         item = PyList_GET_ITEM(spd, i);
                         if (PTS(i) != item) {
                                 SX(i) = ((PyFloatObject *)PyTuple_GET_ITEM(item, 0))->ob_fval;
@@ -371,7 +372,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
 
 	    	}
         }
-        
+
 
 #ifndef USE_SSE    /********[ C ONLY ]********/
         bzero(force, sizeof(float)*CN*len);
@@ -391,7 +392,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                 asm("movups %%xmm3,%0"::"m"(FZ(i)));
         }
 #endif            /*****************************/
-                
+
 
 #ifndef USE_SSE   /********[ C ONLY ]********/
         for (i=0; i<len; i++) {
@@ -410,11 +411,11 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                                 a = ATTRACT*dZ;
                                 FZ(i) += a; FZ(j) -= a;
                         }
-                        
+
                         D = dX*dX+dY*dY+dZ*dZ;
                         DD = D*D;
                         if (DD < MIN_DIST) DD = MIN_DIST;
-                        
+
 
                         a = REPULS*dX/DD;
                         FX(i) -= a; FX(j) += a;
@@ -462,7 +463,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                                     "movups %%xmm7, %2 \n\t"::"m"(attract[0]), "m"(tmpsse1[0]), "m"(FX(j)));
                                 LOG("attract X: %+.3f %+.3f %+.3f %+.3f\n",
                                        tmpsse1[0], tmpsse1[1], tmpsse1[2], tmpsse1[3]);
-                                       
+
                                 asm("movaps %0, %%xmm6 \n\t"
                                     "mulps %%xmm4, %%xmm6 \n\t"
                                     "movups %2, %%xmm7 \n\t"
@@ -470,7 +471,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                                     "subps %%xmm6, %%xmm7 \n\t"
                                     "movups %%xmm7, %2 \n\t"::"m"(attract[0]), "m"(tmpsse2[0]), "m"(FY(j)));
                                 LOG("attract Y: %+.3f %+.3f %+.3f %+.3f\n",
-                                       tmpsse2[0], tmpsse2[1], tmpsse2[2], tmpsse2[3]);    
+                                       tmpsse2[0], tmpsse2[1], tmpsse2[2], tmpsse2[3]);
 
                                 asm("movaps %0, %%xmm6 \n\t"
                                     "mulps %%xmm5, %%xmm6 \n\t"
@@ -500,7 +501,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                             "addps %%xmm6, %%xmm7 \n\t" // xmm7 = D = dX*dX+dY*dY+dZ*dZ
                             "mulps %%xmm7, %%xmm7 \n\t"
                             "maxps %0, %%xmm7 \n\t"     // xmm7 = max(MIN_DIST, D^2)
-                            ::"m"(min_dist[0])); 
+                            ::"m"(min_dist[0]));
 
                         asm("movaps %0, %%xmm6 \n\t"  // xmm6 = repuls
                             "divps %%xmm7, %%xmm3 \n\t"
@@ -515,7 +516,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                             "movaps %%xmm4, %1\n\t"
                             "movaps %%xmm5, %2\n\t"
                             ::"m"(tmpsse1[0]),"m"(tmpsse2[0]),"m"(tmpsse3[0]));
-                            
+
                         asm("movups %0, %%xmm6 \n\t"
                             "movups %1, %%xmm7 \n\t"
                             "addps %%xmm3, %%xmm6 \n\t"
@@ -526,7 +527,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                             "movups %%xmm7, %1 \n\t"
                             "movups %%xmm3, %2 \n\t"
                             ::"m"(FX(j)), "m"(FY(j)), "m"(FZ(j)));
-                            
+
                         CONDADD(j,len,tmpsse1);
                         FX(i) -= tmpsse1[0];
                         CONDADD(j,len,tmpsse2);
@@ -543,7 +544,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
         dA = 0;
 	for (i=0; i<CN*len; i++) {
                 if (!F(i)) continue;
-		a = F(i)*dt; 
+		a = F(i)*dt;
 		S(i) += a;
 		a = (S(i)+0.5*a)*dt;
 		C(i) += a;
@@ -555,7 +556,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
             "movss %2,%%xmm0 \n\t"
             "shufps $0, %%xmm0, %%xmm0 \n\t" // xmm1=(dt,dt,dt,dt)
                     ::"m"(zero[0]),"m"(half[0]), "m"(dt));
-        
+
 	for (i=0; i<len; i+=4) {
 
                 asm("movups %0,%%xmm1 \n\t" // xmm1=FX
@@ -602,7 +603,7 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
                     "movups %%xmm2, %1 \n\t"
                     "addps %%xmm3, %%xmm7 \n\t" //xmm7 = dA += dX^2
                     ::"m"(FZ(i)),"m"(SZ(i)),"m"(Z(i)));
-                    
+
                 }
         asm("movaps %%xmm7, %0"::"m"(tmpsse1[0]));
         dA = tmpsse1[0]+tmpsse1[1]+tmpsse1[2]+tmpsse1[3];
@@ -613,14 +614,14 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
             PZ(i) = Z(i);
         }
 #endif            /***************************/
-        
+
 
 	return dA/(len+0.1);
 }
-		
+
 """
 
-    
+
         if mode == 3:
             sse_code = "#define USE_SSE\r\n" + sse_code
 
@@ -651,7 +652,7 @@ def randcol():
     v = randvect()
     s = v[0]+v[1]+v[2]
     if s < 1:
-        v *= 1/(0.001+s)        
+        v *= 1/(0.001+s)
     return v
 
 class Node(sphere):
@@ -720,7 +721,7 @@ class World:
         self.edges = []
         self.coords = []
         self.speeds = []
-        self.cinematic_change = 1        
+        self.cinematic_change = 1
     def register(self, o):
         self.world[o.id] = o
         self.lst.append(o)
@@ -762,7 +763,7 @@ class World:
                 del(o._tmp_edges)
     def update_edges(self):
         for e in self.edges:
-            e.update()        
+            e.update()
     def update(self, dt):
         self.physics_engine.update(self, self.coords, self.speeds, self.cinematic_change, dt, self.attraction, self.repulsion)
         self.cinematic_change = 0
@@ -903,7 +904,7 @@ class RTGraphService(dbus.service.Object):
         self.the_world.dump_to_file(open(fname,"w"))
         self.cinematic_lock.release()
         log.info("Dumped world to [%s]" % fname)
-    
+
     @dbus.service.method("org.secdev.rtgraph3d.command",
                          in_signature="s", out_signature="")
     def file_load(self, fname):
@@ -911,18 +912,18 @@ class RTGraphService(dbus.service.Object):
         self.the_world.load_from_file(open(fname))
         self.cinematic_lock.release()
         log.info("Loaded world from [%s]" % fname)
-    
+
     @dbus.service.method("org.secdev.rtgraph3d.command",
                          in_signature="", out_signature="s")
     def get_dump(self):
         return "not implemented..."
 
-    
+
     @dbus.service.method("org.secdev.rtgraph3d.command",
                          in_signature="", out_signature="s")
     def get_dot(self):
         s = 'graph "rtgraph" { \n'
-        
+
         for e in self.the_world.edges:
             s += '\t "%s" -- "%s";\n' % (e.o1.id, e.o2.id)
         s += '}\n'
@@ -962,11 +963,11 @@ class RTGraphService(dbus.service.Object):
                          in_signature="", out_signature="")
     def stop_auto_rotate_scene(self):
         self.rotate_service.stop_rotate()
-        
+
     @dbus.service.method("org.secdev.rtgraph3d.command",
                          in_signature="s", out_signature="s")
     def execute(self, cmd):
-        log.info("--- Begin exec [%s]" % cmd) 
+        log.info("--- Begin exec [%s]" % cmd)
         res=eval(cmd)
         log.info(res)
         log.info("--- End exec [%s]" % cmd)
@@ -980,7 +981,7 @@ class RTGraphService(dbus.service.Object):
                 if o not in o2.edges:
                     log.error("%s ==> %s \t %s ==> %s"% (o.id,o2.id, id(o),id(o2)))
             log.info("Checked %i nodes, %i edges." % (len(self.the_world.lst),len(self.the_world.edges)))
-        
+
     @dbus.service.method("org.secdev.rtgraph3d.command",
                          in_signature="sa{sv}sa{sv}", out_signature="")
     def new_edge(self, id1, attr1, id2, attr2):
@@ -988,17 +989,17 @@ class RTGraphService(dbus.service.Object):
         id2=str(id2)
         attr1=dict([ (str(a),b.__class__.__base__(b)) for a,b in attr1.iteritems()])
         attr2=dict([ (str(a),b.__class__.__base__(b)) for a,b in attr2.iteritems()])
-    
+
         if id1 == id2:
             raise Exception("Nodes are identical")
-    
+
         n1 = self.the_world.get(id1)
         n2 = self.the_world.get(id2)
         if n1 is None and n2 is not None:
             n2,n1=n1,n2
             id1,id2=id2,id1
             attr1,attr2=attr2,attr1
-    
+
         if n1 is None:
             n1 = Node(id1, **attr1)
             self.the_world.register(n1)
@@ -1007,15 +1008,15 @@ class RTGraphService(dbus.service.Object):
                 attr2["pos"] = n1.pos+randvect()
             n2 = Node(id2, **attr2)
             self.the_world.register(n2)
-    
+
         if n1 in n2.edges:
             raise Exception("Edge %s-%s alread exists" % (id1,id2))
-    
+
         n1.edges[n2] = None
         n2.edges[n1] = None
         self.the_world.add_edge(n1,n2)
         self.the_world.cinematic_change = 1
-            
+
         log.info("Ok for [%s]-[%s]" % (id1,id2))
 
     @dbus.service.method("org.secdev.rtgraph3d.command",
@@ -1065,7 +1066,7 @@ class RTGraphService(dbus.service.Object):
                          in_signature="", out_signature="as")
     def get_all_nodes(self):
         return [n.id for n in self.the_world.lst]
-        
+
 
 def cinematic_thread(svc, POVdump=None, ACCEL=ACCEL, DT=DT):
     log.info("Cinematic thread started")
@@ -1105,7 +1106,7 @@ def cinematic_thread(svc, POVdump=None, ACCEL=ACCEL, DT=DT):
                     if ev.pick and ev.pick.pickable:
                         picked = ev.pick
 
-    
+
             if picked:
                 picked.PV = picked.pos
                 picked.pos=scene.mouse.pos
@@ -1115,21 +1116,21 @@ def cinematic_thread(svc, POVdump=None, ACCEL=ACCEL, DT=DT):
                 the_world.cinematic_change = 1
 
             the_world.update(DT)
-            the_world.update_edges()                
+            the_world.update_edges()
             if POVdump is not None:
                 fname = POVdump % frames
                 povexport.export(filename=fname, display=scene, include_list=['colors.inc'])
-                
+
         except:
             log.exception("FRAME=%i: Catched exception in the cinematic thread!" % frames)
-            
+
         svc.cinematic_lock.release()
 
 
 def usage():
     print >>sys.stderr, """rtgraph3D [-w savefile] [-r startfile] [-m <mode>]
     -P <fname_tmpl> export to POV, filename template (ex: /tmp/foo/bar-%i.pov)
-    -d 
+    -d
     -c {s|d}        choose between static and dynamic mode
     -m {p|c|s}      Python (slow), C (quick) and SSE (quickest) physics engine
     -w <savefile>   save world in this file
@@ -1198,9 +1199,3 @@ if __name__ == "__main__":
     mainloop = gobject.MainLoop()
     log.info("Entering main loop")
     mainloop.run()
-        
-        
-
-
-
-
