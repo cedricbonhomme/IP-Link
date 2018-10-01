@@ -13,6 +13,6 @@ dist/
 # Temporary files (vim backups)
 *.swp
 
-documentation/_build/
+docs/_build/
 source/captures/
 source/data/
