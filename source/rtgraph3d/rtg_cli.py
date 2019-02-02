@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+#-*- coding: utf-8 -*-
 
 import sys,os,dbus
 import cmd
@@ -69,7 +70,7 @@ class Interp(cmd.Cmd):
         self.rtg.set_repulsion(float(args))
     def do_set_ambient(self, args):
         self.rtg.set_ambient(float(args))
-        
+
     def do_remote_dump(self, args):
         self.rtg.file_dump(args)
     def do_remote_load(self, args):
@@ -84,7 +85,7 @@ class Interp(cmd.Cmd):
         else:
             r = 0.0
         self.rtg.auto_rotate_scene(r)
-        
+
     def do_rotate_stop(self, args):
         self.rtg.stop_auto_rotate_scene()
 
@@ -96,7 +97,7 @@ class Interp(cmd.Cmd):
         if k in ["color", "radius", "pos"]:
             v = eval(v)
         self.rtg.update_node(node,{k:v})
-        
+
 
 
 if __name__ == "__main__":
@@ -112,7 +113,7 @@ if __name__ == "__main__":
         except IOError:
             pass
 
-    
+
     interp = Interp()
     while 1:
         try:

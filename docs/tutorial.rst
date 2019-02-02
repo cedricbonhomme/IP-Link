@@ -1,7 +1,7 @@
 Generate a pcap file
 ====================
 
-The first thing to do before starting this turorial is to generate a pcap file:
+The first thing to do before starting this tutorial is to generate a pcap file:
 
 .. code-block:: bash
 
@@ -56,7 +56,7 @@ Chord diagram with Circos
 Circos installation
 -------------------
 
-First, download the lastest version of `CIRCOS <http://www.circos.ca>`_ and the Circos tools (for the table viewer).
+First, download the latest version of `CIRCOS <http://www.circos.ca>`_ and the Circos tools (for the table viewer).
 The required Perl module can be installed with:
 
 .. code-block:: bash
@@ -82,7 +82,7 @@ Generation of the input matrix for Circos
     Saving the matrix...
 
 The first command generated a graph from the network capture.
-The second one create the matrix *capture.circos* of relation betwenn IPs,from serialized
+The second one create the matrix *capture.circos* of relation between IPs,from serialized
 object *capture.pyObj*. Here is the :download:`generated matrix <_static/capture.circos>`.
 The matrix *capture.circos* will be the input for the Circos table viewer.
 
@@ -106,7 +106,7 @@ Here is the generated chord diagram:
 Bézier curve
 ============
 
-More detais on :doc:`this page </bezier>`. This view enables to see the relations between ports.
+More details on :doc:`this page </bezier>`. This view enables to see the relations between ports.
 
 
 Scatter plot with ploticus
@@ -155,7 +155,7 @@ Picviz
     Creating Picviz file...
     Writting file...
 
-With these otions sqlite_to_picviz.py extract the trafic between 2009/01/16 00h03m00s and 2009/01/16 00h05m00s. Then it creates the Picviz file.
+With these otions sqlite_to_picviz.py extract the traffic between 2009/01/16 00h03m00s and 2009/01/16 00h05m00s. Then it creates the Picviz file.
 
 Result
 

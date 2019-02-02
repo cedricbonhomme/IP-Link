@@ -103,7 +103,7 @@ For example :
     Reading the result of the query...
     Serialization...
 
-Here, you will extract all the trafic between 2009/01/15 22h00m00s and 2009/01/16 02h00m00s. Now, for example you can generate the Circos matrix and a MooWheel graph :
+Here, you will extract all the traffic between 2009/01/15 22h00m00s and 2009/01/16 02h00m00s. Now, for example you can generate the Circos matrix and a MooWheel graph :
 
 .. code-block:: bash
 
