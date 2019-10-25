@@ -4,7 +4,7 @@ IP-Link
 Presentation
 ------------
 
-The goal of `IP-Link <https://gitlab.com/cedric/ip-link>`_
+The goal of `IP-Link <https://git.sr.ht/~cedric/IP-Link>`_
 is to see the relationships between different IP from network traffic capture,
 thus quickly for a given address with the IP that communicates the most.
 IP-Link offers several visualization methods.
@@ -16,8 +16,8 @@ Installation
 .. code-block:: bash
 
     $ sudo apt install libpcap0.8
-    $ git clone https://gitlab.com/cedric/ip-link.git
-    $ cd ip-link/
+    $ git clone https://git.sr.ht/~cedric/IP-Link
+    $ cd IP-Link/
     $ pipenv install
     $ pipenv shell
 
