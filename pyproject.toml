@@ -33,9 +33,6 @@ include = [
     "docs/*"
 ]
 
-[tool.poetry.scripts]
-pymosp = "bin.pymosp:main"
-
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
 networkx = "^2.6.3"
