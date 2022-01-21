@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """object_to_gexf
 
@@ -10,7 +10,9 @@ for Gephi (GEXF file).
 __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2015/02/24 $"
-__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2015 Cedric Bonhomme"
+__copyright__ = (
+    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2015 Cedric Bonhomme"
+)
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import pickle
@@ -18,9 +20,9 @@ import networkx as nx
 
 G = nx.DiGraph()
 
+
 def object_to_gexf(obj_file, graph_file):
-    """Create the input file for Gephi (GEXF file).
-    """
+    """Create the input file for Gephi (GEXF file)."""
     if options.verbose:
         print("Loading objet...")
     dic_obj = open(obj_file, "rb")
@@ -45,17 +47,22 @@ def object_to_gexf(obj_file, graph_file):
 if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="obj_file",
-                    help="Python serialized object")
-    parser.add_option("-o", "--output", dest="graph_file",
-                    help="Input file for Gephi (GEXF file)")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(obj_file = './data/dic.pyobj',
-                    graph_file = './data/ip.gexf',
-                    verbose = True)
+    parser.add_option("-i", "--input", dest="obj_file", help="Python serialized object")
+    parser.add_option(
+        "-o", "--output", dest="graph_file", help="Input file for Gephi (GEXF file)"
+    )
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(
+        obj_file="./data/dic.pyobj", graph_file="./data/ip.gexf", verbose=True
+    )
 
     (options, args) = parser.parse_args()
 

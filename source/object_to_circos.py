@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """object_to_circos
 
@@ -10,7 +10,9 @@ for Circos (matrix).
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.4 $"
 __date__ = "$Date: 2009/03/14 $"
-__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
+__copyright__ = (
+    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
+)
 __license__ = "Python"
 
 import os
@@ -20,9 +22,9 @@ import pickle
 
 from collections import Counter
 
+
 def object_to_circos(obj_file, circos_file):
-    """Create the input file for Circos.
-    """
+    """Create the input file for Circos."""
     if options.verbose:
         print("Loading objet...")
     dic_obj = open(obj_file, "rb")
@@ -70,7 +72,7 @@ def object_to_circos(obj_file, circos_file):
     if options.verbose:
         print("Saving the matrix...")
     tab_file = open(circos_file, "w")
-    s= []
+    s = []
     s.append("ip")
     for i in tab:
         s.append(i)
@@ -92,17 +94,20 @@ def object_to_circos(obj_file, circos_file):
 if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="obj_file",
-                    help="Python serialized object")
-    parser.add_option("-o", "--output", dest="circos_file",
-                    help="Circos file")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(obj_file = './data/dic.pyobj',
-                    circos_file = './data/ip.circos',
-                    verbose = True)
+    parser.add_option("-i", "--input", dest="obj_file", help="Python serialized object")
+    parser.add_option("-o", "--output", dest="circos_file", help="Circos file")
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(
+        obj_file="./data/dic.pyobj", circos_file="./data/ip.circos", verbose=True
+    )
 
     (options, args) = parser.parse_args()
 

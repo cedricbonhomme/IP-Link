@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """object_to_GvGen
 
@@ -30,11 +30,11 @@ def object_to_GvGen(obj_file):
     """
     dic_obj = open(obj_file, "r")
     if options.verbose:
-        pass#print "Loading dictionary..."
+        pass  # print "Loading dictionary..."
     dic_ip = pickle.load(dic_obj)
 
     if options.verbose:
-        pass#print "Creating GvGen object..."
+        pass  # print "Creating GvGen object..."
 
     graph = gvgen.GvGen()
     graph.styleDefaultAppend("color", "lightblue")
@@ -56,23 +56,23 @@ def object_to_GvGen(obj_file):
             graph.propertyAppend(link, "color", "#158510")
             graph.propertyAppend(link, "label", str(dic_ip[ip_src][ip_dst]))
 
-
     graph.dot()
-
-
 
 
 if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="obj_file",
-                    help="Python serialized object")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(obj_file = './data/dic.pyobj',
-                    verbose = True)
+    parser.add_option("-i", "--input", dest="obj_file", help="Python serialized object")
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(obj_file="./data/dic.pyobj", verbose=True)
 
     (options, args) = parser.parse_args()
 

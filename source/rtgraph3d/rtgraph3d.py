@@ -1,20 +1,19 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 
 try:
     from visual import *
 except:
-    print "Module python-visual manquant."
+    print("Module python-visual manquant.")
     exit(0)
 from select import select
-import os,sys,time,traceback,string,random
-import logging,getopt,socket
-import dbus,dbus.glib,dbus.mainloop.glib,dbus.service,gobject
-import thread
-import povexport
-import struct,re
-
+import os, sys, time, traceback, string, random
+import logging, getopt, socket
+import dbus, dbus.glib, dbus.mainloop.glib, dbus.service, gobject
+import _thread
+from . import povexport
+import struct, re
 
 
 log = logging.getLogger("rtgraph3d")
@@ -24,7 +23,7 @@ log.addHandler(console_handler)
 log.setLevel(20)
 
 
-DT = 0.1 # time interval
+DT = 0.1  # time interval
 ACCEL = 5
 
 
@@ -34,13 +33,14 @@ class python_physics_engine:
     MIN_DIST = 16
 
     @staticmethod
-    def add_edge(e1,e2):
+    def add_edge(e1, e2):
         pass
+
     @staticmethod
     def update(the_world, pos, spd, changed, dt, ATTRACT, REPULS):
         ln = len(pos)
         for o in the_world.lst:
-            o.F = python_physics_engine.FRICTION*o.V
+            o.F = python_physics_engine.FRICTION * o.V
         i = 0
         while i < the_world.world_len:
             o = the_world.lst[i]
@@ -49,26 +49,26 @@ class python_physics_engine:
             while j < the_world.world_len:
                 n = the_world.lst[j]
                 j += 1
-                d = n.pos-o.pos
+                d = n.pos - o.pos
                 if n in o.edges:
-                    F = d*ATTRACT
+                    F = d * ATTRACT
                     o.F += F
                     n.F -= F
 
                 l = d.mag2
-                l = l**2
+                l = l ** 2
                 if l < python_physics_engine.MIN_DIST:
                     l = python_physics_engine.MIN_DIST
-                F = -REPULS*d/l
+                F = -REPULS * d / l
                 o.F += F
                 n.F -= F
         for o in the_world.lst:
-            dV = o.F*dt
+            dV = o.F * dt
             o.V += dV
-            o.pos += (dV/2+o.V)*dt
+            o.pos += (dV / 2 + o.V) * dt
 
 
-def get_physics_engine(mode=0): # 0:auto, 1:force python, 2: force C only, 3: force SSE
+def get_physics_engine(mode=0):  # 0:auto, 1:force python, 2: force C only, 3: force SSE
     if mode != 1:
         try:
             import PyInline
@@ -80,7 +80,9 @@ def get_physics_engine(mode=0): # 0:auto, 1:force python, 2: force C only, 3: fo
         try:
             mode = 2
 
-            test_sse = PyInline.build(language="C", code=r"""
+            test_sse = PyInline.build(
+                language="C",
+                code=r"""
             int test_sse(void)
             {
                     int sse_support;
@@ -98,9 +100,10 @@ def get_physics_engine(mode=0): # 0:auto, 1:force python, 2: force C only, 3: fo
                         "pop %%ebx \n\t"
                         : "=a"(sse_support) );
                     return sse_support;
-            }""")
+            }""",
+            )
             sse_support = test_sse.test_sse()
-            if  sse_support > 0:
+            if sse_support > 0:
                 mode = 3
                 log.info("Detected SSE%s compatible CPU" % ["?", "", "2"][sse_support])
             else:
@@ -110,7 +113,7 @@ def get_physics_engine(mode=0): # 0:auto, 1:force python, 2: force C only, 3: fo
             log.warning("x86 SSE test failed. Fallback to C physics engine")
             mode = 2
 
-    log.info("Using %s physics engine" % ["??","Python","C","C+SSE"][mode])
+    log.info("Using %s physics engine" % ["??", "Python", "C", "C+SSE"][mode])
     if mode == 1:
         log.warning("Python physics engine is 25 to 1000 times slower")
 
@@ -621,12 +624,11 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
 
 """
 
-
         if mode == 3:
             sse_code = "#define USE_SSE\r\n" + sse_code
 
         physics_engine = PyInline.build(language="C", code=sse_code)
-        physics_engine.C_ENGINE=1
+        physics_engine.C_ENGINE = 1
     else:
         physics_engine = python_physics_engine
     return physics_engine
@@ -634,46 +636,56 @@ float update(PyObject *the_world, PyObject *pos, PyObject *spd, int changed, flo
 
 class Edge(cylinder):
     def __init__(self, o1, o2, *args, **kargs):
-        param={"radius":0.2, "color":(0.7,0.7,1)}
+        param = {"radius": 0.2, "color": (0.7, 0.7, 1)}
         param.update(kargs)
-        self.o1=o1
-        self.o2=o2
+        self.o1 = o1
+        self.o2 = o2
         cylinder.__init__(self, *args, **param)
         self.update()
         self.pickable = 0
+
     def update(self):
         self.pos = self.o1.pos
-        self.axis = self.o2.pos-self.o1.pos
+        self.axis = self.o2.pos - self.o1.pos
+
 
 def randvect():
-    return vector(random.random(),random.random(),random.random())
+    return vector(random.random(), random.random(), random.random())
+
 
 def randcol():
     v = randvect()
-    s = v[0]+v[1]+v[2]
+    s = v[0] + v[1] + v[2]
     if s < 1:
-        v *= 1/(0.001+s)
+        v *= 1 / (0.001 + s)
     return v
+
 
 class Node(sphere):
     def __init__(self, node_id, *args, **kargs):
-        self.param = {"radius":1, "pos": randvect(), "color": randcol() }
+        self.param = {"radius": 1, "pos": randvect(), "color": randcol()}
         self.param.update(kargs)
         self.id = node_id
         self.edges = {}
         self.pickable = 1
-        self.PV=vector()
-        self.V=vector()
+        self.PV = vector()
+        self.V = vector()
 
         sphere.__init__(self, *args, **self.param)
 
-        self.label=label(text=node_id, pos=self.pos, space=self.radius, xoffset=10, yoffset=20, visible=0)
+        self.label = label(
+            text=node_id,
+            pos=self.pos,
+            space=self.radius,
+            xoffset=10,
+            yoffset=20,
+            visible=0,
+        )
         self.update_label()
-
 
     def update_label(self):
         text = [self.id]
-        for k,v in self.param.iteritems():
+        for k, v in self.param.items():
             if k in ["radius", "pos", "color"]:
                 setattr(self, k, v)
             else:
@@ -683,25 +695,33 @@ class Node(sphere):
     def update_param(self, **kargs):
         self.param.update(kargs)
         self.update_label()
+
     def action(self):
-        self.label.pos=self.pos
+        self.label.pos = self.pos
         self.label.visible ^= 1
+
     def update(self, dt):
         self.label.pos = self.pos
+
     def get_state(self):
         for k in self.param:
             if hasattr(self, k):
-                self.param[k] = getattr(self,k)
+                self.param[k] = getattr(self, k)
         return self.param
+
     def dump(self):
-        return repr( (self.id, self.get_state(), map(lambda x:x.id,self.edges.keys())) )
+        return repr(
+            (self.id, self.get_state(), [x.id for x in list(self.edges.keys())])
+        )
+
     @classmethod
     def from_string(cls, s):
         l = eval(s)
-        node_id,state,edges = l[:3]
+        node_id, state, edges = l[:3]
         o = cls(node_id, **state)
         o._tmp_edges = edges
         return o
+
 
 povexport.legal[Node] = povexport.legal[sphere]
 povexport.legal[Edge] = povexport.legal[cylinder]
@@ -714,35 +734,43 @@ class World:
         self.attraction = attraction
         self.repulsion = repulsion
         self.reset_world()
+
     def reset_world(self):
-        self.world={}
+        self.world = {}
         self.lst = []
         self.world_len = 0
         self.edges = []
         self.coords = []
         self.speeds = []
         self.cinematic_change = 1
+
     def register(self, o):
         self.world[o.id] = o
         self.lst.append(o)
         o.num = self.world_len
         self.coords.append(o.pos.astuple())
-        self.speeds.append((0.0,0.0,0.0))
+        self.speeds.append((0.0, 0.0, 0.0))
         self.world_len += 1
+
     def add_edge(self, o1, o2):
-        self.edges.append(Edge(o1,o2))
+        self.edges.append(Edge(o1, o2))
         self.physics_engine.add_edge(o1.num, o2.num)
+
     def __getitem__(self, item):
         return self.world[item]
-    def __contains__(self,item):
+
+    def __contains__(self, item):
         return item in self.world
+
     def get(self, *args):
         return self.world.get(*args)
+
     def dump_to_file(self, f):
         for o in self.lst:
             f.write(o.dump())
             f.write("\n")
         f.close()
+
     def load_from_file(self, f):
         while 1:
             l = f.readline()
@@ -751,62 +779,73 @@ class World:
             o = Node.from_string(l)
             self.register(o)
         for o in self.lst:
-            if hasattr(o,"_tmp_edges"):
+            if hasattr(o, "_tmp_edges"):
                 for e in o._tmp_edges:
                     if e not in self.world:
-                        print >>sys.stderr, "%s: edge to [%s] not found" % (o.id,e)
+                        print("%s: edge to [%s] not found" % (o.id, e), file=sys.stderr)
                         continue
                     o2 = self.world[e]
                     o.edges[o2] = None
                     if o in o2.edges:
-                        self.add_edge(o,o2)
-                del(o._tmp_edges)
+                        self.add_edge(o, o2)
+                del o._tmp_edges
+
     def update_edges(self):
         for e in self.edges:
             e.update()
+
     def update(self, dt):
-        self.physics_engine.update(self, self.coords, self.speeds, self.cinematic_change, dt, self.attraction, self.repulsion)
+        self.physics_engine.update(
+            self,
+            self.coords,
+            self.speeds,
+            self.cinematic_change,
+            dt,
+            self.attraction,
+            self.repulsion,
+        )
         self.cinematic_change = 0
         if self.physics_engine.C_ENGINE:
-            for i in xrange(self.world_len):
+            for i in range(self.world_len):
                 self.lst[i].pos = self.coords[i]
                 self.lst[i].update(dt)
         else:
-            for i in xrange(self.world_len):
+            for i in range(self.world_len):
                 self.lst[i].update(dt)
         self.update_edges()
 
 
-
 def mkcol():
-    def norm(x,y,z):
-        if x+y+z < 1:
-            t=1-max(x,y,z)
-            x,y,z = x+t,y+t,z+t
-        return x,y,z
+    def norm(x, y, z):
+        if x + y + z < 1:
+            t = 1 - max(x, y, z)
+            x, y, z = x + t, y + t, z + t
+        return x, y, z
+
     return norm(random.random(), random.random(), random.random())
 
+
 def ip2num(ip):
-    a,b,c,d = struct.unpack("!lLlL",socket.inet_pton(socket.AF_INET6, ip))
-    return (a<<32L|b), (c<<32L|d)
+    a, b, c, d = struct.unpack("!lLlL", socket.inet_pton(socket.AF_INET6, ip))
+    return (a << 32 | b), (c << 32 | d)
 
 
 class GlowingService:
     def __init__(self):
         self.lst = {}
-        self.run=1
-        thread.start_new_thread(self.glowing_thread,())
+        self.run = 1
+        _thread.start_new_thread(self.glowing_thread, ())
 
     def __del__(self):
-        self.run=0
+        self.run = 0
 
     def glow_node(self, node):
         if node not in self.lst:
-            self.lst[node]=(node.radius, node.color)
+            self.lst[node] = (node.radius, node.color)
 
     def unglow_node(self, node):
         if node in self.lst:
-            node.radius,node.color = self.lst.pop(node)
+            node.radius, node.color = self.lst.pop(node)
 
     def toggle_glow(self, node):
         if node in self.lst:
@@ -815,40 +854,42 @@ class GlowingService:
             self.glow_node(node)
 
     def glowing_thread(self):
-        t=0
+        t = 0
         while self.run:
             rate(25)
-            mult = 1.1+0.3*cos(t*2*pi/25)
-            for n,v in self.lst.iteritems():
-                rad,col = v
-                n.radius = rad*mult
-                n.red = min(1,col[0]*mult)
-                n.green = min(1,col[1]*mult)
-                n.blue = min(1,col[2]*mult)
+            mult = 1.1 + 0.3 * cos(t * 2 * pi / 25)
+            for n, v in self.lst.items():
+                rad, col = v
+                n.radius = rad * mult
+                n.red = min(1, col[0] * mult)
+                n.green = min(1, col[1] * mult)
+                n.blue = min(1, col[2] * mult)
             t += 1
 
     def __iter__(self):
         return iter(self.lst)
 
-class RotateService:
-    def __init__(self, scene, angle=pi/300):
-        self.lock = thread.allocate_lock()
-        self.lock.acquire()
-        self.scene=scene
-        self.angle=angle
-        thread.start_new_thread(self.rotate_thread,())
 
+class RotateService:
+    def __init__(self, scene, angle=pi / 300):
+        self.lock = _thread.allocate_lock()
+        self.lock.acquire()
+        self.scene = scene
+        self.angle = angle
+        _thread.start_new_thread(self.rotate_thread, ())
 
     def rotate(self):
         if self.lock.locked():
             self.lock.release()
+
     def stop_rotate(self):
         self.lock.acquire(0)
+
     def set_angle(self, angle):
         self.angle = angle
 
     def rotate_thread(self):
-        t=0.0
+        t = 0.0
         while 1:
             rate(50)
             if self.lock.locked():
@@ -859,22 +900,30 @@ class RotateService:
 
 
 class RTGraphService(dbus.service.Object):
-    def __init__(self, bus, dbpath,
-                 physics_engine, input=[sys.stdin], startfile=None, savefile=None, stereo=None):
+    def __init__(
+        self,
+        bus,
+        dbpath,
+        physics_engine,
+        input=[sys.stdin],
+        startfile=None,
+        savefile=None,
+        stereo=None,
+    ):
         dbus.service.Object.__init__(self, bus, dbpath)
         self.scene = display()
-        self.scene.title="RealTime Graph 3D"
-        self.scene.exit=0
-        self.scene.ambient=0.3
+        self.scene.title = "RealTime Graph 3D"
+        self.scene.exit = 0
+        self.scene.ambient = 0.3
         if stereo is not None:
             self.scene.stereo = stereo
             self.scene.stereodepth = 2
-    #        self.scene.width=100
-    #        self.scene.height=50
-        self.scene.visible=1
-        self.cinematic_lock = thread.allocate_lock()
+        #        self.scene.width=100
+        #        self.scene.height=50
+        self.scene.visible = 1
+        self.cinematic_lock = _thread.allocate_lock()
 
-        self.glow=GlowingService()
+        self.glow = GlowingService()
         self.rotate_service = RotateService(self.scene)
 
         self.the_world = World(physics_engine)
@@ -882,8 +931,7 @@ class RTGraphService(dbus.service.Object):
         if startfile is not None:
             self.the_world.load_from_file(open(startfile))
         if savefile is not None:
-            atexit.register(self.the_world.dump_to_file, open(savefile,"w"))
-
+            atexit.register(self.the_world.dump_to_file, open(savefile, "w"))
 
     @dbus.service.signal("org.secdev.rtgraph3d.events", signature="s")
     def node_click(self, message):
@@ -897,98 +945,115 @@ class RTGraphService(dbus.service.Object):
     def node_ctrl_click(self, message):
         pass
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="s", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="s", out_signature=""
+    )
     def file_dump(self, fname):
         self.cinematic_lock.acquire()
-        self.the_world.dump_to_file(open(fname,"w"))
+        self.the_world.dump_to_file(open(fname, "w"))
         self.cinematic_lock.release()
         log.info("Dumped world to [%s]" % fname)
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="s", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="s", out_signature=""
+    )
     def file_load(self, fname):
         self.cinematic_lock.acquire()
         self.the_world.load_from_file(open(fname))
         self.cinematic_lock.release()
         log.info("Loaded world from [%s]" % fname)
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="", out_signature="s")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="", out_signature="s"
+    )
     def get_dump(self):
         return "not implemented..."
 
-
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="", out_signature="s")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="", out_signature="s"
+    )
     def get_dot(self):
         s = 'graph "rtgraph" { \n'
 
         for e in self.the_world.edges:
             s += '\t "%s" -- "%s";\n' % (e.o1.id, e.o2.id)
-        s += '}\n'
+        s += "}\n"
         return s
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="", out_signature=""
+    )
     def reset_world(self):
         self.cinematic_lock.acquire()
         self.the_world.reset_world()
         for o in self.scene.objects:
-            o.visible=0
+            o.visible = 0
         self.cinematic_lock.release()
         log.info("Reseted world")
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="d", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="d", out_signature=""
+    )
     def set_attraction(self, attract):
         self.the_world.attraction = attract
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="d", out_signature="")
+
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="d", out_signature=""
+    )
     def set_repulsion(self, repuls):
         self.the_world.repulsion = repuls
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="d", out_signature="")
+
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="d", out_signature=""
+    )
     def set_ambient(self, ambient):
         self.scene.ambient = ambient
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="d", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="d", out_signature=""
+    )
     def auto_rotate_scene(self, angle):
         if angle:
             self.rotate_service.set_angle(angle)
         self.rotate_service.rotate()
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="", out_signature=""
+    )
     def stop_auto_rotate_scene(self):
         self.rotate_service.stop_rotate()
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="s", out_signature="s")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="s", out_signature="s"
+    )
     def execute(self, cmd):
         log.info("--- Begin exec [%s]" % cmd)
-        res=eval(cmd)
+        res = eval(cmd)
         log.info(res)
         log.info("--- End exec [%s]" % cmd)
         return "%s" % res
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="", out_signature=""
+    )
     def check(self):
         for o in self.the_world.lst:
             for o2 in o.edges:
                 if o not in o2.edges:
-                    log.error("%s ==> %s \t %s ==> %s"% (o.id,o2.id, id(o),id(o2)))
-            log.info("Checked %i nodes, %i edges." % (len(self.the_world.lst),len(self.the_world.edges)))
+                    log.error("%s ==> %s \t %s ==> %s" % (o.id, o2.id, id(o), id(o2)))
+            log.info(
+                "Checked %i nodes, %i edges."
+                % (len(self.the_world.lst), len(self.the_world.edges))
+            )
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="sa{sv}sa{sv}", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="sa{sv}sa{sv}", out_signature=""
+    )
     def new_edge(self, id1, attr1, id2, attr2):
-        id1=str(id1)
-        id2=str(id2)
-        attr1=dict([ (str(a),b.__class__.__base__(b)) for a,b in attr1.iteritems()])
-        attr2=dict([ (str(a),b.__class__.__base__(b)) for a,b in attr2.iteritems()])
+        id1 = str(id1)
+        id2 = str(id2)
+        attr1 = dict([(str(a), b.__class__.__base__(b)) for a, b in attr1.items()])
+        attr2 = dict([(str(a), b.__class__.__base__(b)) for a, b in attr2.items()])
 
         if id1 == id2:
             raise Exception("Nodes are identical")
@@ -996,59 +1061,65 @@ class RTGraphService(dbus.service.Object):
         n1 = self.the_world.get(id1)
         n2 = self.the_world.get(id2)
         if n1 is None and n2 is not None:
-            n2,n1=n1,n2
-            id1,id2=id2,id1
-            attr1,attr2=attr2,attr1
+            n2, n1 = n1, n2
+            id1, id2 = id2, id1
+            attr1, attr2 = attr2, attr1
 
         if n1 is None:
             n1 = Node(id1, **attr1)
             self.the_world.register(n1)
         if n2 is None:
             if "pos" not in attr2:
-                attr2["pos"] = n1.pos+randvect()
+                attr2["pos"] = n1.pos + randvect()
             n2 = Node(id2, **attr2)
             self.the_world.register(n2)
 
         if n1 in n2.edges:
-            raise Exception("Edge %s-%s alread exists" % (id1,id2))
+            raise Exception("Edge %s-%s alread exists" % (id1, id2))
 
         n1.edges[n2] = None
         n2.edges[n1] = None
-        self.the_world.add_edge(n1,n2)
+        self.the_world.add_edge(n1, n2)
         self.the_world.cinematic_change = 1
 
-        log.info("Ok for [%s]-[%s]" % (id1,id2))
+        log.info("Ok for [%s]-[%s]" % (id1, id2))
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="sa{sv}", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="sa{sv}", out_signature=""
+    )
     def update_node(self, node_id, attr):
-        attr=dict([ (str(a),b.__class__.__base__(b)) for a,b in attr.iteritems()])
+        attr = dict([(str(a), b.__class__.__base__(b)) for a, b in attr.items()])
         node = self.the_world.get(node_id)
         node.update_param(**attr)
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="s", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="s", out_signature=""
+    )
     def toggle(self, node_id):
         self.the_world[str(node_id)].action()
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="s", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="s", out_signature=""
+    )
     def glow(self, node_id):
         self.glow.glow_node(self.the_world[str(node_id)])
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="s", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="s", out_signature=""
+    )
     def unglow(self, node_id):
         self.glow.unglow_node(self.the_world[str(node_id)])
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="", out_signature="")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="", out_signature=""
+    )
     def unglow_all(self):
         for n in self.the_world.lst:
             self.glow.unglow_node(n)
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="ss", out_signature="as")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="ss", out_signature="as"
+    )
     def find(self, attr, val):
         res = []
         rval = re.compile(str(val))
@@ -1062,8 +1133,9 @@ class RTGraphService(dbus.service.Object):
                     res.append(n.id)
         return res
 
-    @dbus.service.method("org.secdev.rtgraph3d.command",
-                         in_signature="", out_signature="as")
+    @dbus.service.method(
+        "org.secdev.rtgraph3d.command", in_signature="", out_signature="as"
+    )
     def get_all_nodes(self):
         return [n.id for n in self.the_world.lst]
 
@@ -1073,31 +1145,33 @@ def cinematic_thread(svc, POVdump=None, ACCEL=ACCEL, DT=DT):
     the_world = svc.the_world
     scene = the_world.scene
     picked = None
-    frames=-1
+    frames = -1
     while 1:
         frames += 1
-        rate(ACCEL/DT)
+        rate(ACCEL / DT)
         svc.cinematic_lock.acquire()
         try:
             if scene.kb.keys:
                 k = scene.kb.getkey()
                 if k == "Q":
-                    #send event
+                    # send event
                     return
             if scene.mouse.events:
                 ev = scene.mouse.getevent()
                 if ev.release == "left":
                     if picked:
-                        the_world.speeds[picked.num]=((scene.mouse.pos-picked.PV)/DT).astuple()
+                        the_world.speeds[picked.num] = (
+                            (scene.mouse.pos - picked.PV) / DT
+                        ).astuple()
                         the_world.cinematic_change = 1
                         picked = None
                     else:
                         o = ev.pick
                         if ev.shift and o:
-                            if hasattr(o,"id"):
+                            if hasattr(o, "id"):
                                 svc.node_shift_click(o.id)
                         elif ev.ctrl and o:
-                            if hasattr(o,"id"):
+                            if hasattr(o, "id"):
                                 svc.node_ctrl_click(o.id)
                         else:
                             if hasattr(o, "action"):
@@ -1106,55 +1180,62 @@ def cinematic_thread(svc, POVdump=None, ACCEL=ACCEL, DT=DT):
                     if ev.pick and ev.pick.pickable:
                         picked = ev.pick
 
-
             if picked:
                 picked.PV = picked.pos
-                picked.pos=scene.mouse.pos
+                picked.pos = scene.mouse.pos
                 picked.V = vector()
-                the_world.coords[picked.num]=picked.pos.astuple()
-                the_world.speeds[picked.num]=(0.0,0.0,0.0)
+                the_world.coords[picked.num] = picked.pos.astuple()
+                the_world.speeds[picked.num] = (0.0, 0.0, 0.0)
                 the_world.cinematic_change = 1
 
             the_world.update(DT)
             the_world.update_edges()
             if POVdump is not None:
                 fname = POVdump % frames
-                povexport.export(filename=fname, display=scene, include_list=['colors.inc'])
+                povexport.export(
+                    filename=fname, display=scene, include_list=["colors.inc"]
+                )
 
         except:
-            log.exception("FRAME=%i: Catched exception in the cinematic thread!" % frames)
+            log.exception(
+                "FRAME=%i: Catched exception in the cinematic thread!" % frames
+            )
 
         svc.cinematic_lock.release()
 
 
 def usage():
-    print >>sys.stderr, """rtgraph3D [-w savefile] [-r startfile] [-m <mode>]
+    print(
+        """rtgraph3D [-w savefile] [-r startfile] [-m <mode>]
     -P <fname_tmpl> export to POV, filename template (ex: /tmp/foo/bar-%i.pov)
     -d
     -c {s|d}        choose between static and dynamic mode
     -m {p|c|s}      Python (slow), C (quick) and SSE (quickest) physics engine
     -w <savefile>   save world in this file
     -r <startfile>  read world from this file
-    -s <stereo>     stereo mode (active, passive, crosseyed, redcyan, redblue, yellowblue)"""
+    -s <stereo>     stereo mode (active, passive, crosseyed, redcyan, redblue, yellowblue)""",
+        file=sys.stderr,
+    )
     sys.exit(0)
 
+
 class Cinematic:
-    static=0
-    dynamic=1
+    static = 0
+    dynamic = 1
 
 
 if __name__ == "__main__":
     INPUT = [sys.stdin]
-    STARTFILE=None
-    SAVEFILE=None
-    STEREO=None
-    CINEMATIC=Cinematic.dynamic
-    POVDUMP=None
-    MODE=0
+    STARTFILE = None
+    SAVEFILE = None
+    STEREO = None
+    CINEMATIC = Cinematic.dynamic
+    POVDUMP = None
+    MODE = 0
     try:
-        opts = getopt.getopt(sys.argv[1:],"htr:w:s:c:P:m:")
+        opts = getopt.getopt(sys.argv[1:], "htr:w:s:c:P:m:")
 
-        for opt,optarg in opts[0]:
+        for opt, optarg in opts[0]:
             if opt == "-h":
                 usage()
             elif opt == "-t":
@@ -1167,20 +1248,19 @@ if __name__ == "__main__":
                 SAVEFILE = optarg
             elif opt == "-m":
                 try:
-                    MODE = {"p":1,"c":2,"s":3}[optarg.lower()]
+                    MODE = {"p": 1, "c": 2, "s": 3}[optarg.lower()]
                 except KeyError:
                     raise getopt.GetoptError("unkonwn mode [%s]" % optarg)
             elif opt == "-P":
                 POVDUMP = optarg
             elif opt == "-c":
-                if optarg.startswith("s"): # static
+                if optarg.startswith("s"):  # static
                     CINEMATIC = Cinematic.static
-                elif optarg.startswith("d"): # dynamic
+                elif optarg.startswith("d"):  # dynamic
                     CINEMATIC = Cinematic.dynamic
-    except getopt.GetoptError,msg:
+    except getopt.GetoptError as msg:
         log.exception(msg)
         sys.exit(-1)
-
 
     gobject.threads_init()
     dbus.glib.init_threads()
@@ -1188,13 +1268,24 @@ if __name__ == "__main__":
 
     bus = dbus.SessionBus()
     name = dbus.service.BusName("org.secdev.rtgraph3d", bus)
-    svc = RTGraphService(bus, "/control",
-                         get_physics_engine(MODE), INPUT,
-                         startfile=STARTFILE,
-                         savefile=SAVEFILE, stereo=STEREO)
+    svc = RTGraphService(
+        bus,
+        "/control",
+        get_physics_engine(MODE),
+        INPUT,
+        startfile=STARTFILE,
+        savefile=SAVEFILE,
+        stereo=STEREO,
+    )
 
     if CINEMATIC == Cinematic.dynamic:
-        thread.start_new_thread(cinematic_thread, (svc, POVDUMP,))
+        _thread.start_new_thread(
+            cinematic_thread,
+            (
+                svc,
+                POVDUMP,
+            ),
+        )
 
     mainloop = gobject.MainLoop()
     log.info("Entering main loop")

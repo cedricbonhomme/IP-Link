@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """object_to_scatterplot
 
@@ -10,16 +10,18 @@ Then call ploticus to create the png file
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2009/03/01 $"
-__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
+__copyright__ = (
+    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
+)
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import sys
 import subprocess
 import pickle
 
+
 def object_to_scatterplot(obj_file, scatter_folder):
-    """Generate a scatter plot graph.
-    """
+    """Generate a scatter plot graph."""
     dic_obj = open(obj_file, "rb")
     if options.verbose:
         print("Loading dictionary...")
@@ -47,15 +49,22 @@ def object_to_scatterplot(obj_file, scatter_folder):
     data_f = open("./scatterplot/data.inc", "w")
     for s in dic_ip:
         for d in dic_ip[s]:
-            data_f.write(s+" "+d+" "+str(dic_ip[s][d])+"\n")
+            data_f.write(s + " " + d + " " + str(dic_ip[s][d]) + "\n")
     data_f.close()
 
     # Call ploticus in order to generate the scatterplot
-    cmd = ['ploticus', '-o', scatter_folder+'scatterplot.png', '-png',
-                './scatterplot/scatterplot', '-csmap', '-maxproclines']
+    cmd = [
+        "ploticus",
+        "-o",
+        scatter_folder + "scatterplot.png",
+        "-png",
+        "./scatterplot/scatterplot",
+        "-csmap",
+        "-maxproclines",
+    ]
     if options.verbose:
         print("Command to execute :")
-        print('\t' + ' '.join(cmd))
+        print("\t" + " ".join(cmd))
     # ploticus outputs
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     # stdout contains the areas of the HTML shape
@@ -71,12 +80,12 @@ def object_to_scatterplot(obj_file, scatter_folder):
     html += '\n<img src="scatterplot.png" usemap="#map1">'
     html += '\n<map name="map1">\n'
     html += stdout.decode()
-    html += '\n</map>'
-    html += '\n</body>\n</html>'
+    html += "\n</map>"
+    html += "\n</body>\n</html>"
 
     if options.verbose:
         print("Creating HTML map")
-    html_file = open(scatter_folder+'index.html', "w")
+    html_file = open(scatter_folder + "index.html", "w")
     html_file.write(html)
     html_file.close()
 
@@ -84,17 +93,25 @@ def object_to_scatterplot(obj_file, scatter_folder):
 if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="obj_file",
-                    help="Python serialized object")
-    parser.add_option("-o", "--output", dest="scatter_folder",
-                    help="Output where the HTML file and the scatterplot will be generated.")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(obj_file = './data/dic.pyobj',
-                    scatter_folder = './scatterplot/',
-                    verbose = True)
+    parser.add_option("-i", "--input", dest="obj_file", help="Python serialized object")
+    parser.add_option(
+        "-o",
+        "--output",
+        dest="scatter_folder",
+        help="Output where the HTML file and the scatterplot will be generated.",
+    )
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(
+        obj_file="./data/dic.pyobj", scatter_folder="./scatterplot/", verbose=True
+    )
 
     (options, args) = parser.parse_args()
 

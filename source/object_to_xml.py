@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """object_to_xml
 
@@ -30,7 +30,9 @@ Example of an XML file:
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2009/02/20 $"
-__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
+__copyright__ = (
+    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
+)
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import os
@@ -64,11 +66,11 @@ def object_to_xml(obj_file, xml_file):
             ipsrc.appendChild(ipdst)
 
     # Elegant display of the XML object
-    #print doc.toprettyxml()
+    # print doc.toprettyxml()
 
     try:
-        file = open(xml_file, 'w')
-        file.write('%s' % doc.toxml().encode('utf-8'))
+        file = open(xml_file, "w")
+        file.write("%s" % doc.toxml().encode("utf-8"))
     except IOError as e:
         print("Writting error :", e)
     finally:
@@ -78,17 +80,20 @@ def object_to_xml(obj_file, xml_file):
 if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="obj_file",
-                    help="Python serialized object")
-    parser.add_option("-o", "--output", dest="xml_file",
-                    help="XML file")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(obj_file = './data/dic.pyobj',
-                    xml_file = './data/ip.xml',
-                    verbose = True)
+    parser.add_option("-i", "--input", dest="obj_file", help="Python serialized object")
+    parser.add_option("-o", "--output", dest="xml_file", help="XML file")
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(
+        obj_file="./data/dic.pyobj", xml_file="./data/ip.xml", verbose=True
+    )
 
     (options, args) = parser.parse_args()
 

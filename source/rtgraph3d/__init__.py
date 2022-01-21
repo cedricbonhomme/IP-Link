@@ -3,6 +3,6 @@
 Visualiser les relations entre les differentes IP d'une capture.
 """
 
-__all__ = ['rtgraph3d']
+__all__ = ["rtgraph3d"]
 
-__version__ = '0.1'
+__version__ = "0.1"

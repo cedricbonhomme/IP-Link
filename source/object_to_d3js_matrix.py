@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """object_to_d3js_matrix
 
@@ -10,7 +10,9 @@ for D3.js.
 __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2015/02/06 $"
-__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2015 Cedric Bonhomme"
+__copyright__ = (
+    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2015 Cedric Bonhomme"
+)
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import os
@@ -19,9 +21,9 @@ import json
 import pickle
 from collections import Counter
 
+
 def object_to_d3js(obj_file, matrix_file):
-    """Create the input file for D3.js.
-    """
+    """Create the input file for D3.js."""
     if options.verbose:
         print("Loading objet...")
     dic_obj = open(obj_file, "rb")
@@ -48,7 +50,13 @@ def object_to_d3js(obj_file, matrix_file):
                 is_node_added[ip_dst] = True
                 ip_number += 1
 
-            d3js_json["links"].append({"source":source_ip_number, "target":ip_number, "value": dic_ip[ip_src][ip_dst]})
+            d3js_json["links"].append(
+                {
+                    "source": source_ip_number,
+                    "target": ip_number,
+                    "value": dic_ip[ip_src][ip_dst],
+                }
+            )
 
     # Freeing memory
     del dic_ip
@@ -56,24 +64,27 @@ def object_to_d3js(obj_file, matrix_file):
     if options.verbose:
         print("Saving the matrix...")
 
-    with open(matrix_file, 'w') as outfile:
+    with open(matrix_file, "w") as outfile:
         json.dump(d3js_json, outfile)
 
 
 if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="obj_file",
-                    help="Python serialized object")
-    parser.add_option("-o", "--output", dest="matrix_file",
-                    help="Input file for D3.js")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(obj_file = './data/dic.pyobj',
-                    matrix_file = './data/ip.json',
-                    verbose = True)
+    parser.add_option("-i", "--input", dest="obj_file", help="Python serialized object")
+    parser.add_option("-o", "--output", dest="matrix_file", help="Input file for D3.js")
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(
+        obj_file="./data/dic.pyobj", matrix_file="./data/ip.json", verbose=True
+    )
 
     (options, args) = parser.parse_args()
 

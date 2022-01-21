@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """sqlite_to_object
 
@@ -15,7 +15,9 @@ Filters can be made on:
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.4 $"
 __date__ = "$Date: 2010/12/01 $"
-__copyright__ = "Copyright (c) 2009, 2010 Jerome Hussenet, Copyright (c) 2009, 2010 Cedric Bonhomme"
+__copyright__ = (
+    "Copyright (c) 2009, 2010 Jerome Hussenet, Copyright (c) 2009, 2010 Cedric Bonhomme"
+)
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import os
@@ -30,13 +32,14 @@ import pickle
 import sqlite3
 
 # kinds of requests
-requests = { \
-            "all" : "SELECT ip_src, ip_dst FROM ip_link", \
-            "tts" : "SELECT ip_src, ip_dst FROM ip_link WHERE tts >= tts1 AND tts <=  tts2",\
-            "time" : "SELECT ip_src, ip_dst FROM ip_link WHERE tts >= tts1 AND tts <=  tts2",\
-            "ip_src" : "SELECT ip_src, ip_dst FROM ip_link WHERE ip_src = ipsrc" ,\
-            "ip_dst" : "SELECT ip_src, ip_dst FROM ip_link WHERE ip_dst = ipdst" \
-            }
+requests = {
+    "all": "SELECT ip_src, ip_dst FROM ip_link",
+    "tts": "SELECT ip_src, ip_dst FROM ip_link WHERE tts >= tts1 AND tts <=  tts2",
+    "time": "SELECT ip_src, ip_dst FROM ip_link WHERE tts >= tts1 AND tts <=  tts2",
+    "ip_src": "SELECT ip_src, ip_dst FROM ip_link WHERE ip_src = ipsrc",
+    "ip_dst": "SELECT ip_src, ip_dst FROM ip_link WHERE ip_dst = ipdst",
+}
+
 
 def sqlite_to_object(sqlite_file, obj_file, request_type, parameter):
     """Querys SQLite data base.
@@ -46,7 +49,7 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameter):
     """
     if options.verbose:
         print("DB connect")
-    conn = sqlite3.connect(sqlite_file, isolation_level = None)
+    conn = sqlite3.connect(sqlite_file, isolation_level=None)
 
     # Builds the SQLite request
     req = requests[request_type]
@@ -93,31 +96,41 @@ def sqlite_to_object(sqlite_file, obj_file, request_type, parameter):
         pickle.dump(dic_ip, dic_obj)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="sqlite_file",
-                    help="SQLite base")
-    parser.add_option("-o", "--output", dest="obj_file",
-                    help="The Python serialized object")
-    parser.add_option("-r", "--request", dest="request_type",
-                    help="type of the request")
-    parser.add_option("-p", "--parameter", dest="parameter",
-                    help="The parameter of the request")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(sqlite_file = './data/ip.sql',
-                    obj_file = './data/dic.pyobj',
-                    request_type = 'all',
-                    parameter = '',
-                    verbose = True)
+    parser.add_option("-i", "--input", dest="sqlite_file", help="SQLite base")
+    parser.add_option(
+        "-o", "--output", dest="obj_file", help="The Python serialized object"
+    )
+    parser.add_option(
+        "-r", "--request", dest="request_type", help="type of the request"
+    )
+    parser.add_option(
+        "-p", "--parameter", dest="parameter", help="The parameter of the request"
+    )
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(
+        sqlite_file="./data/ip.sql",
+        obj_file="./data/dic.pyobj",
+        request_type="all",
+        parameter="",
+        verbose=True,
+    )
 
     (options, args) = parser.parse_args()
 
-    if options.request_type != 'all' and options.parameter == '':
+    if options.request_type != "all" and options.parameter == "":
         parser.error("Request parameter needed")
 
-    sqlite_to_object(options.sqlite_file, options.obj_file,
-                    options.request_type, options.parameter)
+    sqlite_to_object(
+        options.sqlite_file, options.obj_file, options.request_type, options.parameter
+    )

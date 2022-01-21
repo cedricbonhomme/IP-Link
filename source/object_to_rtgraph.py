@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """object_to_rtgraph
 
@@ -17,7 +17,9 @@ PyInline and povexport are already included with IP-Link.
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2009/03/05 $"
-__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
+__copyright__ = (
+    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
+)
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import os
@@ -67,12 +69,13 @@ def object_to_rtgraph(obj_file):
     child_stdin.close()
     child_stdout.close()
     child_stderr.close()
-    
+
     if options.verbose:
         print("Problem(s) :")
         print(stderr)
         print("\nOutput :")
         print(stdout)
+
 
 def rtggraph_launch():
     INPUT = [sys.stdin]
@@ -85,7 +88,7 @@ def rtggraph_launch():
     try:
         opts = getopt.getopt(sys.argv[1:], "htr:w:s:c:P:m:q:i")
 
-        for opt,optarg in opts[0]:
+        for opt, optarg in opts[0]:
             if opt == "-h":
                 usage()
             elif opt == "-t":
@@ -98,15 +101,15 @@ def rtggraph_launch():
                 SAVEFILE = optarg
             elif opt == "-m":
                 try:
-                    MODE = {"p":1, "c":2, "s":3}[optarg.lower()]
+                    MODE = {"p": 1, "c": 2, "s": 3}[optarg.lower()]
                 except KeyError:
                     raise getopt.GetoptError("unkonwn mode [%s]" % optarg)
             elif opt == "-P":
                 POVDUMP = optarg
             elif opt == "-c":
-                if optarg.startswith("s"): # static
+                if optarg.startswith("s"):  # static
                     CINEMATIC = Cinematic.static
-                elif optarg.startswith("d"): # dynamic
+                elif optarg.startswith("d"):  # dynamic
                     CINEMATIC = Cinematic.dynamic
     except getopt.GetoptError as msg:
         log.exception(msg)
@@ -114,17 +117,28 @@ def rtggraph_launch():
 
     gobject.threads_init()
     dbus.glib.init_threads()
-    dbus.mainloop.glib.DBusGMainLoop(set_as_default = True)
+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
 
     bus = dbus.SessionBus()
     name = dbus.service.BusName("org.secdev.rtgraph3d", bus)
-    svc = RTGraphService(bus, "/control",
-                         get_physics_engine(MODE), INPUT,
-                         startfile = STARTFILE,
-                         savefile = SAVEFILE, stereo = STEREO)
+    svc = RTGraphService(
+        bus,
+        "/control",
+        get_physics_engine(MODE),
+        INPUT,
+        startfile=STARTFILE,
+        savefile=SAVEFILE,
+        stereo=STEREO,
+    )
 
     if CINEMATIC == Cinematic.dynamic:
-        thread.start_new_thread(cinematic_thread, (svc, POVDUMP,))
+        thread.start_new_thread(
+            cinematic_thread,
+            (
+                svc,
+                POVDUMP,
+            ),
+        )
 
     mainloop = gobject.MainLoop()
     log.info("Entering main loop")
@@ -134,13 +148,17 @@ def rtggraph_launch():
 if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="obj_file",
-                    help="Python serialized object")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(obj_file = './data/dic.pyobj', verbose = True)
+    parser.add_option("-i", "--input", dest="obj_file", help="Python serialized object")
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(obj_file="./data/dic.pyobj", verbose=True)
 
     (options, args) = parser.parse_args()
 

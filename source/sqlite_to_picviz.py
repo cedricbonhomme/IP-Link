@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """sqlite_to_picviz
 """
@@ -7,7 +7,9 @@
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2009/03/30 $"
-__copyright__ = "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2013 Cedric Bonhomme"
+__copyright__ = (
+    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
+)
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import os
@@ -19,13 +21,14 @@ from time import mktime
 import sqlite3
 
 # kinds of requests
-requests = { \
-            "all" : "SELECT tts, ip_src, ip_dst FROM ip_link", \
-            "tts" : "SELECT tts, ip_src, ip_dst FROM ip_link WHERE tts >= tts1 AND tts <=  tts2",\
-            "time" : "SELECT tts, ip_src, ip_dst FROM ip_link WHERE tts >= tts1 AND tts <=  tts2",\
-            "ip_src" : "SELECT tts, ip_src, ip_dst FROM ip_link WHERE ip_src = ipsrc" ,\
-            "ip_dst" : "SELECT tts, ip_src, ip_dst FROM ip_link WHERE ip_dst = ipdst" \
-            }
+requests = {
+    "all": "SELECT tts, ip_src, ip_dst FROM ip_link",
+    "tts": "SELECT tts, ip_src, ip_dst FROM ip_link WHERE tts >= tts1 AND tts <=  tts2",
+    "time": "SELECT tts, ip_src, ip_dst FROM ip_link WHERE tts >= tts1 AND tts <=  tts2",
+    "ip_src": "SELECT tts, ip_src, ip_dst FROM ip_link WHERE ip_src = ipsrc",
+    "ip_dst": "SELECT tts, ip_src, ip_dst FROM ip_link WHERE ip_dst = ipdst",
+}
+
 
 def sqlite_to_picviz(sqlite_file, picviz_file, request_type, parameter):
     """Querys SQLite data base.
@@ -35,7 +38,7 @@ def sqlite_to_picviz(sqlite_file, picviz_file, request_type, parameter):
     """
     if options.verbose:
         print("DB connect")
-    conn = sqlite3.connect(sqlite_file, isolation_level = None)
+    conn = sqlite3.connect(sqlite_file, isolation_level=None)
 
     # Builds the SQLite request
     req = requests[request_type]
@@ -68,19 +71,28 @@ def sqlite_to_picviz(sqlite_file, picviz_file, request_type, parameter):
     if options.verbose:
         print("Creating Picviz file...")
     picviz_header = 'header {\n\ttitle = "IP-Link - Picviz";\n}'
-    picviz_axes = 'axes {\n\ttimeline t [label="Time"];\n\t' + \
-                    'ipv4    i [label="Source IP"];\n\t' + \
-                    'ipv4    j [label="Destination IP"];\n}'
-    picviz_data = 'data {\n'
+    picviz_axes = (
+        'axes {\n\ttimeline t [label="Time"];\n\t'
+        + 'ipv4    i [label="Source IP"];\n\t'
+        + 'ipv4    j [label="Destination IP"];\n}'
+    )
+    picviz_data = "data {\n"
     picviz = picviz_header + picviz_axes + picviz_data
 
     for tts, ip_src, ip_dst in liste:
         datetime_time = datetime.fromtimestamp(tts)
         hour = datetime_time.strftime("%H:%M")
-        picviz += '\tt= "' + hour + '", i= "' + \
-                    ip_src + '", j= "' + ip_dst + '" '+ \
-                    '[color="red"];\n'
-    picviz += '}'
+        picviz += (
+            '\tt= "'
+            + hour
+            + '", i= "'
+            + ip_src
+            + '", j= "'
+            + ip_dst
+            + '" '
+            + '[color="red"];\n'
+        )
+    picviz += "}"
 
     if options.verbose:
         print("Writting file...")
@@ -89,31 +101,42 @@ def sqlite_to_picviz(sqlite_file, picviz_file, request_type, parameter):
     pic.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Point of entry in execution mode.
     from optparse import OptionParser
+
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="sqlite_file",
-                    help="SQLite base")
-    parser.add_option("-o", "--output", dest="picviz_file",
-                    help="Picviz file")
-    parser.add_option("-r", "--request", dest="request_type",
-                    help="type of the request")
-    parser.add_option("-p", "--parameter", dest="parameter",
-                    help="The parameter of the request")
-    parser.add_option("-q", "--quiet",
-                    action="store_false", dest="verbose",
-                    help="be vewwy quiet (I'm hunting wabbits)")
-    parser.set_defaults(sqlite_file = './data/ip.sql',
-                    picviz_file = './data/ip.pcv',
-                    request_type = 'all',
-                    parameter = '',
-                    verbose = True)
+    parser.add_option("-i", "--input", dest="sqlite_file", help="SQLite base")
+    parser.add_option("-o", "--output", dest="picviz_file", help="Picviz file")
+    parser.add_option(
+        "-r", "--request", dest="request_type", help="type of the request"
+    )
+    parser.add_option(
+        "-p", "--parameter", dest="parameter", help="The parameter of the request"
+    )
+    parser.add_option(
+        "-q",
+        "--quiet",
+        action="store_false",
+        dest="verbose",
+        help="be vewwy quiet (I'm hunting wabbits)",
+    )
+    parser.set_defaults(
+        sqlite_file="./data/ip.sql",
+        picviz_file="./data/ip.pcv",
+        request_type="all",
+        parameter="",
+        verbose=True,
+    )
 
     (options, args) = parser.parse_args()
 
-    if options.request_type != 'all' and options.parameter == '':
+    if options.request_type != "all" and options.parameter == "":
         parser.error("Request parameter needed")
 
-    sqlite_to_picviz(options.sqlite_file, options.picviz_file,
-                    options.request_type, options.parameter)
+    sqlite_to_picviz(
+        options.sqlite_file,
+        options.picviz_file,
+        options.request_type,
+        options.parameter,
+    )

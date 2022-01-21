@@ -3,5 +3,5 @@ Jérôme Hussenet and Cédric Bonhomme.
 
 This project is born in the context of a security course
 centered on Honeypot technologies (http://www.foo.be/cours/dess-20082009/).
-Thanks to Alexandre Dulaunoy for this course. In particular the discovery of Circos,
-courses about Berkeley Packet Filter, tcpdump, etc.
+Thanks to Alexandre Dulaunoy for this course. In particular the discovery of
+Circos, courses about Berkeley Packet Filter, tcpdump, etc.

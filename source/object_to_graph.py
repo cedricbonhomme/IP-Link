@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """object_to_graph
 
@@ -13,10 +13,11 @@ dic_ip = pickle.load(dic_obj)
 
 print(len(dic_ip))
 
+
 def split_ip_dic(dic):
     if isinstance(dic, int):
         return dic
-    dic2={}
+    dic2 = {}
     for ips in dic:
         tab = ips.split(".")
         if tab[0] in dic2:

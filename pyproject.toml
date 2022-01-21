@@ -1,0 +1,66 @@
+[tool.poetry]
+name = "ip-link"
+version = "0.3.0"
+description = "Visualizing the relationships between different IP from network traffic capture."
+authors = ["Cédric Bonhomme <cedric@cedricbonhomme.org>"]
+license = "GPL-3.0-or-later"
+
+readme = "README.md"
+
+homepage = "https://sr.ht/~cedric/ip-link"
+repository = "https://git.sr.ht/~cedric/ip-link"
+
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Console',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Science/Research',
+    'Topic :: Security',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)'
+]
+
+include = [
+    "README.md",
+    "NEWS.md",
+    "COPYING",
+    "AUTHORS",
+    "COPYING",
+    "bin/*",
+    "docs/*"
+]
+
+[tool.poetry.scripts]
+pymosp = "bin.pymosp:main"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+networkx = "^2.6.3"
+pypacker = "^5.1"
+Pillow = "^9.0.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+ignore_errors = false
+ignore_missing_imports = true
+strict_optional = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unreachable = true
+
+show_error_context = true
+pretty = true
+
+exclude = "docs|examples"
