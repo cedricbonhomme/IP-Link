@@ -13,13 +13,13 @@ IP-Link offers several visualization methods.
 Installation
 ------------
 
-.. code-block:: bash
-
-    $ sudo apt install libpcap0.8
-    $ git clone https://git.sr.ht/~cedric/ip-link
-    $ cd ip-link/
-    $ poetry install
-    $ poetry shell
+```bash
+$ sudo apt install libpcap0.8
+$ git clone https://git.sr.ht/~cedric/ip-link
+$ cd ip-link/
+$ poetry install
+$ poetry shell
+```
 
 Python >= 3.8.
 
