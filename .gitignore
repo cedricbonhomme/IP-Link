@@ -14,5 +14,7 @@ dist/
 *.swp
 
 docs/_build/
-source/captures/
-source/data/
+ip-link/captures/
+ip-link/data/
+captures/
+data/

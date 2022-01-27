@@ -19,6 +19,7 @@ import sys
 import pickle
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def usage():
@@ -38,7 +39,7 @@ if len(sys.argv) == 2:
         usage()
     try:
         obj_file = str(sys.argv[1])
-    except:
+    except Exception:
         usage()
     if not os.path.isfile(obj_file):
         print(" does not exist.")
@@ -65,7 +66,7 @@ def create_bar_chart(ip_src, liste_ip_dst, file_name):
     fig, ax = plt.subplots()
 
     length = len(liste_ip_dst)
-    ind = pylab.arange(length)  # ip destinations in abscissa
+    ind = np.arange(length)  # ip destinations in abscissa
     width = 0.35  # bars width
 
     ip_dst = [elem[0] for elem in liste_ip_dst]
@@ -100,31 +101,31 @@ def create_bar_chart(ip_src, liste_ip_dst, file_name):
     ax.close()
 
 
-def create_pie_chart(ip_src, liste_ip_dst, file_name):
-    """Creates a circular graph.
-
-    Return the list of the most contacted IP by 'ip_src'.
-    A maximum of ten IP are displayed.
-    """
-    pylab.figure(1, figsize=(6, 6))
-    ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
-
-    labels = tuple([elem[0] for elem in liste_ip_dst])
-    fracs = [int(elem[1]) for elem in liste_ip_dst]
-
-    # explode=(0, 0.06, 0, 0, 0) # bring some relief on the parts
-    explode = (0,) * len(fracs)  # no relief
-    pylab.pie(
-        fracs,
-        explode=explode,
-        labels=list(range(1, len(labels) + 1)),
-        autopct="%1.1f%%",
-        shadow=True,
-    )
-    pylab.title(("Circular graph"))
-
-    pylab.savefig(file_name, dpi=180)
-    pylab.close()
+# def create_pie_chart(ip_src, liste_ip_dst, file_name):
+#     """Creates a circular graph.
+#
+#     Return the list of the most contacted IP by 'ip_src'.
+#     A maximum of ten IP are displayed.
+#     """
+#     np.figure(1, figsize=(6, 6))
+#     ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
+#
+#     labels = tuple([elem[0] for elem in liste_ip_dst])
+#     fracs = [int(elem[1]) for elem in liste_ip_dst]
+#
+#     # explode=(0, 0.06, 0, 0, 0) # bring some relief on the parts
+#     explode = (0,) * len(fracs)  # no relief
+#     pylab.pie(
+#         fracs,
+#         explode=explode,
+#         labels=list(range(1, len(labels) + 1)),
+#         autopct="%1.1f%%",
+#         shadow=True,
+#     )
+#     pylab.title(("Circular graph"))
+#
+#     pylab.savefig(file_name, dpi=180)
+#     pylab.close()
 
 
 # Creating images directory
@@ -210,7 +211,7 @@ for ip_src in dic_ip:
     # sorting and selection of ten most viewed IP
     liste = sorted(liste, key=lambda x: (x[1], x[0]), reverse=True)[:10]
     ipdst = [elem[0] for elem in liste]  # IP
-    weight = [elem[1] for elem in liste]  #  IP associated weight
+    weight = [elem[1] for elem in liste]  # IP associated weight
 
     # graphs legend:
     for i, ip in enumerate(ipdst):

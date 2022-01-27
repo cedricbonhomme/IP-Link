@@ -15,9 +15,6 @@ __copyright__ = (
 )
 __license__ = "Python"
 
-import os
-import sys
-
 import pickle
 
 from collections import Counter

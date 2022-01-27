@@ -15,7 +15,6 @@ __copyright__ = (
 )
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
-import sys
 import subprocess
 import pickle
 

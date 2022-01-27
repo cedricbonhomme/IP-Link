@@ -24,10 +24,7 @@ __copyright__ = (
 )
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
-import os
-import sys
 import pcap
-import socket
 import struct
 
 import sqlite3
@@ -80,7 +77,7 @@ def pcap_to_sqlite(pcap_file, sqlite_file):
     while True:
         try:
             (_, payload, tts) = next(reader)
-        except:
+        except Exception:
             break
         if payload[12:14] == "\x08\x00":
             decoded_ip_packet = decode_ip_packet(payload[14:])

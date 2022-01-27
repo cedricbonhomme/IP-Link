@@ -7,16 +7,6 @@ Uses pylab Python module to display a pie chart wich represent
 the IP contacted by a source IP.
 """
 
-__author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.2 $"
-__date__ = "$Date: 2009/02/22 $"
-__copyright__ = (
-    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
-)
-__license__ = "Python"
-
-import os
-import sys
 import csv
 
 

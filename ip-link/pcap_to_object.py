@@ -7,13 +7,11 @@
 Generate a serialized graph object from the pcap file.
 """
 
-__author__ = "Jerome Hussenet, Cedric Bonhomme"
+__author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.4 $"
 __date__ = "$Date: 2009/02/20 $"
 __revision__ = "$Date: 2022/01/21 $"
-__copyright__ = (
-    "Copyright (c) 2009-2018 Jerome Hussenet, Copyright (c) 2009-2018 Cedric Bonhomme"
-)
+__copyright__ = "Copyright (c) 2009-2022 Cedric Bonhomme"
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import pickle
@@ -21,7 +19,6 @@ import pickle
 from pypacker import ppcap
 from pypacker.layer12 import ethernet
 from pypacker.layer3 import ip
-from pypacker.layer4 import tcp
 
 from collections import defaultdict
 from collections import Counter
@@ -45,7 +42,7 @@ def pcap_to_object(pcap_file, obj_file):
     for ts, buf in reader:
         eth = ethernet.Ethernet(buf)
 
-        if eth[ethernet.Ethernet, ip.IP, tcp.TCP] is not None:
+        if eth[ip.IP] is not None:
             # print("%d: %s:%s -> %s:%s" % (ts, eth[ip.IP].src_s,
             #                             eth[tcp.TCP].sport, eth[ip.IP].dst_s,
             #                             eth[tcp.TCP].dport))

@@ -34,6 +34,6 @@ ping -c 3 -I 127.0.0.10 127.0.0.5
 
 sudo pkill tcpdump
 
-./pcap_to_object.py -i out.pcap -o out.pyobj
+ip-link/pcap_to_object.py -i out.pcap -o out.pyobj
 
-./object_to_moowheel.py -i out.pyobj
+ip-link/object_to_moowheel.py -i out.pyobj

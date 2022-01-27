@@ -6,17 +6,6 @@
 Charge un fichier CSV et génère un fichier au format DOT pour GraphViz.
 """
 
-__author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
-__date__ = "$Date: 2009/03/06 $"
-__copyright__ = (
-    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
-)
-__license__ = "Python"
-
-import os
-import sys
-
 import csv
 
 

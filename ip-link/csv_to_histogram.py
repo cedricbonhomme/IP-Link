@@ -1,47 +1,47 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""xml_to_histogram.py
+"""csv_to_histogram.py
 
 Uses pylab Python module to display a histogram wich represent
 the IP contacted by a source IP.
 """
 
 __author__ = "Jerome Hussenet, Cedric Bonhomme"
-__version__ = "$Revision: 0.1 $"
+__version__ = "$Revision: 0.2 $"
 __date__ = "$Date: 2009/02/22 $"
 __copyright__ = (
     "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
 )
-__license__ = "GNU General Public License v3 or later (GPLv3+)"
+__license__ = "Python"
+
+import csv
 
 
-def xml_to_histogram(xml_file, ip_src):
+class excel_french(csv.Dialect):
+    delimiter = ";"
+    quotechar = '"'
+    doublequote = True
+    skipinitialspace = False
+    lineterminator = "\n"
+    quoting = csv.QUOTE_MINIMAL
+
+
+csv.register_dialect("excel_french", excel_french)
+
+
+def csv_to_histogram(csv_file, ip_src):
     """Display a histogram.
 
     The generated histogram corresponds to the 10 most IP visited by 'ip_src".
     """
     # list of IP contacted by ip_src.
-    from xml.dom.minidom import parse
-
-    try:
-        doc = parse("./data/ip.xml")
-    except:
-        return
+    cr = csv.reader(open(csv_file, "rb"), "excel_french")
     # contains the tuples (ip_dest, weight)
     liste = []
-    try:
-        for ipsrc in doc.getElementsByTagName("IP-Link").item(0).childNodes:
-            if ipsrc.getAttribute("source_ip") == ip_src:
-                for ip_dst in ipsrc.getElementsByTagName("ip_packet"):
-                    liste.append(
-                        (
-                            ip_dst.getAttribute("destination_ip"),
-                            ip_dst.getAttribute("weight"),
-                        )
-                    )
-    except:
-        pass
+    for row in cr:
+        if row[0] == ip_src:
+            liste.append((row[1], row[2]))
 
     if liste:
         liste = sorted(liste, key=lambda x: (x[1], x[0]), reverse=True)[:10]
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     from optparse import OptionParser
 
     parser = OptionParser()
-    parser.add_option("-i", "--input", dest="xml_file", help="XML file")
+    parser.add_option("-i", "--input", dest="csv_file", help="CSV file")
     parser.add_option("-s", "--source-ip", dest="ip_src", help="Source IP")
     parser.add_option(
         "-q",
@@ -102,8 +102,8 @@ if __name__ == "__main__":
         dest="verbose",
         help="be vewwy quiet (I'm hunting wabbits)",
     )
-    parser.set_defaults(xml_file="./data/ip.csv", ip_src="192.168.1.1", verbose=True)
+    parser.set_defaults(csv_file="./data/ip.csv", ip_src="192.168.1.1", verbose=True)
 
     (options, args) = parser.parse_args()
 
-    xml_to_histogram(options.xml_file, options.ip_src)
+    csv_to_histogram(options.csv_file, options.ip_src)
