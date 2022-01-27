@@ -8,9 +8,9 @@ Generate a serialized graph object from the pcap file.
 """
 
 __author__ = "Cedric Bonhomme"
-__version__ = "$Revision: 0.4 $"
+__version__ = "$Revision: 0.5 $"
 __date__ = "$Date: 2009/02/20 $"
-__revision__ = "$Date: 2022/01/21 $"
+__revision__ = "$Date: 2022/01/27 $"
 __copyright__ = "Copyright (c) 2009-2022 Cedric Bonhomme"
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 

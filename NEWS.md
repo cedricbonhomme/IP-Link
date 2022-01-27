@@ -1,5 +1,11 @@
 ## Release History
 
+
+### 0.4.1 (2022-01-27)
+
+- various bugfixes.
+
+
 ### 0.4.0 (2022-01-21)
 
 - major update of project dependencies and settings.
@@ -22,4 +28,3 @@
 ### 0.1.0 (2010-03-18)
 
 - First official release of IP-Link.
-

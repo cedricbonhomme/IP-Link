@@ -9,7 +9,7 @@ Welcome to IP-Link's documentation!
 .. image:: _static/images/logo.png
    :align: right
 
-The goal of `IP-Link <https://gitlab.com/cedric/ip-link>`_ is to show the
+The goal of `IP-Link <https://sr.ht/~cedric/ip-link>`_ is to show the
 relationships between different IP addresses from network traffic capture,
 thus quickly determining for a given address the IP address with which it
 communicates the most.
@@ -21,10 +21,10 @@ Installation
 .. code-block:: bash
 
     $ sudo apt install libpcap0.8
-    $ git clone https://gitlab.com/cedric/ip-link.git
+    $ git clone https://git.sr.ht/~cedric/ip-link
     $ cd ip-link/
-    $ pipenv install
-    $ pipenv shell
+    $ poetry install
+    $ poetry shell
 
 
 How it works

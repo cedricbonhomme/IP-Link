@@ -1,17 +1,20 @@
 # use glob syntax
 syntax: glob
 
+__pycache__/
+*.py[cod]
+*.sqlite[3]
+.idea
 *.elc
-*.pyc
-*~
 
 
-IP_Link.egg-info/
+*.egg-info/
 dist/
 
 
 # Temporary files (vim backups)
 *.swp
+*~
 
 docs/_build/
 ip-link/captures/

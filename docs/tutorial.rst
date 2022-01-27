@@ -17,12 +17,12 @@ GraphViz
 .. code-block:: bash
 
     # create an object from the capture
-    cedric@debian:~/IP-Link/source$ ./pcap_to_object.py -i ~/captures/capture.pcap -o ~/data/dic.pyobj
+    cedric@debian:~/IP-Link/ip-link$ ./pcap_to_object.py -i ~/captures/capture.pcap -o ~/data/dic.pyobj
     Reading pcap file...
     Serialization...
 
     # create the GraphViz graph
-    cedric@debian:~/IP-Link/source$ ./object_to_graphviz.py -i ~/data/dic.pyobj
+    cedric@debian:~/IP-Link/ip-link$ ./object_to_graphviz.py -i ~/data/dic.pyobj
     Loading dictionary...
     Creating GraphViz DOT file...
     Writting file.
@@ -71,11 +71,11 @@ Generation of the input matrix for Circos
 
 .. code-block:: bash
 
-    cedric@debian:~/ip-link/source$ ./pcap_to_object.py -i ~/captures/capture.pcap -o ~/data/capture.pyObj
+    cedric@debian:~/ip-link/ip-link$ ./pcap_to_object.py -i ~/captures/capture.pcap -o ~/data/capture.pyObj
     Reading pcap file...
     Serialization...
 
-    cedric@debian:~/ip-link/source$ ./object_to_circos.py -i ~/data/capture.pyObj -o ~/data/capture.circos
+    cedric@debian:~/ip-link/ip-link$ ./object_to_circos.py -i ~/data/capture.pyObj -o ~/data/capture.circos
     Loading objet...
     Searching IP that are source and destination...
     Circos matrix generation...
@@ -114,11 +114,11 @@ Scatter plot with ploticus
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ ./pcap_to_object.py -i ~/captures/capture.cap
+    cedric@debian:~/IP-Link/ip-link$ ./pcap_to_object.py -i ~/captures/capture.cap
     Reading pcap file...
     Serialization...
 
-    cedric@debian:~/IP-Link/source$ ./sqlite_to_object.py -r tts -p 1231950347:1231950547
+    cedric@debian:~/IP-Link/ip-link$ ./sqlite_to_object.py -r tts -p 1231950347:1231950547
     DB connect
     Query sent to the base :
             SELECT ip_src, ip_dst FROM ip_link WHERE tts >= 1231950347 AND tts <=  1231950547
@@ -126,7 +126,7 @@ Scatter plot with ploticus
     Reading query result...
     Serialization...
 
-    cedric@debian:~/IP-Link/source$ ./object_to_scatterplot.py
+    cedric@debian:~/IP-Link/ip-link$ ./object_to_scatterplot.py
     Loading dictionary...
     Creating categories file
     Creating ploticus data file
@@ -146,9 +146,9 @@ Picviz
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ ./pcap_to_sqlite.py -i ~/captures/capture.cap -o ~/data/ip.sql
+    cedric@debian:~/IP-Link/ip-link$ ./pcap_to_sqlite.py -i ~/captures/capture.cap -o ~/data/ip.sql
 
-    cedric@debian:~/IP-Link/source$ ./sqlite_to_picviz.py -i ~/data/ip.sql -r time -p 2009-1-16-00-03-00:2009-1-16-00-05-00
+    cedric@debian:~/IP-Link/ip-link$ ./sqlite_to_picviz.py -i ~/data/ip.sql -r time -p 2009-1-16-00-03-00:2009-1-16-00-05-00
     DB connect
     Query sent to the base :
         SELECT tts, ip_src, ip_dst FROM ip_link WHERE tts >= 1232060580.0 AND tts <=  1232060700.0
@@ -168,11 +168,11 @@ RealTime Graph 3D
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ ./pcap_to_object.py -i ~/captures/capture.pcap
+    cedric@debian:~/IP-Link/ip-link$ ./pcap_to_object.py -i ~/captures/capture.pcap
     Reading pcap file...
     Serialization...
 
-    cedric@debian:~/IP-Link/source$ ./object_to_rtgraph.py
+    cedric@debian:~/IP-Link/ip-link$ ./object_to_rtgraph.py
 
 Result
 
@@ -186,9 +186,9 @@ MooWheel
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ ./pcap_to_sqlite.py -i ~/captures/capture.cap
+    cedric@debian:~/IP-Link/ip-link$ ./pcap_to_sqlite.py -i ~/captures/capture.cap
 
-    cedric@debian:~/IP-Link/source$ ./sqlite_to_object.py
+    cedric@debian:~/IP-Link/ip-link$ ./sqlite_to_object.py
     DB connect
     Query sent to the base :
             SELECT ip_src, ip_dst FROM ip_link
@@ -196,7 +196,7 @@ MooWheel
     Reading query result...
     Serialization...
 
-    cedric@debian:~/IP-Link/source$ ./object_to_moowheel.py
+    cedric@debian:~/IP-Link/ip-link$ ./object_to_moowheel.py
     Loading dictionary...
     Creating MooWheel file...
     Writting file.
@@ -211,7 +211,7 @@ If you want to see better, you can make a filter this way :
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ ./sqlite_to_object.py -r ip_src -p 212.110.251.3
+    cedric@debian:~/IP-Link/ip-link$ ./sqlite_to_object.py -r ip_src -p 212.110.251.3
     DB connect
     Query sent to the base :
             SELECT ip_src, ip_dst FROM ip_link WHERE ip_src = "212.110.251.3"
@@ -219,7 +219,7 @@ If you want to see better, you can make a filter this way :
     Reading query result...
     Serialization...
 
-    cedric@debian:~/IP-Link/source$ ./object_to_moowheel.py -q
+    cedric@debian:~/IP-Link/ip-link$ ./object_to_moowheel.py -q
 
 Now, 82.0.72.48, 86.0.48.47, 125.211.214.144, 123.129.255.167 and 91.121.165.159 are missing. These IP are never contacted by 212.110.251.3.
 
@@ -231,14 +231,14 @@ Histogram
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ ./pcap_to_object.py -i ~/captures/capture.cap
+    cedric@debian:~/IP-Link/ip-link$ ./pcap_to_object.py -i ~/captures/capture.cap
     Reading pcap file...
     Serialization...
 
-    cedric@debian:~/IP-Link/source$ ./object_to_csv.py
+    cedric@debian:~/IP-Link/ip-link$ ./object_to_csv.py
     Loading dictionary...
     Writting CSV file...
-    cedric@debian:~/IP-Link/source$ ./csv_to_histogram.py -s 192.168.1.2
+    cedric@debian:~/IP-Link/ip-link$ ./csv_to_histogram.py -s 192.168.1.2
 
 Result
 
@@ -253,7 +253,7 @@ Filter by date
 
 .. code-block:: bash
 
-    cedric@debian:~/IP-Link/source$ ./sqlite_to_object.py -i ~/data/ip.sql -r time -p 2009-1-15-22-00-00:2009-1-16-02-00-00
+    cedric@debian:~/IP-Link/ip-link$ ./sqlite_to_object.py -i ~/data/ip.sql -r time -p 2009-1-15-22-00-00:2009-1-16-02-00-00
     DB connect
     Request sent to the base :
         SELECT ip_src, ip_dst FROM ip_link WHERE tts >= 1232053200.0 AND tts <=  1232067600.0
@@ -261,9 +261,9 @@ Filter by date
     Reading the result of the query...
     Serialization...
 
-    cedric@debian:~/IP-Link/source$ ./object_to_graphviz.py -q
+    cedric@debian:~/IP-Link/ip-link$ ./object_to_graphviz.py -q
 
-    cedric@debian:~/IP-Link/source$ dot -Tpng data/ip.dot -o pic.png
+    cedric@debian:~/IP-Link/ip-link$ dot -Tpng data/ip.dot -o pic.png
 
 Result
 
