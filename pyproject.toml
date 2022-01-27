@@ -23,6 +23,10 @@ classifiers = [
     'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)'
 ]
 
+packages = [
+    { include = "ip-link" }
+]
+
 include = [
     "README.md",
     "NEWS.md",
