@@ -20,7 +20,7 @@ import pickle
 from collections import Counter
 
 
-def object_to_circos(obj_file, circos_file):
+def object_to_circos(obj_file, circos_file):  # noqa: C901
     """Create the input file for Circos."""
     if options.verbose:
         print("Loading objet...")
@@ -81,7 +81,7 @@ def object_to_circos(obj_file, circos_file):
         for j in tab:
             try:
                 s.append(str(tab[i][j]))
-            except:
+            except Exception:
                 s.append("0")
         tab_file.write("\t".join(s) + "\n")
 

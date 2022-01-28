@@ -4,7 +4,7 @@
 
 try:
     from visual import *
-except:
+except Exception:
     print("Module python-visual manquant.")
     exit(0)
 from select import select
@@ -109,7 +109,7 @@ def get_physics_engine(mode=0):  # 0:auto, 1:force python, 2: force C only, 3: f
             else:
                 log.info("Did not detect any SSE compatible CPU")
                 mode = 2
-        except:
+        except Exception:
             log.warning("x86 SSE test failed. Fallback to C physics engine")
             mode = 2
 
@@ -1196,7 +1196,7 @@ def cinematic_thread(svc, POVdump=None, ACCEL=ACCEL, DT=DT):
                     filename=fname, display=scene, include_list=["colors.inc"]
                 )
 
-        except:
+        except Exception:
             log.exception(
                 "FRAME=%i: Catched exception in the cinematic thread!" % frames
             )

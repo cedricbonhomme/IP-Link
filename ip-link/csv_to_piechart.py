@@ -39,7 +39,7 @@ def csv_to_piechart(csv_file, ip_src):
         liste = sorted(liste, key=lambda x: (x[1], x[0]), reverse=True)[:10]
 
         pylab.figure(1, figsize=(6, 6))
-        ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
+        # ax = pylab.axes([0.1, 0.1, 0.8, 0.8])
 
         labels = tuple([elem[0] for elem in liste])
         fracs = [int(elem[1]) for elem in liste]

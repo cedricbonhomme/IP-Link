@@ -55,7 +55,7 @@ def csv_to_histogram(csv_file, ip_src):
 
         max_weight = max(weight)  # max weight
 
-        p = pylab.bar(ind, weight, width, color="r")
+        # p = pylab.bar(ind, weight, width, color="r")
 
         pylab.ylabel("weight")
         pylab.title("IPs contacted by " + ip_src)

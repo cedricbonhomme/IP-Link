@@ -193,7 +193,7 @@ cylinder {
     pigment { color rgb <%(red)f, %(green)f, %(blue)f> }
 }
 """
-    endpt1 = a.pos
+    # endpt1 = a.pos
     endpt2 = a.pos + a.axis
     object_code = cylinder_template % {
         "posx": a.x,
@@ -378,15 +378,15 @@ def export(
     custom_text="",
     shadowless=0,
 ):
-    if display == None:  # no display specified so find active display
+    if display is None:  # no display specified so find active display
         dummy = sphere(visible=0)
         display = dummy.display
         del dummy
 
-    if filename == None:
+    if filename is None:
         filename = display.title + ".pov"
 
-    if include_list == None:
+    if include_list is None:
         include_text = ""
     else:
         include_text = "\n"

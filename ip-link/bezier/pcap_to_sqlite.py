@@ -25,8 +25,6 @@ __copyright__ = (
 )
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
-import os
-import sys
 import pcap
 import socket
 import struct
@@ -75,7 +73,7 @@ def decode_ip_packet(s):
     # d['options'] = s[20:4*(d['header_len']-5)]
     # else:
     # d['options'] = None
-    d["data"] = s[4 * d["header_len"] :]
+    d["data"] = s[4 * d["header_len"]:]
     return d
 
 
@@ -104,7 +102,7 @@ def pcap_to_sqlite(pcap_file, sqlite_file):
     while True:
         try:
             (_, payload, tts) = next(reader)
-        except:
+        except Exception:
             break
         if payload[12:14] == "\x08\x00":
             decoded_ip_packet = decode_ip_packet(payload[14:])
@@ -117,7 +115,7 @@ def pcap_to_sqlite(pcap_file, sqlite_file):
             stat[decoded_ip_packet["protocol"]] = (
                 stat.get(decoded_ip_packet["protocol"], 0) + 1
             )
-            if decoded_segment != None:
+            if decoded_segment is not None:
                 c.execute(
                     "insert into ip_link values (?,?,?,?,?,?)",
                     (

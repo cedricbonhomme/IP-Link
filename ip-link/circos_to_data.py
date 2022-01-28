@@ -58,7 +58,7 @@ tabf.close()
 
 try:
     os.mkdir("data")
-except:
+except Exception:
     pass
 
 karyotype = open("./data/karyotype.txt", "w")

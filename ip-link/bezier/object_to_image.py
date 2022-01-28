@@ -37,7 +37,7 @@ def color():
         ("#9900ff", "#9999ff"),
         ("#6699ff", "#66ffff"),
     )
-    while 1:
+    while True:
         for i in colors:
             yield i
 
@@ -157,7 +157,7 @@ def pascal_row(n):
     return result
 
 
-def object_to_image(obj_file, image_file):
+def object_to_image(obj_file, image_file):  # noqa: C901
 
     if options.verbose:
         print("Loading objet...")

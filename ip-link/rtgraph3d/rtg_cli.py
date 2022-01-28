@@ -1,7 +1,9 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys, os, dbus
+import sys
+import os
+import dbus
 import cmd
 
 import warnings
@@ -107,7 +109,8 @@ class Interp(cmd.Cmd):
 
 if __name__ == "__main__":
     try:
-        import readline, atexit
+        import readline
+        import atexit
     except ImportError:
         pass
     else:

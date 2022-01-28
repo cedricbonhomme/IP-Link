@@ -74,7 +74,7 @@ def create_bar_chart(ip_src, liste_ip_dst, file_name):
 
     max_weight = max(weight)  # maximal weight
 
-    p = ax.bar(ind, weight, width, color="r")
+    # p = ax.bar(ind, weight, width, color="r")
 
     ax.set_ylabel("Weight")
     ax.title("Histogram")

@@ -14,7 +14,6 @@
 import sys
 
 
-# from: https://docs.readthedocs.io/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
 try:
     from unittest.mock import MagicMock
 except Exception:
@@ -59,7 +58,7 @@ master_doc = "index"
 
 # General information about the project.
 project = u"IP-Link"
-copyright = u"2009-2018, Cédric Bonhomme, Jérôme Hussenet"
+copyright = u"2009-2022, Cédric Bonhomme, Jérôme Hussenet"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -189,11 +188,11 @@ htmlhelp_basename = "IP-Linkdoc"
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    #'papersize': 'letterpaper',
+    # 'papersize': 'letterpaper',
     # The font size ('10pt', '11pt' or '12pt').
-    #'pointsize': '10pt',
+    # 'pointsize': '10pt',
     # Additional stuff for the LaTeX preamble.
-    #'preamble': '',
+    # 'preamble': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
