@@ -1,11 +1,15 @@
 # IP-Link
 
+[![builds.sr.ht status](https://builds.sr.ht/~cedric/ip-link.svg)](https://builds.sr.ht/~cedric/ip-link)
+
+
 ## Presentation
 
 The goal of [IP-Link](https://git.sr.ht/~cedric/ip-link)
-is to see the relationships between different IP from network traffic capture,
-thus quickly for a given address with the IP that communicates the most.
-IP-Link offers several visualization methods.
+is to visualize the relationships between different IP from network traffic capture.
+
+For reporting issues, visit the tracker here:
+https://todo.sr.ht/~cedric/ip-link
 
 
 ## Installation
@@ -35,8 +39,8 @@ $ xdg-open ./data/graphviz.png &
 
 ## Tutorial and examples
 
-The site of IP-Link provides a complete
-[tutorial](https://ip-link.readthedocs.io/en/latest/tutorial.html).
+You will find a complete tutorial
+[here](https://ip-link.readthedocs.io/en/latest/tutorial.html).
 
 
 ## License

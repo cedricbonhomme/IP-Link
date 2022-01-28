@@ -15,7 +15,7 @@ __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2012/02/10 $"
 __copyright__ = "Copyright (c) 2012 Cedric Bonhomme"
-__license__ = "Python"
+__license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 
 import pickle

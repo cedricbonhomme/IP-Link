@@ -68,10 +68,9 @@ def object_to_scatterplot(obj_file, scatter_folder):
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     # stdout contains the areas of the HTML shape
     (stdout, stderr) = p.communicate()
-    if options.verbose:
-        if stderr:
-            print("Problem(s) :")
-            print(stderr)
+    if options.verbose and stderr:
+        print("Problem(s) :")
+        print(stderr)
 
     # creating the HTML map
     html = '<!DOCTYPE html>\n<html lang="en-US">\n<head>'

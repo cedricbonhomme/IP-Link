@@ -13,7 +13,7 @@ __date__ = "$Date: 2009/03/14 $"
 __copyright__ = (
     "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cédric Bonhomme"
 )
-__license__ = "Python"
+__license__ = "GNU General Public License v3 or later (GPLv3+)"
 
 import pickle
 
