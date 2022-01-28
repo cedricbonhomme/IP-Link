@@ -46,6 +46,7 @@ numpy = "^1.22.1"
 matplotlib = "^3.5.1"
 
 [tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
