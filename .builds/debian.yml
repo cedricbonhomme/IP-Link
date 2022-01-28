@@ -9,7 +9,7 @@ packages:
   - python3-venv
   - libpcap0.8
 environment:
-  project: stegano
+  project: ip-link
 tasks:
   - dependencies: |
       pip3 install --user poetry
