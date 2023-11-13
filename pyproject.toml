@@ -41,7 +41,7 @@ include = [
 python = ">=3.8,<4.0"
 networkx = "^2.6.3"
 pypacker = "^5.1"
-Pillow = "^9.0.0"
+Pillow = ">=9,<11"
 numpy = "^1.22.1"
 matplotlib = "^3.5.1"
 
