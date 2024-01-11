@@ -14,7 +14,7 @@ https://todo.sr.ht/~cedric/ip-link
 
 ## Installation
 
-Python >= 3.8.
+Python >= 3.9.
 
 ```bash
 $ sudo apt install libpcap0.8
