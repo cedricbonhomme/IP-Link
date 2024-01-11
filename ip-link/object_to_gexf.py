@@ -11,7 +11,7 @@ __author__ = "Cedric Bonhomme"
 __version__ = "$Revision: 0.1 $"
 __date__ = "$Date: 2015/02/24 $"
 __copyright__ = (
-    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2022 Cedric Bonhomme"
+    "Copyright (c) 2009-2013 Jerome Hussenet, Copyright (c) 2009-2024 Cedric Bonhomme"
 )
 __license__ = "GNU General Public License v3 or later (GPLv3+)"
 
