@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_graphviz
 
 Load a serialized object in memory and generate a DOT file for GraphViz.

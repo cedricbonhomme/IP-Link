@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_image
 
 Loads a serialized graph object in memory and generates an PNG image.
@@ -38,8 +36,7 @@ def color():
         ("#6699ff", "#66ffff"),
     )
     while True:
-        for i in colors:
-            yield i
+        yield from colors
 
 
 def rotate_text(image, position, txt, anglerot, color):
@@ -123,7 +120,7 @@ def make_bezier(xys):
         # http://en.wikipedia.org/wiki/B%C3%A9zier_curve#Generalization
         result = []
         for t in ts:
-            tpowers = (t ** i for i in range(n))
+            tpowers = (t**i for i in range(n))
             upowers = reversed([(1 - t) ** i for i in range(n)])
             coefs = [c * a * b for c, a, b in zip(combinations, tpowers, upowers)]
             result.append(
@@ -158,7 +155,6 @@ def pascal_row(n):
 
 
 def object_to_image(obj_file, image_file):  # noqa: C901
-
     if options.verbose:
         print("Loading objet...")
     dic_obj = open(obj_file, "rb")

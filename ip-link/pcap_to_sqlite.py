@@ -1,7 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
 """pcap_to_sqlite
 
 Generate the SQLite base from the pcap file.

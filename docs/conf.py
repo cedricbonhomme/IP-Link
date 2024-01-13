@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # IP-Link documentation build configuration file, created by
 # sphinx-quickstart on Wed Jul 25 18:04:28 2012.
@@ -10,14 +9,13 @@
 #
 # All configuration values have a default; values that are commented out
 # serve to show the default.
-
 import sys
 
 
 try:
     from unittest.mock import MagicMock
 except Exception:
-    from mock import Mock as MagicMock
+    from unittest.mock import Mock as MagicMock
 
 
 class Mock(MagicMock):
@@ -57,8 +55,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"IP-Link"
-copyright = u"2009-2024, Cédric Bonhomme, Jérôme Hussenet"
+project = "IP-Link"
+copyright = "2009-2024, Cédric Bonhomme, Jérôme Hussenet"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -201,8 +199,8 @@ latex_documents = [
     (
         "index",
         "IP-Link.tex",
-        u"IP-Link Documentation",
-        u"Cédric Bonhomme, Jérôme Hussenet",
+        "IP-Link Documentation",
+        "Cédric Bonhomme, Jérôme Hussenet",
         "howto",
     ),
 ]
@@ -236,8 +234,8 @@ man_pages = [
     (
         "index",
         "ip-link",
-        u"IP-Link Documentation",
-        [u"Cédric Bonhomme, Jérôme Hussenet"],
+        "IP-Link Documentation",
+        ["Cédric Bonhomme, Jérôme Hussenet"],
         1,
     )
 ]
@@ -255,8 +253,8 @@ texinfo_documents = [
     (
         "index",
         "IP-Link",
-        u"IP-Link Documentation",
-        u"Cédric Bonhomme, Jérôme Hussenet",
+        "IP-Link Documentation",
+        "Cédric Bonhomme, Jérôme Hussenet",
         "IP-Link",
         "One line description of project.",
         "Miscellaneous",

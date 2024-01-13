@@ -1,9 +1,6 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # ruth chabay, carnegie mellon university (rchabay@andrew.cmu.edu)
 # v1.0 2000-12-17
-
 # Markus Gritsch (gritsch@iue.tuwien.ac.at)
 # v.1.1   2001-03-09
 #   *) replaced 'scene' by 'display' everywhere
@@ -13,25 +10,22 @@
 #   *) some cosmetic changes to the code
 # v.1.1.1 2001-03-22
 #   *) added 'shadowless' keyword to export()
-
 # Ruth Chabay
 # 2001-06-23
 # hack to fix error in export_curve introduced by Python 2.1
 # now can't assign obj.color = array(...)
-
 # Markus Gritsch (gritsch@iue.tuwien.ac.at)
 # v.1.2   2001-11-23
 #   *) added 'xy_ratio' and 'custom_text' keywords to export()
 #   *) the pov-strings are now directly written to a file
-
 # Bruce Sherwood
 # 2004-07-18
 # add dictionary ("legal") for identifying an object so that
 # povexport will continue to work with the new Boost-based VPython
 # which changes the details returned by object.__class__
-
 ## NOTE: when changing this module please change the following string:
 from string import rfind
+
 from visual import *
 
 POVEXPORT_VERSION = "povexport 2004-07-18"
@@ -67,7 +61,7 @@ def version():
 def getpolar(a):
     # a is a vector
     # find rotation angles (standard polar coord)
-    xy = sqrt(a.x ** 2 + a.y ** 2)
+    xy = sqrt(a.x**2 + a.y**2)
     theta = atan2(xy, a.z)
     phi = atan2(a.y, a.x)
     return [theta, phi]
@@ -435,7 +429,7 @@ camera {
 """
 
     # begin povray setup
-    file = open(filename, "wt")
+    file = open(filename, "w")
 
     file.write(initial_comment + include_text + custom_text + pyramid_def)
     file.write(ambient_template % {"amb": display.ambient * 10})

@@ -1,12 +1,12 @@
 #proc categories
   listsize: 600
   axis: x
-  categories: 
+  categories:
 #include ./scatterplot/cat.inc
 
 #proc categories
   axis: y
-  categories: 
+  categories:
 #include ./scatterplot/cat.inc
 
 //  set up plotting region using proc areadef
@@ -15,7 +15,7 @@
   //frame: width=0.5 color=0.3
   xrange: categories
   xscaletype: categories
-  yrange: categories 
+  yrange: categories
   yscaletype: categories
   xaxis.stubs: usecategories
   xaxis.stubvert: yes
@@ -45,6 +45,6 @@
 #proc scatterplot
   xfield: 1
   yfield: 2
-  symbol: shape=nicecircle radius=0.1 
+  symbol: shape=nicecircle radius=0.1
   sizefield: 3
   sizescale: 0.3

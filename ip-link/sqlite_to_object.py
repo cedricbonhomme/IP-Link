@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """sqlite_to_object
 
 Read the data from the base and generate a serialized graph object.

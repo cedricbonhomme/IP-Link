@@ -1,7 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
 """pcap_to_object
 
 Generate a serialized graph object from the pcap file.

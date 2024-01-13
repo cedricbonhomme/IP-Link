@@ -1,14 +1,11 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_graph
 
 
 """
-
 import pickle
 
-dic_obj = open("./dic.pyobj", "r")
+dic_obj = open("./dic.pyobj")
 dic_ip = pickle.load(dic_obj)
 
 print(len(dic_ip))

@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import operator
 import os
 import random
@@ -24,7 +22,7 @@ color = [
     "optpurple",
 ]
 
-tabf = open("./data/ip.circos", "r")
+tabf = open("./data/ip.circos")
 ligne = tabf.readline()[:-1]
 liste_ip = ligne.split("\t")[1:]
 

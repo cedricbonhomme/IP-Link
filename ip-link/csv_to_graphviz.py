@@ -1,11 +1,8 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """csv_to_graphviz
 
 Charge un fichier CSV et génère un fichier au format DOT pour GraphViz.
 """
-
 import csv
 
 

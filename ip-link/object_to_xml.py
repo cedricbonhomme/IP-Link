@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_xml
 
 Loads a serialized graph object in memory and generates an XML file.
@@ -68,7 +66,7 @@ def object_to_xml(obj_file, xml_file):
     try:
         file = open(xml_file, "w")
         file.write("%s" % doc.toxml().encode("utf-8"))
-    except IOError as e:
+    except OSError as e:
         print("Writting error :", e)
     finally:
         file.close()

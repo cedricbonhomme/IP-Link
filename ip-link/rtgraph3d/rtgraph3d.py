@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
 
 
 try:
@@ -56,7 +55,7 @@ class python_physics_engine:
                     n.F -= F
 
                 l = d.mag2
-                l = l ** 2
+                l = l**2
                 if l < python_physics_engine.MIN_DIST:
                     l = python_physics_engine.MIN_DIST
                 F = -REPULS * d / l
@@ -689,7 +688,7 @@ class Node(sphere):
             if k in ["radius", "pos", "color"]:
                 setattr(self, k, v)
             else:
-                text.append("%s = %s" % (k, v))
+                text.append(f"{k} = {v}")
         self.label.text = str("\n".join(text))
 
     def update_param(self, **kargs):
@@ -782,7 +781,10 @@ class World:
             if hasattr(o, "_tmp_edges"):
                 for e in o._tmp_edges:
                     if e not in self.world:
-                        print("%s: edge to [%s] not found" % (o.id, e), file=sys.stderr)
+                        print(
+                            f"{o.id}: edge to [{e}] not found",
+                            file=sys.stderr,
+                        )
                         continue
                     o2 = self.world[e]
                     o.edges[o2] = None
@@ -976,7 +978,7 @@ class RTGraphService(dbus.service.Object):
         s = 'graph "rtgraph" { \n'
 
         for e in self.the_world.edges:
-            s += '\t "%s" -- "%s";\n' % (e.o1.id, e.o2.id)
+            s += f'\t "{e.o1.id}" -- "{e.o2.id}";\n'
         s += "}\n"
         return s
 
@@ -1040,7 +1042,7 @@ class RTGraphService(dbus.service.Object):
         for o in self.the_world.lst:
             for o2 in o.edges:
                 if o not in o2.edges:
-                    log.error("%s ==> %s \t %s ==> %s" % (o.id, o2.id, id(o), id(o2)))
+                    log.error(f"{o.id} ==> {o2.id} \t {id(o)} ==> {id(o2)}")
             log.info(
                 "Checked %i nodes, %i edges."
                 % (len(self.the_world.lst), len(self.the_world.edges))
@@ -1052,8 +1054,8 @@ class RTGraphService(dbus.service.Object):
     def new_edge(self, id1, attr1, id2, attr2):
         id1 = str(id1)
         id2 = str(id2)
-        attr1 = dict([(str(a), b.__class__.__base__(b)) for a, b in attr1.items()])
-        attr2 = dict([(str(a), b.__class__.__base__(b)) for a, b in attr2.items()])
+        attr1 = {str(a): b.__class__.__base__(b) for a, b in attr1.items()}
+        attr2 = {str(a): b.__class__.__base__(b) for a, b in attr2.items()}
 
         if id1 == id2:
             raise Exception("Nodes are identical")
@@ -1075,20 +1077,20 @@ class RTGraphService(dbus.service.Object):
             self.the_world.register(n2)
 
         if n1 in n2.edges:
-            raise Exception("Edge %s-%s alread exists" % (id1, id2))
+            raise Exception(f"Edge {id1}-{id2} alread exists")
 
         n1.edges[n2] = None
         n2.edges[n1] = None
         self.the_world.add_edge(n1, n2)
         self.the_world.cinematic_change = 1
 
-        log.info("Ok for [%s]-[%s]" % (id1, id2))
+        log.info(f"Ok for [{id1}]-[{id2}]")
 
     @dbus.service.method(
         "org.secdev.rtgraph3d.command", in_signature="sa{sv}", out_signature=""
     )
     def update_node(self, node_id, attr):
-        attr = dict([(str(a), b.__class__.__base__(b)) for a, b in attr.items()])
+        attr = {str(a): b.__class__.__base__(b) for a, b in attr.items()}
         node = self.the_world.get(node_id)
         node.update_param(**attr)
 

@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_d3js_matrix
 
 Loads a serialized graph object in memory and generates an input file

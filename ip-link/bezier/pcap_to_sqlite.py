@@ -1,7 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
 """pcap_to_sqlite
 
 Generate the SQLite base from the pcap file.
@@ -73,7 +70,7 @@ def decode_ip_packet(s):
     # d['options'] = s[20:4*(d['header_len']-5)]
     # else:
     # d['options'] = None
-    d["data"] = s[4 * d["header_len"]:]
+    d["data"] = s[4 * d["header_len"] :]
     return d
 
 

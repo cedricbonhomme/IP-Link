@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """xml_to_histogram.py
 
 Uses pylab Python module to display a histogram wich represent

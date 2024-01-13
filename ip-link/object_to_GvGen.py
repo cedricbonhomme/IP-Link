@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_GvGen
 
 Generate a DOT file with GvGen.
@@ -28,7 +26,7 @@ def object_to_GvGen(obj_file):
     Generate a DOT file with GvGen.
     http://www.picviz.com/sections/opensource/gvgen.html
     """
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file)
     if options.verbose:
         pass  # print "Loading dictionary..."
     dic_ip = pickle.load(dic_obj)

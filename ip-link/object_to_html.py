@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_html.py
 
 Generate an HTML gallery.
@@ -52,7 +50,7 @@ else:
     usage()
 
 
-dic_obj = open(obj_file, "r")
+dic_obj = open(obj_file)
 print("Loading dictionary...")
 dic_ip = pickle.load(dic_obj)
 
@@ -153,7 +151,6 @@ html = html_head + "\n"
 # Main page
 print("Creating HTML index...")
 for ip_src in dic_ip:
-
     # Table of the main page
     html += (
         "<h2>IP contacted by "
@@ -264,7 +261,7 @@ for ip_src in dic_ip:
     try:
         html_file = open("./html/" + ip_src + ".details.html", "w")
         html_file.write("%s" % html_details)
-    except IOError as e:
+    except OSError as e:
         print("Writting error :", e)
     finally:
         html_file.close()
@@ -274,7 +271,7 @@ html += pied
 try:
     html_file = open("./html/index.html", "w")
     html_file.write("%s" % html.encode("utf-8"))
-except IOError as e:
+except OSError as e:
     print("Writting error :", e)
     pass
 finally:

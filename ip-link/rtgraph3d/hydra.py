@@ -1,11 +1,6 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
-import gobject
-
-import dbus
 import dbus.mainloop.glib
+import gobject
 
 
 def sclick_signal_handler(node):

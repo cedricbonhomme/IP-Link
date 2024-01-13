@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_moowheel.py
 
 Visualize data using Javascript and the <canvas> object.
@@ -21,7 +19,7 @@ import pickle
 
 def object_to_moowheel(obj_file, moo_file):
     """Generate MooWheel file."""
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file)
     if options.verbose:
         print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)

@@ -1,12 +1,9 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """csv_to_piechart.py
 
 Uses pylab Python module to display a pie chart wich represent
 the IP contacted by a source IP.
 """
-
 import csv
 
 
@@ -47,7 +44,7 @@ def csv_to_piechart(csv_file, ip_src):
         # explode=(0, 0.06, 0, 0, 0) # parts relief
         explode = (0,) * len(fracs)  # no relief
         pylab.pie(fracs, explode=explode, labels=labels, autopct="%1.0f%%", shadow=True)
-        pylab.title(("IPs contacted by " + ip_src))
+        pylab.title("IPs contacted by " + ip_src)
 
         pylab.show()
     else:

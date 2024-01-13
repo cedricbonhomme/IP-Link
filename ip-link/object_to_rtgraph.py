@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """object_to_rtgraph
 
 Load a serialized object in memory and generate 3D dynamic graph.
@@ -35,7 +33,7 @@ from rtgraph3d.rtgraph3d import *
 
 def object_to_rtgraph(obj_file):
     """Generates a 3D dynamic graphics."""
-    dic_obj = open(obj_file, "r")
+    dic_obj = open(obj_file)
     if options.verbose:
         print("Loading dictionary...")
     dic_ip = pickle.load(dic_obj)

@@ -1,12 +1,10 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-import sys
-import os
-import dbus
 import cmd
-
+import os
+import sys
 import warnings
+
+import dbus
 
 warnings.filterwarnings("ignore", "tempnam", RuntimeWarning, __name__)
 
@@ -50,7 +48,7 @@ class Interp(cmd.Cmd):
             self.rtg.unglow_all()
 
     def do_find(self, args):
-        a, v = [x.strip() for x in args.split("=")]
+        a, v = (x.strip() for x in args.split("="))
         self.last_selection = r = self.rtg.find(a, v)
         print("Found %i nodes" % len(r))
         for n in r:
@@ -118,7 +116,7 @@ if __name__ == "__main__":
         atexit.register(readline.write_history_file, histfile)
         try:
             readline.read_history_file(histfile)
-        except IOError:
+        except OSError:
             pass
 
     interp = Interp()

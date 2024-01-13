@@ -52,6 +52,7 @@ matplotlib = "^3.8.2"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.0.0"
+pre-commit = "^3.6.0"
 
 [build-system]
 requires = ["poetry-core"]
