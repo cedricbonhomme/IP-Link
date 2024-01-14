@@ -11,6 +11,7 @@ readme = "README.md"
 
 homepage = "https://sr.ht/~cedric/ip-link"
 repository = "https://git.sr.ht/~cedric/ip-link"
+documentation = "https://ip-link.readthedocs.io"
 
 keywords = ["network-traffic-capture", "pcap", "visualisation", "network"]
 
