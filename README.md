@@ -1,8 +1,5 @@
 # IP-Link
 
-[![builds.sr.ht status](https://builds.sr.ht/~cedric/ip-link.svg)](https://builds.sr.ht/~cedric/ip-link)
-
-
 ## Presentation
 
 The goal of [IP-Link](https://github.com/cedricbonhomme/IP-Link)
@@ -38,6 +35,13 @@ $ xdg-open ./data/graphviz.png &
 
 You will find a complete tutorial
 [here](https://ip-link.readthedocs.io/en/latest/tutorial.html).
+
+
+If you wish and if you like IP-Link, you can donate:
+
+![GitHub Sponsors](https://img.shields.io/github/sponsors/cedricbonhomme)
+
+Thank you !
 
 
 ## License
