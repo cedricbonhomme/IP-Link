@@ -5,11 +5,8 @@
 
 ## Presentation
 
-The goal of [IP-Link](https://git.sr.ht/~cedric/ip-link)
+The goal of [IP-Link](https://github.com/cedricbonhomme/IP-Link)
 is to visualize the relationships between different IP from network traffic capture.
-
-For reporting issues, visit the tracker here:
-https://todo.sr.ht/~cedric/ip-link
 
 
 ## Installation
@@ -18,7 +15,7 @@ Python >= 3.9.
 
 ```bash
 $ sudo apt install libpcap0.8
-$ git clone https://git.sr.ht/~cedric/ip-link
+$ git clone https://github.com/cedricbonhomme/IP-Link
 $ cd ip-link/
 $ poetry install
 $ poetry shell

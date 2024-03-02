@@ -9,8 +9,8 @@ license = "GPL-3.0-or-later"
 
 readme = "README.md"
 
-homepage = "https://sr.ht/~cedric/ip-link"
-repository = "https://git.sr.ht/~cedric/ip-link"
+homepage = "https://github.com/cedricbonhomme/IP-Link"
+repository = "https://github.com/cedricbonhomme/IP-Link"
 documentation = "https://ip-link.readthedocs.io"
 
 keywords = ["network-traffic-capture", "pcap", "visualisation", "network"]
